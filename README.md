@@ -7,6 +7,8 @@ videojuegos personalizadas a través de LangChain**
 Autor: Juan Manuel Garzón Ferrer
 Tutor: Ignacio Javier Perez Galvez
 
+Palabras clave: TFG, LangChain, LangGraph, LangSmith, procesadores de lenguajes, recomendaciones, sugerencias, videojuegos, recomendación de videojuegos, sugerencias de videojuegos.
+
 Resumen
 
 Este proyecto se centra en la creación de una plataforma web que ofrezca recomendaciones personalizadas de videojuegos, utilizando la novedosa tecnología Langchain como aspecto clave para orquestar no solo las preferencias del usuario sino también las opiniones de diferentes LLMs como ChatGPT o GEMINI. La plataforma permitirá tanto a usuarios registrados como no registrados interactuar con el sistema, proporcionando recomendaciones basadas en los juegos que han jugado o en nuevas preferencias introducidas en tiempo real. Los usuarios registrados podrán beneficiarse de un historial que mejora las recomendaciones con el tiempo, mientras que los usuarios no registrados recibirán sugerencias inmediatas basadas únicamente en la información proporcionada en la sesión actual y novedades del momento.
@@ -23,3 +25,5 @@ This project focuses on the creation of a web platform that offers personalized 
 The platform will integrate with APIs from various LLMs via LangChain to collect additional data about video games, such as new releases or classic titles, popularity in specific communities, or other relevant aspects like accessibility and availability. The system will analyze this information to offer recommendations tailored to personal tastes, ensuring that users discover new games suited to their interests and needs.
 
 Furthermore, the use of LangChain allows the utilization of multiple LLMs, optimizing the system's performance by enabling queries from different data sources in parallel. This not only speeds up the recommendations but also enhances the quality of the responses by incorporating a variety of perspectives and approaches. LangChain provides a flexible architecture that adapts to the project's needs, allowing for continuous scaling and improvement of the platform’s capabilities as new data is integrated and more user interactions are received.
+
+
