@@ -3,20 +3,20 @@
 # Actualizar paquetes
 sudo apt update && sudo apt upgrade -y
 
-# Instalar git
-sudo apt install git -y
+# Instalar dependencias necesarias
+sudo apt install -y gnupg curl
 
-# Instalar Python y pip
-sudo apt install python3 python3-pip -y
+# Obtener la versión de Ubuntu
+UBUNTU_VERSION=$(lsb_release -c | awk '{print $2}')
 
-# Instalar virtualenv (opcional pero recomendable)
-pip3 install virtualenv
+# Añadir clave GPG de MongoDB
+curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+  sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
 
-# Instalar Node.js y Angular CLI (si usas Angular en el frontend)
-sudo apt install nodejs npm -y
-sudo npm install -g @angular/cli
+# Añadir repositorio oficial de MongoDB basado en la versión de Ubuntu
+echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu $UBUNTU_VERSION/mongodb-org/8.0 multiverse" | \
+  sudo tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 
-# Instalar MongoDB client (si te conectas a Atlas puedes usar drivers desde Python, esto es opcional)
-sudo apt install mongodb-clients -y
-
-echo "✅ Instalación completa. Puedes ahora clonar tu repositorio y empezar a trabajar."
+# Instalar MongoDB
+sudo apt update
+sudo apt install -y mongodb-org
