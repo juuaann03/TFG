@@ -11,22 +11,6 @@ def crearUsuario(usuario: dict) -> dict:
     except DuplicateKeyError:
         raise ValueError("El nombre o el correo ya están registrados")
 
-def obtenerUsuarioPorId(usuarioId: str) -> dict | None:
-    usuario = coleccionUsuarios.find_one({"_id": ObjectId(usuarioId)})
-    if usuario:
-        usuario["id"] = str(usuario["_id"])
-        usuario.pop("_id", None)
-        return usuario
-    return None
-
-def actualizarUsuarioPorId(usuarioId: str, datosActualizados: dict) -> bool:
-    resultado = coleccionUsuarios.update_one({"_id": ObjectId(usuarioId)}, {"$set": datosActualizados})
-    return resultado.modified_count > 0
-
-def borrarUsuarioPorId(usuarioId: str) -> bool:
-    resultado = coleccionUsuarios.delete_one({"_id": ObjectId(usuarioId)})
-    return resultado.deleted_count > 0
-
 def obtenerUsuarioPorCorreo(correo: str) -> dict | None:
     return coleccionUsuarios.find_one({"correo": correo})
 
@@ -38,3 +22,18 @@ def borrarUsuarioPorCorreo(correo: str) -> bool:
     resultado = coleccionUsuarios.delete_one({"correo": correo})
     return resultado.deleted_count > 0
 
+def limpiarCamposOpcionalesPorCorreo(correo: str) -> bool:
+    campos_a_eliminar = {
+        "consolas": None,
+        "configuracionPc": None,
+        "necesidadesEspeciales": None,
+        "juegosGustados": None,
+        "juegosNoGustados": None,
+        "juegosJugados": None,
+        "suscripciones": None,
+        "idiomas": None,
+        "juegosPoseidos": None,
+        "historialConversaciones": None
+    }
+    resultado = coleccionUsuarios.update_one({"correo": correo}, {"$unset": campos_a_eliminar})
+    return resultado.modified_count > 0

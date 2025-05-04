@@ -1,4 +1,4 @@
-# app/rutas/rutaRecomendacionBasica.py
+# archivo: app/rutas/rutaRecomendacionBasica.py
 
 from fastapi import APIRouter
 from app.modelos.modeloRecomendacionBasica import SolicitudRecomendacionBasica
@@ -10,3 +10,4 @@ router = APIRouter(prefix="/recomendar", tags=["recomendacion"])
 def recomendarBasico(solicitud: SolicitudRecomendacionBasica):
     resultado = generarRecomendacionesBasicas(solicitud.descripcionUsuario)
     return {"recomendaciones": resultado}
+
