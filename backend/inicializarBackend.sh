@@ -17,10 +17,10 @@ if [ ! -d "venv" ]; then
   pip install uvicorn
   pip install pymongo
   pip install pydantic
-  pip install openai
-  pip install langchain
-  pip install langchain-community
   pip install python-dotenv
+  pip install -U langchain langchain-community langchain-openai
+  
+
 
 else
   # Activar entorno virtual si ya existe
@@ -30,3 +30,4 @@ fi
 # Lanzar el servidor FastAPI con recarga automática
 echo "Iniciando backend con Uvicorn..."
 uvicorn main:app --reload             # Ejecuta la app definida como `app` en el archivo `main.py`, con recarga automática al guardar cambios
+

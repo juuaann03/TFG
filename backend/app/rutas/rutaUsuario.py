@@ -1,11 +1,17 @@
 # archivo: routes/rutaUsuario.py
 
-
 from fastapi import APIRouter, HTTPException
 from app.modelos.modeloUsuario import Usuario, UsuarioEnBaseDeDatos, UsuarioObligatorio, UsuarioOpcional
 from app.servicios.serviciosUsuario import *
+from fastapi import Body
+from pydantic import BaseModel
 
 router = APIRouter(prefix="/usuarios", tags=["usuarios"])
+
+# Modelo de respuesta para el endpoint modificarPorPeticion
+class RespuestaModificarPorPeticion(BaseModel):
+    mensaje: str
+    actualizacion: dict
 
 @router.post("/", response_model=dict)
 def crearUsuario(usuario: Usuario):
@@ -64,3 +70,10 @@ def actualizarDatosOptativos(correo: str, datos: UsuarioOpcional):
     if actualizado:
         return {"mensaje": "Datos optativos actualizados correctamente"}
     raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+@router.put("/porCorreo/{correo}/modificarPorPeticion", response_model=RespuestaModificarPorPeticion)
+def modificarUsuarioPorPeticionRuta(correo: str, peticion: str = Body(..., embed=True)):
+    exito, mensaje, actualizacion = modificarUsuarioPorPeticionServicio(correo, peticion)
+    if exito:
+        return {"mensaje": mensaje, "actualizacion": actualizacion}
+    raise HTTPException(status_code=404, detail=mensaje)
