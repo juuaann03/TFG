@@ -1,12 +1,17 @@
-# archivo: app/servicios/servicioGenerarActualizacionUsuario.py
-
 import os
 import json
 from dotenv import load_dotenv
 from pathlib import Path
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from openai import BadRequestError
 
+# Cargar variables del .env
+dotenv_path = Path(__file__).resolve().parents[2] / ".env"
+load_dotenv(dotenv_path=dotenv_path)
+
+# Prompt para generar actualizaciones
 prompt = PromptTemplate(
     input_variables=["estadoActual", "peticion"],
     template="""
@@ -14,7 +19,7 @@ Tienes este estado actual del perfil del usuario. Solo se incluyen campos opcion
 
 {estadoActual}
 
-El usuario ha escrito esta petición:
+El usuario=blue ha escrito esta petición:
 
 "{peticion}"
 
@@ -56,15 +61,36 @@ def generarActualizacionDesdePeticion(estado_actual: dict, peticion: str) -> tup
     os.environ["OPENAI_API_KEY"] = api_key
     os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
 
-    llm = ChatOpenAI(model_name="openai/gpt-3.5-turbo", temperature=0.4)
+    # Definir modelos: principal y de respaldo
+    modelos = [
+        "openai/gpt-3.5-turbo",  # Modelo principal
+        "meta-ai/llama-3.1-8b-instruct:free",  # Respaldo 1
+        "qwen/qwen3-0.6b-04-28:free"  # Respaldo 2
+    ]
 
-    chain = prompt | llm
-    respuesta = chain.invoke({"estadoActual": estado_actual, "peticion": peticion})
+    # Intentar con cada modelo hasta obtener una respuesta válida
+    for modelo in modelos:
+        try:
+            llm = ChatOpenAI(model_name=modelo, temperature=0.4)
+            chain = prompt | llm | StrOutputParser()
+            respuesta = chain.invoke({"estadoActual": estado_actual, "peticion": peticion})
 
-    try:
-        respuesta_json = json.loads(respuesta.content)
-        mensaje = respuesta_json.get("mensaje", "No se proporcionó un mensaje")
-        actualizacion = respuesta_json.get("actualizacion", {})
-        return mensaje, actualizacion
-    except json.JSONDecodeError:
-        raise ValueError("La respuesta de la IA no es un JSON válido")
+            # Parsear la respuesta
+            try:
+                respuesta_json = json.loads(respuesta)
+                mensaje = respuesta_json.get("mensaje", "No se proporcionó un mensaje")
+                actualizacion = respuesta_json.get("actualizacion", {})
+                return mensaje, actualizacion
+            except json.JSONDecodeError:
+                print(f"Error: La respuesta de {modelo} no es un JSON válido. Intentando con el siguiente modelo.")
+                continue
+
+        except BadRequestError as e:
+            print(f"Error con el modelo {modelo}: {str(e)}. Intentando con el siguiente modelo.")
+            continue
+        except Exception as e:
+            print(f"Error inesperado con el modelo {modelo}: {str(e)}. Intentando con el siguiente modelo.")
+            continue
+
+    # Si ningún modelo funciona, lanzar error
+    raise ValueError("No se pudo obtener una respuesta válida de ningún modelo")
