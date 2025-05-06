@@ -1,8 +1,8 @@
-# archivo: app/servicios/servicioUsuario.py
+# archivo: app/servicios/serviciosUsuario.py
 
 
 from app.gestores.gestorUsuario import *
-from app.modelos.modeloUsuario import Usuario, UsuarioObligatorio, UsuarioOpcional
+from app.modelos.modeloUsuario import Usuario, UsuarioObligatorio, UsuarioOpcionalSinHistorial, UsuarioOpcionalConHistorial
 from app.gestores.gestorUsuario import obtenerUsuarioPorCorreo, actualizarUsuarioPorCorreo
 from app.servicios.servicioGenerarActualizacionUsuario import generarActualizacionDesdePeticion
 
@@ -26,7 +26,7 @@ def modificarUsuarioPorPeticionServicio(correo: str, peticion: str) -> tuple[boo
     if not usuario:
         return False, "Usuario no encontrado", {}
 
-    estado_actual = {k: usuario.get(k) for k in UsuarioOpcional.__fields__}
+    estado_actual = {k: usuario.get(k) for k in UsuarioOpcionalSinHistorial.__fields__}
     mensaje, actualizacion = generarActualizacionDesdePeticion(estado_actual, peticion)
 
     if not actualizacion:

@@ -1,3 +1,6 @@
+# archivo: app/servicios/servicioGenerarActualizacionUsuario.py
+
+
 import os
 import json
 from dotenv import load_dotenv
@@ -15,11 +18,11 @@ load_dotenv(dotenv_path=dotenv_path)
 prompt = PromptTemplate(
     input_variables=["estadoActual", "peticion"],
     template="""
-Tienes este estado actual del perfil del usuario. Solo se incluyen campos opcionales del esquema completo:
+Tienes este estado actual del perfil del usuario. Solo se incluyen campos opcionales del esquema completo (sin historial de conversaciones):
 
 {estadoActual}
 
-El usuario=blue ha escrito esta petición:
+El usuario ha escrito esta petición:
 
 "{peticion}"
 
@@ -34,18 +37,25 @@ Este es el formato correcto para los campos opcionales:
 - necesidadesEspeciales: lista de strings
 - juegosGustados / juegosNoGustados / juegosJugados / suscripciones / idiomas: listas de strings
 - juegosPoseidos: lista de objetos con nombre y consolasDisponibles (lista de strings)
-- historialConversaciones: lista de objetos con pregunta, respuesta, fecha, contexto
 
 Instrucciones:
 - No devuelvas texto adicional, solo el JSON.
 - Si no hay cambios necesarios, devuelve un objeto con "mensaje" indicando que no se hicieron cambios y "actualizacion" como {{}}.
+- Usa abreviaturas estándar para consolas, juegos y hardware cuando sea posible. Ejemplos:
+  - Consolas: "PlayStation 4" o "Play Station 4" → "PS4", "PlayStation 5" → "PS5", "Nintendo Switch" → "Switch", "Xbox Series X" → "XSX".
+  - Juegos: "Grand Theft Auto 5" o "Grand Theft Auto Cinco" → "GTA 5", "The Legend of Zelda: Breath of the Wild" → "Zelda BOTW".
+  - Hardware: "Intel Core i7-12700H" → "i7-12700H", "NVIDIA GeForce RTX 3080" → "RTX 3080".
+- Corrige errores tipográficos obvios en los nombres (ej. "Play Staton 4" → "PS4").
+- Si no conoces una abreviatura estándar, usa el nombre completo corregido.
+- Las abreviaturas deben estar en mayúsculas (ej. "PS4", no "ps4").
+- Para hardware, conserva detalles importantes como la generación del procesador (ej. "i7-12700H", no solo "i7").
 - Ejemplos:
-  - Petición: "he vendido la PS4"
-    Respuesta: {{"mensaje": "Se eliminó la PS4 de consolas", "actualizacion": {{"consolas": ["Xbox"]}}}}
-  - Petición: "me compré la Xbox"
-    Respuesta: {{"mensaje": "Se añadió la Xbox a consolas", "actualizacion": {{"consolas": ["PS4", "Xbox"]}}}}
-  - Petición: "ya no me gusta el Fortnite"
-    Respuesta: {{"mensaje": "Se eliminó Fortnite de juegosGustados", "actualizacion": {{"juegosGustados": []}}}}
+  - Petición: "he vendido la Play Station 4"
+    Respuesta: {{"mensaje": "Se eliminó la PS4 de consolas", "actualizacion": {{"consolas": ["XSX"]}}}}
+  - Petición: "me compré la Xbox Series X"
+    Respuesta: {{"mensaje": "Se añadió la XSX a consolas", "actualizacion": {{"consolas": ["PS4", "XSX"]}}}}
+  - Petición: "ya no me gusta el Grand Theft Auto Cinco"
+    Respuesta: {{"mensaje": "Se eliminó GTA 5 de juegosGustados", "actualizacion": {{"juegosGustados": []}}}}
   - Petición: "no tengo ninguna consola"
     Respuesta: {{"mensaje": "No se realizaron cambios", "actualizacion": {{}}}}
 
@@ -86,7 +96,7 @@ def generarActualizacionDesdePeticion(estado_actual: dict, peticion: str) -> tup
                 continue
 
         except BadRequestError as e:
-            print(f"Error con el modelo {modelo}: {str(e)}. Intentando con el siguiente modelo.")
+            print(f"Error con el modelo {modelo}: {str(e)}. Intentando con el siguiente modelo.");
             continue
         except Exception as e:
             print(f"Error inesperado con el modelo {modelo}: {str(e)}. Intentando con el siguiente modelo.")

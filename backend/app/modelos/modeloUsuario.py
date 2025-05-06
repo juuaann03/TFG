@@ -46,7 +46,18 @@ class UsuarioObligatorio(BaseModel):
     contrasena: str = None
     rol: Literal["usuario", "administrador"] = None
 
-class UsuarioOpcional(BaseModel):
+class UsuarioOpcionalSinHistorial(BaseModel):
+    consolas: Optional[List[str]] = None
+    configuracionPc: Optional[ConfiguracionPc] = None
+    necesidadesEspeciales: Optional[List[str]] = None
+    juegosGustados: Optional[List[str]] = None
+    juegosNoGustados: Optional[List[str]] = None
+    juegosJugados: Optional[List[str]] = None
+    suscripciones: Optional[List[str]] = None
+    idiomas: Optional[List[str]] = None
+    juegosPoseidos: Optional[List[JuegoPoseido]] = None
+
+class UsuarioOpcionalConHistorial(BaseModel):
     consolas: Optional[List[str]] = None
     configuracionPc: Optional[ConfiguracionPc] = None
     necesidadesEspeciales: Optional[List[str]] = None

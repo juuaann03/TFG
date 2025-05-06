@@ -1,7 +1,7 @@
 # archivo: routes/rutaUsuario.py
 
 from fastapi import APIRouter, HTTPException
-from app.modelos.modeloUsuario import Usuario, UsuarioEnBaseDeDatos, UsuarioObligatorio, UsuarioOpcional
+from app.modelos.modeloUsuario import Usuario, UsuarioEnBaseDeDatos, UsuarioObligatorio, UsuarioOpcionalSinHistorial, UsuarioOpcionalConHistorial
 from app.servicios.serviciosUsuario import *
 from fastapi import Body
 from pydantic import BaseModel
@@ -50,25 +50,32 @@ def obtenerDatosObligatorios(correo: str):
         return {clave: usuario[clave] for clave in UsuarioObligatorio.__fields__ if clave in usuario}
     raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
-@router.get("/porCorreo/{correo}/optativos", response_model=UsuarioOpcional)
+@router.get("/porCorreo/{correo}/optativos", response_model=UsuarioOpcionalSinHistorial)
 def obtenerDatosOptativos(correo: str):
     usuario = obtenerUsuarioPorCorreoServicio(correo)
     if usuario:
-        return {clave: usuario.get(clave) for clave in UsuarioOpcional.__fields__}
-    raise HTTPException(status_code=404, detail="Usuario no encontrado")
-
-@router.put("/porCorreo/{correo}/obligatorios", response_model=dict)
-def actualizarDatosObligatorios(correo: str, datos: UsuarioObligatorio):
-    actualizado = actualizarUsuarioPorCorreoServicio(correo, datos)
-    if actualizado:
-        return {"mensaje": "Datos obligatorios actualizados correctamente"}
+        return {clave: usuario.get(clave) for clave in UsuarioOpcionalSinHistorial.__fields__}
     raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
 @router.put("/porCorreo/{correo}/optativos", response_model=dict)
-def actualizarDatosOptativos(correo: str, datos: UsuarioOpcional):
+def actualizarDatosOptativos(correo: str, datos: UsuarioOpcionalSinHistorial):
     actualizado = actualizarUsuarioPorCorreoServicio(correo, datos)
     if actualizado:
         return {"mensaje": "Datos optativos actualizados correctamente"}
+    raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+@router.get("/porCorreo/{correo}/optativosConHistorial", response_model=UsuarioOpcionalConHistorial)
+def obtenerDatosOptativosConHistorial(correo: str):
+    usuario = obtenerUsuarioPorCorreoServicio(correo)
+    if usuario:
+        return {clave: usuario.get(clave) for clave in UsuarioOpcionalConHistorial.__fields__}
+    raise HTTPException(status_code=404, detail="Usuario no encontrado")
+
+@router.put("/porCorreo/{correo}/optativosConHistorial", response_model=dict)
+def actualizarDatosOptativosConHistorial(correo: str, datos: UsuarioOpcionalConHistorial):
+    actualizado = actualizarUsuarioPorCorreoServicio(correo, datos)
+    if actualizado:
+        return {"mensaje": "Datos optativos con historial actualizados correctamente"}
     raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
 @router.put("/porCorreo/{correo}/modificarPorPeticion", response_model=RespuestaModificarPorPeticion)
