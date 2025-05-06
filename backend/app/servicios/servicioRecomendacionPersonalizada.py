@@ -1,3 +1,5 @@
+# archivo: app/servicios/servicioRecomendacionPersonalizada.py
+
 import os
 import json
 from typing import List, Dict, Tuple
@@ -36,7 +38,6 @@ Devuelve un JSON con la siguiente estructura:
 - "suscripciones": Lista de suscripciones relevantes (ej. ["PS Plus", "Xbox Game Pass"]).
 - "requisitosPc": Objeto con requisitos de PC inferidos o del perfil (ej. {{"procesador": "i7-12700H", "tarjetaGrafica": "RTX 3080"}}).
 - "preferenciasAdicionales": Cualquier otra preferencia mencionada (ej. "juegos cortos", "multijugador").
-- "cambiosSugeridos": Objeto con cambios sugeridos en los datos opcionales del usuario basados en la petición (ej. {{"consolas": ["PS4"], "juegosNoGustados": ["The Last of Us"]}}).
 - "contexto": Breve descripción del análisis para usar en el historial de conversaciones (ej. "Recomendación de aventuras para PS4, excluyendo God of War").
 
 Usa abreviaturas estándar:
@@ -45,6 +46,55 @@ Usa abreviaturas estándar:
 - Hardware: "Intel Core i7-12700H" → "i7-12700H", "NVIDIA GeForce RTX 3080" → "RTX 3080".
 - Corrige errores tipográficos (ej. "Play Staton 4" → "PS4").
 - Las abreviaturas deben estar en mayúsculas.
+
+Devuelve solo el JSON.
+"""
+)
+
+# Prompt para generar cambios implícitos en el perfil
+prompt_cambios = PromptTemplate(
+    input_variables=["estadoActual", "peticion"],
+    template="""
+Tienes este estado actual del perfil del usuario. Solo se incluyen campos opcionales del esquema completo (sin historial de conversaciones):
+
+{estadoActual}
+
+El usuario ha escrito esta petición para una recomendación de videojuegos:
+
+"{peticion}"
+
+Tu tarea es devolver un JSON **válido** con dos campos:
+- "mensaje": una cadena que describe los cambios realizados o indica si no se hicieron cambios.
+- "actualizacion": un JSON mínimo y conforme al siguiente esquema parcial, con solo los cambios necesarios para reflejar información implícita en la petición que deba actualizarse en el perfil del usuario.
+
+Este es el formato correcto para los campos opcionales:
+- consolas: lista de strings
+- configuracionPc: objeto con claves so, procesador, memoria, tarjetaGrafica
+- necesidadesEspeciales: lista de strings
+- juegosGustados / juegosNoGustados / juegosJugados / suscripciones / idiomas: listas de strings
+- juegosPoseidos: lista de objetos con nombre y consolasDisponibles (lista de strings)
+
+Instrucciones:
+- No devuelvas texto adicional, solo el JSON.
+- Si no hay cambios necesarios, devuelve un objeto con "mensaje" indicando que no se hicieron cambios y "actualizacion" como {{}}.
+- Solo genera cambios basados en información explícita o implícita en la petición que sea relevante para el perfil (ej. consolas adquiridas, juegos no gustados, suscripciones mencionadas). Ignora frases relacionadas con recomendaciones (ej. "recomiéndame juegos como GTA") a menos que indiquen claramente una actualización del perfil.
+- Usa abreviaturas estándar para consolas, juegos y hardware:
+  - Consolas: "PlayStation 4" o "Play Station 4" → "PS4", "PlayStation 5" → "PS5", "Nintendo Switch" → "Switch", "Xbox Series X" → "XSX".
+  - Juegos: "Grand Theft Auto 5" o "Grand Theft Auto Cinco" → "GTA 5", "The Legend of Zelda: Breath of the Wild" → "Zelda BOTW".
+  - Hardware: "Intel Core i7-12700H" → "i7-12700H", "NVIDIA GeForce RTX 3080" → "RTX 3080".
+- Corrige errores tipográficos obvios (ej. "Play Staton 4" → "PS4").
+- Si no conoces una abreviatura estándar, usa el nombre completo corregido.
+- Las abreviaturas deben estar en mayúsculas (ej. "PS4", no "ps4").
+- Para hardware, conserva detalles importantes como la generación del procesador (ej. "i7-12700H", no solo "i7").
+- Ejemplos:
+  - Petición: "Me compré una PS4 y no me gustó The Last of Us"
+    Respuesta: {{"mensaje": "Se añadió la PS4 a consolas y The Last of Us a juegosNoGustados", "actualizacion": {{"consolas": ["PS4"], "juegosNoGustados": ["The Last of Us"]}}}}
+  - Petición: "Recomiéndame juegos como GTA 5"
+    Respuesta: {{"mensaje": "No se realizaron cambios", "actualizacion": {{}}}}
+  - Petición: "Tengo una suscripción a PS Plus"
+    Respuesta: {{"mensaje": "Se añadió PS Plus a suscripciones", "actualizacion": {{"suscripciones": ["PS Plus"]}}}}
+  - Petición: "Quiero un juego para mi PC con procesador i7"
+    Respuesta: {{"mensaje": "Se actualizó la configuración de PC con procesador i7", "actualizacion": {{"configuracionPc": {{"procesador": "i7"}}}}}}
 
 Devuelve solo el JSON.
 """
@@ -108,7 +158,49 @@ Devuelve solo la lista final de recomendaciones.
 """
 )
 
-def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tuple[List[Dict], dict, str]:
+def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str) -> tuple[str, dict]:
+    api_key = os.getenv("OPENROUTER_API_KEY")
+    if not api_key:
+        raise ValueError("OPENROUTER_API_KEY no está definido")
+
+    os.environ["OPENAI_API_KEY"] = api_key
+    os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
+
+    # Definir modelos: principal y de respaldo
+    modelos = [
+        "openai/gpt-3.5-turbo",  # Modelo principal
+        "meta-ai/llama-3.1-8b-instruct:free",  # Respaldo 1
+        "qwen/qwen3-0.6b-04-28:free"  # Respaldo 2
+    ]
+
+    # Intentar con cada modelo hasta obtener una respuesta válida
+    for modelo in modelos:
+        try:
+            llm = ChatOpenAI(model_name=modelo, temperature=0.4)
+            chain = prompt_cambios | llm | StrOutputParser()
+            respuesta = chain.invoke({"estadoActual": json.dumps(estado_actual, default=str), "peticion": peticion})
+
+            # Parsear la respuesta
+            try:
+                respuesta_json = json.loads(respuesta)
+                mensaje = respuesta_json.get("mensaje", "No se proporcionó un mensaje")
+                actualizacion = respuesta_json.get("actualizacion", {})
+                return mensaje, actualizacion
+            except json.JSONDecodeError:
+                print(f"Error: La respuesta de {modelo} no es un JSON válido. Intentando con el siguiente modelo.")
+                continue
+
+        except BadRequestError as e:
+            print(f"Error con el modelo {modelo}: {str(e)}. Intentando con el siguiente modelo.")
+            continue
+        except Exception as e:
+            print(f"Error inesperado con el modelo {modelo}: {str(e)}. Intentando con el siguiente modelo.")
+            continue
+
+    # Si ningún modelo funciona, lanzar error
+    raise ValueError("No se pudo obtener una respuesta válida de ningún modelo para generar cambios")
+
+def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tuple[List[Dict], str]:
     openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
     if not openrouter_api_key:
         raise ValueError("OPENROUTER_API_KEY no está definido en el .env")
@@ -128,8 +220,7 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
     except Exception as e:
         raise ValueError(f"Error al preprocesar la petición: {str(e)}")
 
-    # Extraer cambios sugeridos y contexto
-    cambios_sugeridos = datos_procesados.get("cambiosSugeridos", {})
+    # Extraer contexto
     contexto = datos_procesados.get("contexto", "Recomendación personalizada basada en la petición y datos del usuario.")
 
     # Generar recomendaciones iniciales
@@ -160,16 +251,31 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
 
     # Sintetizar recomendaciones
     respuestas_combinadas = "\n\n".join([f"Modelo {i+1}:\n{resp}" for i, resp in enumerate(respuestas_modelos)])
-    try:
-        llm_sintesis = ChatOpenAI(model_name="openai/gpt-4o-mini", temperature=0.5)
-        chain_sintesis = prompt_sintesis | llm_sintesis | StrOutputParser()
-        respuesta_final = chain_sintesis.invoke({
-            "peticion": peticion,
-            "datosProcesados": json.dumps(datos_procesados, default=str),
-            "respuestasModelos": respuestas_combinadas
-        })
-    except Exception as e:
-        raise ValueError(f"Error al sintetizar recomendaciones: {str(e)}")
+    modelos_sintesis = [
+        "openai/gpt-4o-mini",  # Modelo principal
+        "openai/gpt-3.5-turbo",  # Respaldo 1
+        "meta-ai/llama-3.1-8b-instruct:free",  # Respaldo 2
+        "qwen/qwen3-0.6b-04-28:free"  # Respaldo 3
+    ]
+
+    for modelo in modelos_sintesis:
+        try:
+            llm_sintesis = ChatOpenAI(model_name=modelo, temperature=0.5)
+            chain_sintesis = prompt_sintesis | llm_sintesis | StrOutputParser()
+            respuesta_final = chain_sintesis.invoke({
+                "peticion": peticion,
+                "datosProcesados": json.dumps(datos_procesados, default=str),
+                "respuestasModelos": respuestas_combinadas
+            })
+            break  # Si la síntesis es exitosa, salir del bucle
+        except BadRequestError as e:
+            print(f"Error con el modelo de síntesis {modelo}: {str(e)}. Intentando con el siguiente modelo.")
+            continue
+        except Exception as e:
+            print(f"Error inesperado con el modelo de síntesis {modelo}: {str(e)}. Intentando con el siguiente modelo.")
+            continue
+    else:
+        raise ValueError("No se pudo obtener una respuesta válida de ningún modelo de síntesis.")
 
     # Parsear la respuesta final
     try:
@@ -201,4 +307,4 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
     except Exception as e:
         raise ValueError(f"Error al parsear la respuesta final: {str(e)}")
 
-    return recomendaciones, cambios_sugeridos, contexto
+    return recomendaciones, contexto

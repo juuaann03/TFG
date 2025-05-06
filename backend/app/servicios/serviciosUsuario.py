@@ -1,10 +1,9 @@
 # archivo: app/servicios/serviciosUsuario.py
-
 from app.gestores.gestorUsuario import *
 from app.modelos.modeloUsuario import Usuario, UsuarioObligatorio, UsuarioOpcionalSinHistorial, UsuarioOpcionalConHistorial, Conversacion
 from app.gestores.gestorUsuario import obtenerUsuarioPorCorreo, actualizarUsuarioPorCorreo
 from app.servicios.servicioGenerarActualizacionUsuario import generarActualizacionDesdePeticion
-from app.servicios.servicioRecomendacionPersonalizada import generarRecomendacionPersonalizada
+from app.servicios.servicioRecomendacionPersonalizada import generarRecomendacionPersonalizada, generarCambiosDesdePeticionRecomendacion
 from datetime import datetime
 import json
 from typing import List
@@ -50,27 +49,24 @@ def obtenerRecomendacionPersonalizadaServicio(correo: str, peticion: str) -> Lis
 
     # Procesar cambios implícitos en la petición
     try:
-        mensaje_peticion, actualizacion_peticion = generarActualizacionDesdePeticion(
+        mensaje_cambios, actualizacion = generarCambiosDesdePeticionRecomendacion(
             {k: datos_usuario.get(k) for k in UsuarioOpcionalSinHistorial.__fields__},
             peticion
         )
     except Exception as e:
         print(f"Error al procesar cambios de la petición: {str(e)}")
-        mensaje_peticion, actualizacion_peticion = "No se procesaron cambios de la petición", {}
+        mensaje_cambios, actualizacion = "No se procesaron cambios de la petición", {}
 
     # Generar recomendación personalizada
     try:
-        recomendaciones, cambios_sugeridos, contexto = generarRecomendacionPersonalizada(peticion, datos_usuario)
+        recomendaciones, contexto = generarRecomendacionPersonalizada(peticion, datos_usuario)
     except Exception as e:
         raise ValueError(f"Error al generar recomendación: {str(e)}")
 
-    # Combinar cambios
-    actualizacion_total = {**actualizacion_peticion, **cambios_sugeridos}
-
     # Actualizar el perfil si hay cambios
-    if actualizacion_total:
+    if actualizacion:
         try:
-            actualizarUsuarioPorCorreoServicio(correo, actualizacion_total)
+            actualizarUsuarioPorCorreoServicio(correo, actualizacion)
         except Exception as e:
             print(f"Error al actualizar el perfil: {str(e)}")
 
