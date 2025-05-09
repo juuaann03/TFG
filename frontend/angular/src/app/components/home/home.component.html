@@ -1,0 +1,82 @@
+<div [ngClass]="{'dark': isDarkMode}" class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
+  <!-- Encabezado -->
+  <header class="flex justify-between items-center p-4">
+    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+      GameFinder AI
+    </h1>
+    <div class="flex items-center space-x-2">
+      <button (click)="openAuthModal()" class="flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
+        <span class="material-icons">account_circle</span>
+        <span>Crear cuenta / Iniciar sesión</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="flex-grow flex flex-col items-center p-4">
+    <p class="text-center text-lg md:text-xl text-gray-700 dark:text-gray-200 max-w-2xl mb-6">
+      ¿Qué quieres jugar, un shooter para PS4? ¿Un clásico de Nintendo? Nuestros agentes te ayudarán a encontrar los juegos que mejor se adaptan a tus necesidades. Pregúntales lo que quieras.
+    </p>
+
+    <!-- Formulario de recomendación -->
+    <form [formGroup]="recommendationForm" (ngSubmit)="submitRecommendation()" class="w-full max-w-lg">
+      <div class="flex flex-col md:flex-row gap-2">
+        <input
+          formControlName="prompt"
+          type="text"
+          placeholder="Ej: Shooter para PS4"
+          class="flex-grow p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          type="submit"
+          [disabled]="recommendationForm.invalid"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+        >
+          Enviar
+        </button>
+      </div>
+    </form>
+
+    <!-- Resultado de las recomendaciones -->
+    <div *ngIf="recommendations && recommendations.length > 0" class="mt-4 p-4 bg-gray-100 dark:bg-gray-700 rounded-md w-full max-w-lg">
+      <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Recomendaciones:</h3>
+      <ul class="mt-2 space-y-4">
+        <li *ngFor="let rec of recommendations" class="text-gray-700 dark:text-gray-200">
+          <strong>{{ rec.nombre }}</strong>
+          <p><span class="font-semibold">Género:</span> {{ rec.genero }}</p>
+          <p><span class="font-semibold">Plataformas:</span> {{ rec.plataformas }}</p>
+          <p><span class="font-semibold">Razón:</span> {{ rec.razon }}</p>
+        </li>
+      </ul>
+      <button (click)="clearRecommendation()" class="mt-2 text-blue-500 hover:underline">
+        Nueva consulta
+      </button>
+    </div>
+    <div *ngIf="error" class="mt-4 p-4 bg-red-100 dark:bg-red-900 rounded-md w-full max-w-lg">
+      <p class="text-red-700 dark:text-red-200">{{ error }}</p>
+    </div>
+  </main>
+
+  <!-- Botón de modo claro/oscuro -->
+  <div class="fixed bottom-4 right-4">
+    <button (click)="toggleDarkMode()" class="p-2 bg-gray-200 dark:bg-gray-700 rounded-full">
+      <span class="material-icons">{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</span>
+    </button>
+  </div>
+
+  <!-- Modal de autenticación -->
+  <div *ngIf="showAuthModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
+      <button (click)="closeAuthModal()" class="float-right text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">X</button>
+      <ng-container *ngIf="!authMode">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Autenticación</h2>
+        <div class="flex justify-around mb-4">
+          <button (click)="selectAuthMode('login')" class="px-4 py-2 bg-blue-500 text-white rounded-md">Iniciar Sesión</button>
+          <button (click)="selectAuthMode('register')" class="px-4 py-2 bg-green-500 text-white rounded-md">Crear Cuenta</button>
+        </div>
+      </ng-container>
+      <app-login *ngIf="authMode === 'login'"></app-login>
+      <app-register *ngIf="authMode === 'register'"></app-register>
+    </div>
+  </div>
+</div>

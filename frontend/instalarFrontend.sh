@@ -15,14 +15,14 @@ check_command() {
 
 # Verificar e instalar Node.js y npm
 if ! check_command node; then
-  echo "📦 Instalando Node.js y npm..."
+  echo "Instalando Node.js y npm..."
   sudo apt update
   sudo apt install -y nodejs npm
 fi
 
 # Verificar versión de Node.js
 NODE_VERSION=$(node -v)
-echo "🔍 Versión de Node.js: $NODE_VERSION"
+echo "Versión de Node.js: $NODE_VERSION"
 if [[ ! $NODE_VERSION =~ ^v(16|18|20)\. ]]; then
   echo "Se recomienda Node.js versión 16.x, 18.x o 20.x para Angular. Actualizando..."
   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
@@ -40,6 +40,7 @@ if [ -f "angular/package.json" ]; then
   echo "Instalando dependencias del proyecto (npm install)..."
   cd angular
   npm install
+  npm install -D tailwindcss postcss autoprefixer
   cd ..
 else
   echo "No se encontró package.json en frontend/angular/. Asegúrate de que el proyecto Angular está creado."

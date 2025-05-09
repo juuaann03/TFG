@@ -5,10 +5,10 @@ echo "Creando proyecto Angular para desarrollo..."
 # Función para verificar si un comando está instalado
 check_command() {
   if ! command -v $1 &> /dev/null; then
-    echo "❌ $1 no está instalado."
+    echo "$1 no está instalado."
     return 1
   else
-    echo "✅ $1 está instalado."
+    echo "$1 está instalado."
     return 0
   fi
 }
@@ -22,7 +22,7 @@ fi
 
 # Verificar versión de Node.js
 NODE_VERSION=$(node -v)
-echo "🔍 Versión de Node.js: $NODE_VERSION"
+echo "Versión de Node.js: $NODE_VERSION"
 if [[ ! $NODE_VERSION =~ ^v(16|18|20)\. ]]; then
   echo "Se recomienda Node.js versión 16.x, 18.x o 20.x para Angular. Actualizando..."
   curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
@@ -53,14 +53,26 @@ ng new plataforma-recomendaciones-videojuegos --directory . --style=scss --routi
 }
 cd ..
 
+# Verificar que la carpeta environments existe
+if [ ! -d "angular/src/environments" ]; then
+  echo "La carpeta 'angular/src/environments' no existe. Creándola..."
+  mkdir -p angular/src/environments
+fi
+
 # Instalar dependencias adicionales
 echo "Instalando dependencias adicionales..."
 cd angular
-npm install bootstrap axios --save
+npm install axios --save
+npm install -D tailwindcss postcss autoprefixer
 cd ..
 
 # Configurar variables de entorno para conectar con el backend
 echo "Configurando entorno para conectar con el backend..."
+if [ -f "angular/src/environments/environment.ts" ]; then
+  echo "environment.ts ya existe, sobrescribiendo..."
+else
+  echo "Creando environment.ts..."
+fi
 cat <<EOF > angular/src/environments/environment.ts
 export const environment = {
   production: false,
@@ -68,6 +80,11 @@ export const environment = {
 };
 EOF
 
+if [ -f "angular/src/environments/environment.prod.ts" ]; then
+  echo "environment.prod.ts ya existe, sobrescribiendo..."
+else
+  echo "Creando environment.prod.ts..."
+fi
 cat <<EOF > angular/src/environments/environment.prod.ts
 export const environment = {
   production: true,
@@ -75,12 +92,35 @@ export const environment = {
 };
 EOF
 
-# Agregar Bootstrap al proyecto
-echo "Agregando Bootstrap al proyecto..."
-echo '@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";' >> angular/src/styles.scss
+# Configurar Tailwind CSS
+echo "Configurando Tailwind CSS..."
+cd angular
+npx tailwindcss init || {
+  echo "Error al inicializar Tailwind CSS. Creando tailwind.config.js manualmente..."
+  cat <<EOF > tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{html,ts}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+  darkMode: 'class'
+}
+EOF
+}
+cd ..
 
-# Actualizar angular.json para incluir Bootstrap
-sed -i '/"styles": \[/a \ \ \ \ \ \ \ \ "node_modules/bootstrap/dist/css/bootstrap.min.css",' angular/angular.json
+# Agregar directivas de Tailwind a styles.scss
+echo "Agregando Tailwind CSS a styles.scss..."
+if [ -f "angular/src/styles.scss" ]; then
+  echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > angular/src/styles.scss
+else
+  echo "No se encontró angular/src/styles.scss. Creándolo..."
+  echo "@tailwind base;\n@tailwind components;\n@tailwind utilities;" > angular/src/styles.scss
+fi
 
 echo "Proyecto Angular creado y configurado en frontend/angular."
 echo "Para iniciar el frontend, ejecuta: cd frontend && bash ./lanzarFrontend.sh"
