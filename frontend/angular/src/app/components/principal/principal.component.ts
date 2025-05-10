@@ -18,13 +18,6 @@ interface HistorialResponse {
   historialConversaciones?: Conversacion[];
 }
 
-interface JuegoFuturo {
-  nombre: string;
-  imagen: string;
-  fecha_lanzamiento: string;
-  plataformas: string;
-}
-
 @Component({
   selector: 'app-principal',
   standalone: true,
@@ -36,7 +29,6 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   recomendacionForm: FormGroup;
   recomendaciones: Recomendacion[] = []; // Para el historial (Últimas Recomendaciones)
   nuevaRecomendacion: Recomendacion[] = []; // Para la nueva recomendación personalizada
-  juegosFuturos: JuegoFuturo[] = []; // Para recomendaciones de juegos futuros
   ultimosLanzamientos: Recomendacion[] = [
     { nombre: 'Juego 1', imagen: 'https://via.placeholder.com/150' },
     { nombre: 'Juego 2', imagen: 'https://via.placeholder.com/150' },
@@ -147,35 +139,6 @@ export class PrincipalComponent implements OnInit, OnDestroy {
         }
       });
     }
-  }
-
-  obtenerRecomendacionesJuegosFuturos(): void {
-    const correo = localStorage.getItem('correo') || '';
-    if (!correo) {
-      this.error = 'No se encontró el correo del usuario';
-      return;
-    }
-
-    this.isLoading = true;
-    this.apiService.post<JuegoFuturo[]>(`recomendaciones/juegosFuturos/${correo}`, {}).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe({
-      next: (response: JuegoFuturo[]) => {
-        this.juegosFuturos = response.map((juego: JuegoFuturo) => ({
-          nombre: juego.nombre || 'Juego desconocido',
-          imagen: juego.imagen || 'https://via.placeholder.com/150',
-          fecha_lanzamiento: juego.fecha_lanzamiento || 'Desconocida',
-          plataformas: juego.plataformas || 'Desconocidas'
-        }));
-        this.isLoading = false;
-        // Recargar historial para actualizar Últimas Recomendaciones
-        this.cargarUltimasRecomendaciones();
-      },
-      error: (err: any) => {
-        this.error = 'Error al generar recomendaciones de juegos futuros: ' + (err.error?.detail || err.message);
-        this.isLoading = false;
-      }
-    });
   }
 
   goToSettings(): void {

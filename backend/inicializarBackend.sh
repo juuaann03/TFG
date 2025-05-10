@@ -32,4 +32,5 @@ fi
 
 # Lanzar el servidor FastAPI con recarga automática
 echo "Iniciando backend con Uvicorn..."
-uvicorn main:app --reload                      # Guardar PID real para poder pararlo
+uvicorn main:app --reload > ../backend.log 2>&1 &   # Segundo plano y log
+echo $! > ../backend.pid                            # Guardar PID real para poder pararlo

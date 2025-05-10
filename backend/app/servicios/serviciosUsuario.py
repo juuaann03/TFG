@@ -4,7 +4,6 @@ from app.modelos.modeloUsuario import Usuario, UsuarioObligatorio, UsuarioOpcion
 from app.gestores.gestorUsuario import obtenerUsuarioPorCorreo, actualizarUsuarioPorCorreo
 from app.servicios.servicioGenerarActualizacionUsuario import generarActualizacionDesdePeticion
 from app.servicios.servicioRecomendacionPersonalizada import generarRecomendacionPersonalizada, generarCambiosDesdePeticionRecomendacion
-from app.servicios.servicioRecomendacionesJuegosFuturos import generarRecomendacionesJuegosFuturos
 from datetime import datetime
 import json
 from typing import List
@@ -89,35 +88,3 @@ def obtenerRecomendacionPersonalizadaServicio(correo: str, peticion: str) -> Lis
 
     return recomendaciones
 
-def obtenerRecomendacionesJuegosFuturosServicio(correo: str) -> List[dict]:
-    # Obtener datos del usuario
-    usuario = obtenerUsuarioPorCorreoServicio(correo)
-    if not usuario:
-        raise ValueError("Usuario no encontrado")
-
-    # Extraer datos opcionales
-    datos_usuario = {k: usuario.get(k) for k in UsuarioOpcionalConHistorial.__fields__}
-    historial = datos_usuario.get("historialConversaciones", []) or []  # Asegurar que historial sea una lista
-
-    # Generar recomendaciones de juegos futuros
-    try:
-        recomendaciones, contexto = generarRecomendacionesJuegosFuturos(datos_usuario)
-    except Exception as e:
-        raise ValueError(f"Error al generar recomendaciones de juegos futuros: {str(e)}")
-
-    # Guardar la conversación
-    nueva_conversacion = Conversacion(
-        pregunta="Recomendaciones de juegos futuros",
-        respuesta=json.dumps(recomendaciones, ensure_ascii=False),
-        fecha=datetime.now(),
-        contexto=contexto
-    )
-    try:
-        if not actualizarUsuarioPorCorreoServicio(correo, {
-            "historialConversaciones": historial + [nueva_conversacion.dict()]
-        }):
-            raise ValueError("No se pudo guardar la conversación en el historial")
-    except Exception as e:
-        raise ValueError(f"Error al guardar la conversación: {str(e)}")
-
-    return recomendaciones

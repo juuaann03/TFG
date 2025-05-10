@@ -5,10 +5,3 @@ export interface Recomendacion {
   plataformas?: string;
   razon?: string;
 }
-
-export interface JuegoFuturo {
-  nombre: string;
-  imagen?: string;
-  fecha_lanzamiento?: string;
-  plataformas?: string;
-}
