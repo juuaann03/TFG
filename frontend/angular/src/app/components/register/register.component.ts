@@ -44,6 +44,8 @@ export class RegisterComponent {
         next: (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('rol', response.rol);
+          localStorage.setItem('correo', this.registerForm.value.email); // Guardar correo
+          localStorage.setItem('nombre', this.registerForm.value.name); // Guardar correo
           this.registerForm.reset();
           this.isLoading = false;
           this.closeModal.emit();

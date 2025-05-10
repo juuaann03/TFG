@@ -38,6 +38,8 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('rol', response.rol);
+          localStorage.setItem('correo', this.loginForm.value.email); // Guardar correo
+          localStorage.setItem('nombre', response.nombre); // Guardar el nombre
           this.loginForm.reset();
           this.isLoading = false;
           this.closeModal.emit();

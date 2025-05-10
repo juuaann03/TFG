@@ -2,18 +2,18 @@
 
 
 from fastapi import APIRouter, HTTPException
-from app.modelos.modeloRecomendacionPersonalizada import SolicitudRecomendacionPersonalizada
+from pydantic import BaseModel
 from app.servicios.serviciosUsuario import obtenerRecomendacionPersonalizadaServicio
-from typing import List
 
-router = APIRouter(prefix="/recomendar/personalizada", tags=["recomendacion"])
+router = APIRouter(prefix="/recomendaciones", tags=["recomendaciones"])
 
-@router.post("/", response_model=List[dict])
-def recomendarPersonalizado(solicitud: SolicitudRecomendacionPersonalizada):
+class PeticionRecomendacion(BaseModel):
+    peticion: str
+
+@router.post("/personalizada/{correo}", response_model=list)
+def recomendacionPersonalizada(correo: str, datos: PeticionRecomendacion):
     try:
-        resultado = obtenerRecomendacionPersonalizadaServicio(solicitud.correo, solicitud.peticion)
-        return resultado
+        recomendaciones = obtenerRecomendacionPersonalizadaServicio(correo, datos.peticion)
+        return recomendaciones
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error interno: {str(e)}")

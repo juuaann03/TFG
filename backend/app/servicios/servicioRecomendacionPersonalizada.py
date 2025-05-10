@@ -1,5 +1,4 @@
 # archivo: app/servicios/servicioRecomendacionPersonalizada.py
-
 import os
 import json
 from typing import List, Dict, Tuple
@@ -10,6 +9,7 @@ from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from openai import BadRequestError
 from app.modelos.modeloUsuario import UsuarioOpcionalConHistorial
+import requests  # Añadir para solicitudes HTTP
 
 # Cargar variables del .env
 dotenv_path = Path(__file__).resolve().parents[2] / ".env"
@@ -158,6 +158,28 @@ Devuelve solo la lista final de recomendaciones.
 """
 )
 
+def obtener_imagen_juego(nombre_juego: str) -> str:
+    """Obtiene la URL de la imagen de un juego usando la API de RAWG."""
+    rawg_api_key = os.getenv("RAWG_API_KEY")
+    if not rawg_api_key:
+        return ""  # Devolver cadena vacía si no hay API key
+
+    try:
+        # Buscar el juego en RAWG
+        url = f"https://api.rawg.io/api/games?key={rawg_api_key}&search={nombre_juego}"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        # Obtener la primera coincidencia
+        if data["results"]:
+            # Usar background_image o la primera captura si está disponible
+            return data["results"][0].get("background_image", "")
+        return ""
+    except Exception as e:
+        print(f"Error al obtener imagen para {nombre_juego}: {str(e)}")
+        return ""
+
 def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str) -> tuple[str, dict]:
     api_key = os.getenv("OPENROUTER_API_KEY")
     if not api_key:
@@ -281,7 +303,7 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
     try:
         recomendaciones = []
         for linea in respuesta_final.split("\n"):
-            if linea.strip().startswith(("1. ", "2. ", "3. ")):
+            if linea.strip().startswith(("1. ", "2. ", "3. ", "4. ", "5. ")):
                 nombre = linea.split("**")[1].strip()
                 genero = ""
                 plataformas = ""
@@ -293,14 +315,16 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
                         plataformas = sublinea.replace("- Plataformas:", "").strip()
                     elif sublinea.strip().startswith("- ¿Porqué este videojuego?"):
                         razon = sublinea.replace("- ¿Porqué este videojuego?", "").strip()
-                    elif sublinea.strip().startswith(("1. ", "2. ", "3. ")):
+                    elif sublinea.strip().startswith(("1. ", "2. ", "3. ", "4. ", "5. ")):
                         break
                 if razon:
+                    imagen = obtener_imagen_juego(nombre)  # Obtener URL de la imagen
                     recomendaciones.append({
                         "nombre": nombre,
                         "genero": genero,
                         "plataformas": plataformas,
-                        "razon": razon
+                        "razon": razon,
+                        "imagen": imagen  # Añadir campo imagen
                     })
         if not recomendaciones:
             raise ValueError("No se encontraron recomendaciones con razones válidas.")

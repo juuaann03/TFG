@@ -9,6 +9,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'principal', component: PrincipalComponent },
+  { path: 'account-settings', component: PrincipalComponent }, // Placeholder hasta que crees AccountSettingsComponent
   { path: 'dashboard', redirectTo: '' },
   { path: '**', redirectTo: '' }
 ];
