@@ -1,31 +1,40 @@
 <div class="p-6">
-    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Iniciar Sesión</h2>
-    <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
-      <div class="mb-4">
-        <label for="email" class="block text-gray-700 dark:text-gray-200">Correo</label>
-        <input
-          formControlName="email"
-          type="email"
-          id="email"
-          class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-        />
+  <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Iniciar Sesión</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 dark:text-gray-200">Correo</label>
+      <input
+        formControlName="email"
+        type="email"
+        id="email"
+        class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        [class.border-red-500]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+      />
+      <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+        <span *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio.</span>
+        <span *ngIf="loginForm.get('email')?.errors?.['email']">Formato de correo inválido.</span>
       </div>
-      <div class="mb-4">
-        <label for="password" class="block text-gray-700 dark:text-gray-200">Contraseña</label>
-        <input
-          formControlName="password"
-          type="password"
-          id="password"
-          class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-        />
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 dark:text-gray-200">Contraseña</label>
+      <input
+        formControlName="password"
+        type="password"
+        id="password"
+        class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+      />
+      <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+        <span *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
       </div>
-      <button
-        type="submit"
-        [disabled]="loginForm.invalid"
-        class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-      >
-        Iniciar Sesión
-      </button>
-      <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
-    </form>
-  </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid || isLoading"
+      class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      {{ isLoading ? 'Cargando...' : 'Iniciar Sesión' }}
+    </button>
+    <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
+  </form>
+</div>

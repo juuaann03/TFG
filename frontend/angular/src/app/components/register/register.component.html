@@ -1,40 +1,53 @@
 <div class="p-6">
-    <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Crear Cuenta</h2>
-    <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
-      <div class="mb-4">
-        <label for="name" class="block text-gray-700 dark:text-gray-200">Nombre</label>
-        <input
-          formControlName="name"
-          type="text"
-          id="name"
-          class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-        />
+  <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Crear Cuenta</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 dark:text-gray-200">Nombre</label>
+      <input
+        formControlName="name"
+        type="text"
+        id="name"
+        class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        [class.border-red-500]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+      />
+      <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
+        <span *ngIf="registerForm.get('name')?.errors?.['required']">El nombre es obligatorio.</span>
       </div>
-      <div class="mb-4">
-        <label for="email" class="block text-gray-700 dark:text-gray-200">Correo</label>
-        <input
-          formControlName="email"
-          type="email"
-          id="email"
-          class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-        />
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700 dark:text-gray-200">Correo</label>
+      <input
+        formControlName="email"
+        type="email"
+        id="email"
+        class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        [class.border-red-500]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+      />
+      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+        <span *ngIf="registerForm.get('email')?.errors?.['required']">El correo es obligatorio.</span>
+        <span *ngIf="registerForm.get('email')?.errors?.['email']">Formato de correo inválido.</span>
       </div>
-      <div class="mb-4">
-        <label for="password" class="block text-gray-700 dark:text-gray-200">Contraseña</label>
-        <input
-          formControlName="password"
-          type="password"
-          id="password"
-          class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-        />
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700 dark:text-gray-200">Contraseña</label>
+      <input
+        formControlName="password"
+        type="password"
+        id="password"
+        class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+        [class.border-red-500]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+      />
+      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+        <span *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
       </div>
-      <button
-        type="submit"
-        [disabled]="registerForm.invalid"
-        class="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-      >
-        Crear Cuenta
-      </button>
-      <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
-    </form>
-  </div>
+    </div>
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid || isLoading"
+      class="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      {{ isLoading ? 'Cargando...' : 'Crear Cuenta' }}
+    </button>
+    <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
+  </form>
+</div>

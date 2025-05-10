@@ -1,4 +1,4 @@
-# archivo: app/routes/rutaRecomendacionBasica.py
+# archivo: app/rutas/rutaRecomendacionBasica.py
 
 
 from fastapi import APIRouter

@@ -1,4 +1,4 @@
-# archivo: app/routes/rutaRecomendacionPersonalizada.py
+# archivo: app/rutas/rutaRecomendacionPersonalizada.py
 
 
 from fastapi import APIRouter, HTTPException
