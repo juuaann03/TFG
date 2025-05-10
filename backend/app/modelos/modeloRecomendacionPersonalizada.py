@@ -1,4 +1,4 @@
-# archivo: modelos/modeloRecomendacionPersonalizada.py
+# archivo: app/modelos/modeloRecomendacionPersonalizada.py
 
 
 from pydantic import BaseModel

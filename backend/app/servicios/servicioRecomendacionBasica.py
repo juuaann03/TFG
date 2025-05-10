@@ -1,7 +1,6 @@
 # archivo: app/servicios/servicioRecomendacionBasica.py
 
 
-
 import os
 import json
 from typing import List, Dict
@@ -11,6 +10,7 @@ from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 from pathlib import Path
 from openai import BadRequestError
+import requests  # Añadir para solicitudes HTTP
 
 # Cargar variables del .env
 dotenv_path = Path(__file__).resolve().parents[2] / ".env"
@@ -46,7 +46,7 @@ No expliques tu razonamiento, solo da la respuesta final con los juegos recomend
 prompt_sintesis = PromptTemplate(
     input_variables=["descripcionUsuario", "respuestasModelos"],
     template="""
-Eres un experto en videojuegos y tu tarea es sintetizar recomendaciones de videojuegos provenientes de múltiples fuentes para generar una lista final coherente y optimizada. 
+Eres un experto en videojuegos y tu tarea es sintetizar recomendaciones de videojuegos provenientes de múltiples fuentes para generar una lista final coherente y optimizada.
 
 El usuario proporcionó la siguiente descripción:
 
@@ -73,6 +73,28 @@ Responde solo con la lista final de recomendaciones, sin explicaciones adicional
 """
 )
 
+def obtener_imagen_juego(nombre_juego: str) -> str:
+    """Obtiene la URL de la imagen de un juego usando la API de RAWG."""
+    rawg_api_key = os.getenv("RAWG_API_KEY")
+    if not rawg_api_key:
+        return ""  # Devolver cadena vacía si no hay API key
+
+    try:
+        # Buscar el juego en RAWG
+        url = f"https://api.rawg.io/api/games?key={rawg_api_key}&search={nombre_juego}"
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        # Obtener la primera coincidencia
+        if data["results"]:
+            # Usar background_image o la primera captura si está disponible
+            return data["results"][0].get("background_image", "")
+        return ""
+    except Exception as e:
+        print(f"Error al obtener imagen para {nombre_juego}: {str(e)}")
+        return ""
+
 def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
     openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
     if not openrouter_api_key:
@@ -83,9 +105,9 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
 
     # Definir los modelos para recomendaciones iniciales
     modelos_recomendacion = [
-        "meta-llama/llama-guard-4-12b",  # Modelo gratuito disponible
-        "qwen/qwen3-0.6b-04-28:free",  # Modelo corregido
-        "openai/gpt-3.5-turbo"  # Modelo de respaldo
+        "meta-llama/llama-guard-4-12b",
+        "qwen/qwen3-0.6b-04-28:free",
+        "openai/gpt-3.5-turbo"
     ]
 
     # Crear cadenas para cada modelo de recomendación
@@ -112,9 +134,9 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
 
     # Definir los modelos para síntesis
     modelos_sintesis = [
-        "openai/gpt-4o-mini",  # Modelo principal
-        "openai/gpt-3.5-turbo",  # Respaldo 1
-        "qwen/qwen3-0.6b-04-28:free"  # Respaldo 2
+        "openai/gpt-4o-mini",
+        "openai/gpt-3.5-turbo",
+        "qwen/qwen3-0.6b-04-28:free"
     ]
 
     # Intentar con cada modelo de síntesis hasta obtener una respuesta válida
@@ -127,7 +149,7 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
                 "descripcionUsuario": descripcionUsuario,
                 "respuestasModelos": respuestas_combinadas
             })
-            break  # Salir del bucle si la síntesis es exitosa
+            break
         except BadRequestError as e:
             print(f"Error con el modelo de síntesis {modelo}: {str(e)}. Intentando con el siguiente modelo.")
             continue
@@ -159,11 +181,13 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
                         break
                 # Solo añadir la recomendación si tiene una razón válida
                 if razon:
+                    imagen = obtener_imagen_juego(nombre)  # Obtener URL de la imagen
                     recomendaciones.append({
                         "nombre": nombre,
                         "genero": genero,
                         "plataformas": plataformas,
-                        "razon": razon
+                        "razon": razon,
+                        "imagen": imagen  # Añadir campo imagen
                     })
         if not recomendaciones:
             raise ValueError("No se encontraron recomendaciones con razones válidas.")

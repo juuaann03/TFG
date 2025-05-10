@@ -1,4 +1,4 @@
-# archivo: routes/rutaUsuario.py
+# archivo: app/routes/rutaUsuario.py
 
 from fastapi import APIRouter, HTTPException
 from app.modelos.modeloUsuario import Usuario, UsuarioEnBaseDeDatos, UsuarioObligatorio, UsuarioOpcionalSinHistorial, UsuarioOpcionalConHistorial

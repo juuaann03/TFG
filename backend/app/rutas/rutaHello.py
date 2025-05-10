@@ -1,4 +1,4 @@
-# archivo: routes/rutaHello.py
+# archivo: app/routes/rutaHello.py
 
 from fastapi import APIRouter
 

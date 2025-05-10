@@ -19,8 +19,11 @@ if [ ! -d "venv" ]; then
   pip install pydantic
   pip install python-dotenv
   pip install -U langchain langchain-community langchain-openai
-  
-
+  pip install requests
+  pip install pycryptodome
+  pip install bcrypt
+  pip install python-jose
+  pip freeze > requirements.txt
 
 else
   # Activar entorno virtual si ya existe

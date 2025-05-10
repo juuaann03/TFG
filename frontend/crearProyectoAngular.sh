@@ -64,6 +64,11 @@ echo "Instalando dependencias adicionales..."
 cd angular
 npm install axios --save
 npm install -D tailwindcss postcss autoprefixer
+npm install crypto-js
+npm install --save-dev @types/crypto-js
+
+
+
 cd ..
 
 # Configurar variables de entorno para conectar con el backend

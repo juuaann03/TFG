@@ -1,20 +1,23 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Añadir
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule], // Añadir CommonModule, quitar RouterLink
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup;
   error: string | null = null;
+  isLoading = false;
+  @Output() closeModal = new EventEmitter<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -29,14 +32,24 @@ export class LoginComponent {
 
   submitLogin(): void {
     if (this.loginForm.valid) {
+      this.isLoading = true;
+      this.error = null;
       const { email, password } = this.loginForm.value;
-      this.apiService.post<any>('login', { email, password }).subscribe({
+      // Cifrar la contraseña para protegerla en tránsito
+      const cryptoKey = import.meta.env.VITE_CRYPTO_KEY;
+      const encryptedPassword = CryptoJS.AES.encrypt(password, cryptoKey).toString();
+      this.apiService.post<any>('auth/login', { correo: email, contrasena: encryptedPassword }).subscribe({
         next: (response) => {
           localStorage.setItem('token', response.token);
-          this.router.navigate(['/dashboard']);
+          localStorage.setItem('rol', response.rol);
+          this.loginForm.reset();
+          this.isLoading = false;
+          this.closeModal.emit();
+          this.router.navigate(['/principal']);
         },
         error: (err) => {
-          this.error = 'Error al iniciar sesión: ' + err.message;
+          this.error = 'Error al iniciar sesión: ' + (err.error?.detail || err.message);
+          this.isLoading = false;
         }
       });
     }

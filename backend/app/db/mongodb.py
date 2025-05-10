@@ -1,4 +1,4 @@
-# archivo: db/mongodb.py
+# archivo: app/db/mongodb.py
 
 from pymongo import MongoClient
 

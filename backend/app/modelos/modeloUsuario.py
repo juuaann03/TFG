@@ -1,4 +1,4 @@
-# archivo: modelos/modeloUsuario.py
+# archivo: app/modelos/modeloUsuario.py
 
 from pydantic import BaseModel
 from typing import List, Optional, Literal
