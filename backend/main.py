@@ -6,6 +6,7 @@ from app.rutas.rutaUsuario import router as usuarioRouter
 from app.rutas.rutaRecomendacionBasica import router as recomendacionBasicaRouter
 from app.rutas.rutaRecomendacionPersonalizada import router as recomendacionPersonalizadaRouter
 from app.rutas.rutaAuth import router as authRouter
+from app.rutas.rutaProximosLanzamientos import router as proximosLanzamientosRouter
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -23,3 +24,4 @@ app.include_router(usuarioRouter)
 app.include_router(recomendacionBasicaRouter)
 app.include_router(recomendacionPersonalizadaRouter)
 app.include_router(authRouter)
+app.include_router(proximosLanzamientosRouter)
