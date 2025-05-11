@@ -26,16 +26,25 @@
 
   <!-- Main Content -->
   <main class="container mx-auto p-4 flex flex-col md:flex-row gap-6">
-    <!-- Left Column: Últimos Lanzamientos y Recomendaciones -->
+    <!-- Left Column: Próximos Lanzamientos y Últimas Recomendaciones -->
     <div class="md:w-1/3 space-y-6">
-      <!-- Últimos Lanzamientos -->
+      <!-- Próximos Lanzamientos -->
       <section>
-        <h2 class="text-xl font-semibold mb-4">Últimos Lanzamientos</h2>
+        <h2 class="text-xl font-semibold mb-4">Próximos Lanzamientos</h2>
+        <div *ngIf="isLoading" class="flex items-center justify-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <span class="ml-2 text-gray-700 dark:text-gray-200">Cargando...</span>
+        </div>
+        <div *ngIf="!isLoading && proximosLanzamientos.length === 0" class="text-gray-500 dark:text-gray-400">
+          No hay próximos lanzamientos disponibles.
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div *ngFor="let juego of ultimosLanzamientos" class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-            <img [src]="juego.imagen" [alt]="juego.nombre" class="w-full h-32 object-cover">
+          <div *ngFor="let juego of proximosLanzamientos" class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+            <img [src]="juego.imagen" [alt]="juego.titulo" class="w-full h-32 object-cover">
             <div class="p-4">
-              <h3 class="text-lg font-medium">{{ juego.nombre }}</h3>
+              <h3 class="text-lg font-medium">{{ juego.titulo }}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Plataformas:</strong> {{ juego.plataformas }}</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Fecha:</strong> {{ juego.fecha_lanzamiento }}</p>
             </div>
           </div>
         </div>
@@ -79,11 +88,15 @@
         </div>
         <button
           type="submit"
-          [disabled]="recomendacionForm.invalid || isLoading"
+          [disabled]="recomendacionForm.invalid || isLoadingRecomendacion"
           class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          {{ isLoading ? 'Cargando...' : 'Obtener Recomendación' }}
+          {{ isLoadingRecomendacion ? 'Cargando...' : 'Obtener Recomendación' }}
         </button>
+        <div *ngIf="isLoadingRecomendacion" class="mt-4 flex items-center justify-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
+        </div>
         <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
       </form>
 

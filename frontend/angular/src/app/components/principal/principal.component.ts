@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { LanzamientosService } from '../../services/lanzamientos.service';
 import { Router, RouterModule } from '@angular/router';
 import { Recomendacion } from '../../models/recomendacion';
+import { ProximoLanzamiento } from '../../models/proximo-lanzamiento';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -29,20 +31,18 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   recomendacionForm: FormGroup;
   recomendaciones: Recomendacion[] = []; // Para el historial (Últimas Recomendaciones)
   nuevaRecomendacion: Recomendacion[] = []; // Para la nueva recomendación personalizada
-  ultimosLanzamientos: Recomendacion[] = [
-    { nombre: 'Juego 1', imagen: 'https://via.placeholder.com/150' },
-    { nombre: 'Juego 2', imagen: 'https://via.placeholder.com/150' },
-    { nombre: 'Juego 3', imagen: 'https://via.placeholder.com/150' }
-  ]; // Placeholder
+  proximosLanzamientos: ProximoLanzamiento[] = []; // Para los próximos lanzamientos
   nombreUsuario: string | null = null; // Nombre del usuario
   error: string | null = null;
-  isLoading = false;
+  isLoading = false; // Para Próximos Lanzamientos
+  isLoadingRecomendacion = false; // Para Recomendación Personalizada
   isDarkMode = false;
   private destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
+    private lanzamientosService: LanzamientosService,
     private router: Router
   ) {
     this.recomendacionForm = this.fb.group({
@@ -60,6 +60,9 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
     // Obtener historial de recomendaciones
     this.cargarUltimasRecomendaciones();
+
+    // Obtener próximos lanzamientos
+    this.cargarProximosLanzamientos();
   }
 
   toggleTheme(): void {
@@ -87,10 +90,7 @@ export class PrincipalComponent implements OnInit, OnDestroy {
               const juegos = JSON.parse(conv.respuesta || '[]');
               return juegos.map((juego: any) => ({
                 nombre: juego.nombre || 'Juego desconocido',
-                imagen: juego.imagen || 'https://via.placeholder.com/150',
-                genero: juego.genero || 'Desconocido',
-                plataformas: juego.plataformas || 'Desconocido',
-                razon: juego.razon || 'No especificado'
+                imagen: juego.imagen || 'https://via.placeholder.com/150'
               }));
             } catch (e) {
               console.error('Error al parsear respuesta:', e);
@@ -105,14 +105,36 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     });
   }
 
+  cargarProximosLanzamientos(): void {
+    const correo = localStorage.getItem('correo') || '';
+    if (!correo) {
+      this.error = 'No se encontró el correo del usuario';
+      return;
+    }
+
+    this.isLoading = true;
+    this.lanzamientosService.getProximosLanzamientos(correo).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (lanzamientos: ProximoLanzamiento[]) => {
+        this.proximosLanzamientos = lanzamientos;
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        this.error = 'Error al cargar próximos lanzamientos: ' + (err.message || 'Error desconocido');
+        this.isLoading = false;
+      }
+    });
+  }
+
   submitRecomendacion(): void {
     if (this.recomendacionForm.valid) {
-      this.isLoading = true;
+      this.isLoadingRecomendacion = true;
       this.error = null;
       const correo = localStorage.getItem('correo') || '';
       if (!correo) {
         this.error = 'No se encontró el correo del usuario';
-        this.isLoading = false;
+        this.isLoadingRecomendacion = false;
         return;
       }
 
@@ -129,20 +151,20 @@ export class PrincipalComponent implements OnInit, OnDestroy {
             razon: juego.razon || 'No especificado'
           }));
           this.recomendacionForm.reset();
-          this.isLoading = false;
+          this.isLoadingRecomendacion = false;
           // Recargar historial para actualizar Últimas Recomendaciones
           this.cargarUltimasRecomendaciones();
         },
         error: (err: any) => {
           this.error = 'Error al generar recomendación: ' + (err.error?.detail || err.message);
-          this.isLoading = false;
+          this.isLoadingRecomendacion = false;
         }
       });
     }
   }
 
   goToSettings(): void {
-    this.router.navigate(['/account-settings']);
+    this.router.navigate(['/ajustes-cuenta']);
   }
 
   ngOnDestroy(): void {
