@@ -1,11 +1,260 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
+import { Router, RouterModule } from '@angular/router';
+import { UsuarioOpcionalSinHistorial } from '../../models/usuario-opcional-sin-historial';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ajustes-cuenta',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './ajustes-cuenta.component.html',
-  styleUrl: './ajustes-cuenta.component.scss'
+  styleUrls: ['./ajustes-cuenta.component.scss']
 })
-export class AjustesCuentaComponent {
+export class AjustesCuentaComponent implements OnInit, OnDestroy {
+  datosForm: FormGroup; // Para modificar nombre/contraseña
+  peticionForm: FormGroup; // Para modificar datos opcionales por petición
+  datosOpcionales: UsuarioOpcionalSinHistorial | null = null;
+  nombreUsuario: string | null = null;
+  error: string | null = null;
+  isLoading = false; // Para operaciones generales
+  isLoadingPeticion = false; // Para la petición de modificar datos
+  isDarkMode = false;
+  showModal = false; // Para el modal de modificar datos
+  private destroy$ = new Subject<void>();
 
+  constructor(
+    private fb: FormBuilder,
+    private apiService: ApiService,
+    private router: Router
+  ) {
+    // Formulario para modificar datos obligatorios
+    this.datosForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      newName: [''],
+      newPassword: ['']
+    });
+
+    // Formulario para la petición de datos opcionales
+    this.peticionForm = this.fb.group({
+      peticion: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    // Cargar tema desde localStorage
+    this.isDarkMode = localStorage.getItem('theme') === 'dark';
+    document.documentElement.classList.toggle('dark', this.isDarkMode);
+
+    // Obtener nombre del usuario desde localStorage
+    this.nombreUsuario = localStorage.getItem('nombre') || null;
+
+    // Cargar datos opcionales
+    this.cargarDatosOpcionales();
+  }
+
+  toggleTheme(): void {
+    this.isDarkMode = !this.isDarkMode;
+    document.documentElement.classList.toggle('dark', this.isDarkMode);
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+  }
+
+  cargarDatosOpcionales(): void {
+    const correo = localStorage.getItem('correo') || '';
+    if (!correo) {
+      this.error = 'No se encontró el correo del usuario';
+      return;
+    }
+
+    this.isLoading = true;
+    this.apiService.get<UsuarioOpcionalSinHistorial>(`usuarios/porCorreo/${correo}/optativos`).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: (response: UsuarioOpcionalSinHistorial) => {
+        this.datosOpcionales = response;
+        this.isLoading = false;
+      },
+      error: (err: any) => {
+        this.error = 'Error al cargar datos opcionales: ' + (err.error?.detail || err.message);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  openModal(): void {
+    this.showModal = true;
+    this.datosForm.reset();
+    this.error = null;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.datosForm.reset();
+    this.error = null;
+  }
+
+  submitDatos(): void {
+    if (this.datosForm.valid) {
+      const { currentPassword, newName, newPassword } = this.datosForm.value;
+      const correo = localStorage.getItem('correo') || '';
+      if (!correo) {
+        this.error = 'No se encontró el correo del usuario';
+        return;
+      }
+  
+      // Verificar contraseña actual
+      this.isLoading = true;
+      this.apiService.post<any>('auth/login', { correo, contrasena: currentPassword }).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: () => {
+          // Contraseña correcta, proceder con la actualización
+          const datosActualizados: any = {};
+          if (newName) datosActualizados.nombre = newName;
+          if (newPassword) datosActualizados.contrasena = newPassword;
+  
+          if (Object.keys(datosActualizados).length === 0) {
+            this.error = 'No se proporcionaron datos para actualizar';
+            this.isLoading = false;
+            return;
+          }
+  
+          // Confirmar cambios
+          if (!window.confirm('¿Estás seguro de que quieres modificar los datos de tu cuenta?')) {
+            this.isLoading = false;
+            return;
+          }
+  
+          // Usar el nuevo endpoint
+          this.apiService.put<any>(`usuarios/porCorreo/${correo}/obligatorios`, datosActualizados).pipe(
+            takeUntil(this.destroy$)
+          ).subscribe({
+            next: (response: { mensaje: string }) => {
+              if (newName) {
+                localStorage.setItem('nombre', newName);
+                this.nombreUsuario = newName;
+              }
+              this.closeModal();
+              this.isLoading = false;
+              alert(response.mensaje);
+            },
+            error: (err: any) => {
+              let errorMessage = 'Error al actualizar datos';
+              if (err.error?.detail) {
+                errorMessage += `: ${err.error.detail}`;
+              } else if (err.status === 405) {
+                errorMessage += ': Método no permitido. Contacta al administrador.';
+              } else {
+                errorMessage += `: ${err.message || 'Error desconocido'}`;
+              }
+              this.error = errorMessage;
+              this.isLoading = false;
+            }
+          });
+        },
+        error: (err: any) => {
+          this.error = 'Contraseña actual incorrecta';
+          this.isLoading = false;
+        }
+      });
+    }
+  }
+
+  deleteAccount(): void {
+    const correo = localStorage.getItem('correo') || '';
+    if (!correo) {
+      this.error = 'No se encontró el correo del usuario';
+      return;
+    }
+
+    // Confirmar eliminación
+    if (!window.confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.apiService.delete<any>(`usuarios/porCorreo/${correo}`).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: () => {
+        localStorage.clear();
+        this.isLoading = false;
+        alert('Cuenta eliminada correctamente');
+        this.router.navigate(['/']);
+      },
+      error: (err: any) => {
+        this.error = 'Error al eliminar cuenta: ' + (err.error?.detail || err.message);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  resetDatosVideojuegos(): void {
+    const correo = localStorage.getItem('correo') || '';
+    if (!correo) {
+      this.error = 'No se encontró el correo del usuario';
+      return;
+    }
+  
+    // Confirmar restablecimiento
+    if (!window.confirm('¿Estás seguro de que quieres restablecer tus datos sobre videojuegos? Esto eliminará consolas, preferencias y más.')) {
+      return;
+    }
+  
+    this.isLoading = true;
+    this.apiService.put<any>(`usuarios/porCorreo/${correo}/limpiar`, {}).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: () => {
+        this.cargarDatosOpcionales(); // Recargar datos opcionales
+        this.isLoading = false;
+        alert('Datos sobre videojuegos restablecidos correctamente');
+      },
+      error: (err: any) => {
+        this.error = 'Error al restablecer datos: ' + (err.error?.detail || err.message);
+        this.isLoading = false;
+      }
+    });
+  }
+
+  submitPeticion(): void {
+    if (this.peticionForm.valid) {
+      this.isLoadingPeticion = true;
+      this.error = null;
+      const correo = localStorage.getItem('correo') || '';
+      if (!correo) {
+        this.error = 'No se encontró el correo del usuario';
+        this.isLoadingPeticion = false;
+        return;
+      }
+  
+      const peticion = this.peticionForm.value.peticion;
+      this.apiService.put<any>(`usuarios/porCorreo/${correo}/modificarPorPeticion`, { peticion }).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: (response: { mensaje: string; actualizacion: any }) => {
+          this.peticionForm.reset();
+          this.cargarDatosOpcionales(); // Recargar datos opcionales
+          this.isLoadingPeticion = false;
+          alert(response.mensaje);
+        },
+        error: (err: any) => {
+          this.error = 'Error al procesar la petición: ' + (err.error?.detail || err.message || 'Error desconocido');
+          this.isLoadingPeticion = false;
+        }
+      });
+    }
+  }
+
+  goBack(): void {
+    this.router.navigate(['/principal']);
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

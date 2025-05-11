@@ -5,6 +5,7 @@ from app.modelos.modeloUsuario import Usuario, UsuarioEnBaseDeDatos, UsuarioObli
 from app.servicios.serviciosUsuario import *
 from fastapi import Body
 from pydantic import BaseModel
+from typing import Optional
 
 router = APIRouter(prefix="/usuarios", tags=["usuarios"])
 
@@ -84,3 +85,23 @@ def modificarUsuarioPorPeticionRuta(correo: str, peticion: str = Body(..., embed
     if exito:
         return {"mensaje": mensaje, "actualizacion": actualizacion}
     raise HTTPException(status_code=404, detail=mensaje)
+
+
+
+
+class DatosObligatoriosActualizados(BaseModel):
+    nombre: Optional[str] = None
+    contrasena: Optional[str] = None
+
+@router.put("/porCorreo/{correo}/obligatorios", response_model=dict)
+def actualizarDatosObligatorios(correo: str, datos: DatosObligatoriosActualizados):
+    datos_dict = datos.dict(exclude_unset=True)
+    # Si se proporciona una nueva contraseña, hashearla
+    if "contrasena" in datos_dict:
+        contrasena_plana = datos_dict["contrasena"]
+        datos_dict["contrasena"] = bcrypt.hashpw(contrasena_plana.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    
+    actualizado = actualizarUsuarioPorCorreoServicio(correo, datos_dict)
+    if actualizado:
+        return {"mensaje": "Datos obligatorios actualizados correctamente"}
+    raise HTTPException(status_code=404, detail="Usuario no encontrado o no modificado")
