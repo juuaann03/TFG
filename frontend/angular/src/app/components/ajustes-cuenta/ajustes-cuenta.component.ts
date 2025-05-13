@@ -1,3 +1,5 @@
+// archivo: src/app/components/ajustes-cuenta/ajustes-cuenta.component.ts
+
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,13 +19,16 @@ import { takeUntil } from 'rxjs/operators';
 export class AjustesCuentaComponent implements OnInit, OnDestroy {
   datosForm: FormGroup; // Para modificar nombre/contraseña
   peticionForm: FormGroup; // Para modificar datos opcionales por petición
+  steamForm: FormGroup; // Nuevo formulario para SteamID
   datosOpcionales: UsuarioOpcionalSinHistorial | null = null;
   nombreUsuario: string | null = null;
   error: string | null = null;
   isLoading = false; // Para operaciones generales
   isLoadingPeticion = false; // Para la petición de modificar datos
+  isLoadingSteam = false; // Para la conexión con Steam
   isDarkMode = false;
   showModal = false; // Para el modal de modificar datos
+  showSteamModal = false; // Para el modal de Steam
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -41,6 +46,11 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
     // Formulario para la petición de datos opcionales
     this.peticionForm = this.fb.group({
       peticion: ['', Validators.required]
+    });
+
+    // Formulario para el SteamID
+    this.steamForm = this.fb.group({
+      steamId: ['', [Validators.required, Validators.pattern(/^\d{17}$/)]]
     });
   }
 
@@ -96,6 +106,18 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
     this.error = null;
   }
 
+  openSteamModal(): void {
+    this.showSteamModal = true;
+    this.steamForm.reset();
+    this.error = null;
+  }
+
+  closeSteamModal(): void {
+    this.showSteamModal = false;
+    this.steamForm.reset();
+    this.error = null;
+  }
+
   submitDatos(): void {
     if (this.datosForm.valid) {
       const { currentPassword, newName, newPassword } = this.datosForm.value;
@@ -128,7 +150,6 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
             return;
           }
   
-          // Usar el nuevo endpoint
           this.apiService.put<any>(`usuarios/porCorreo/${correo}/obligatorios`, datosActualizados).pipe(
             takeUntil(this.destroy$)
           ).subscribe({
@@ -163,6 +184,36 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
     }
   }
 
+  submitSteam(): void {
+    if (this.steamForm.valid) {
+      this.isLoadingSteam = true;
+      this.error = null;
+      const correo = localStorage.getItem('correo') || '';
+      if (!correo) {
+        this.error = 'No se encontró el correo del usuario';
+        this.isLoadingSteam = false;
+        return;
+      }
+
+      const steamId = this.steamForm.value.steamId;
+      this.apiService.post<any>(`usuarios/porCorreo/${correo}/steam`, { steam_id: steamId }).pipe(
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: (response: { mensaje: string; juegos_anadidos: number; juegos_jugados_anadidos: number }) => {
+          this.steamForm.reset();
+          this.closeSteamModal();
+          this.cargarDatosOpcionales(); // Recargar datos opcionales para mostrar los nuevos juegos
+          this.isLoadingSteam = false;
+          alert(`${response.mensaje}. Juegos añadidos: ${response.juegos_anadidos}, Juegos jugados añadidos: ${response.juegos_jugados_anadidos}`);
+        },
+        error: (err: any) => {
+          this.error = 'Error al conectar con Steam: ' + (err.error?.detail || err.message);
+          this.isLoadingSteam = false;
+        }
+      });
+    }
+  }
+
   deleteAccount(): void {
     const correo = localStorage.getItem('correo') || '';
     if (!correo) {
@@ -170,7 +221,6 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Confirmar eliminación
     if (!window.confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
       return;
     }
@@ -199,7 +249,6 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
       return;
     }
   
-    // Confirmar restablecimiento
     if (!window.confirm('¿Estás seguro de que quieres restablecer tus datos sobre videojuegos? Esto eliminará consolas, preferencias y más.')) {
       return;
     }
@@ -209,7 +258,7 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe({
       next: () => {
-        this.cargarDatosOpcionales(); // Recargar datos opcionales
+        this.cargarDatosOpcionales();
         this.isLoading = false;
         alert('Datos sobre videojuegos restablecidos correctamente');
       },
@@ -237,7 +286,7 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
       ).subscribe({
         next: (response: { mensaje: string; actualizacion: any }) => {
           this.peticionForm.reset();
-          this.cargarDatosOpcionales(); // Recargar datos opcionales
+          this.cargarDatosOpcionales();
           this.isLoadingPeticion = false;
           alert(response.mensaje);
         },

@@ -1,201 +1,286 @@
+<!-- archivo: src/app/components/ajustes-cuenta/ajustes-cuenta.component.html -->
+
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-    <!-- Header -->
-    <header class="flex justify-between items-center p-4 bg-white dark:bg-gray-800 shadow-md">
-      <h1 class="text-2xl font-bold">Ajustes de la cuenta{{ nombreUsuario ? ', ' + nombreUsuario : '' }}</h1>
-      <div class="flex items-center space-x-4">
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 bg-white dark:bg-gray-800 shadow-md">
+    <h1 class="text-2xl font-bold">Ajustes de la cuenta</h1>
+    <div class="flex items-center space-x-4">
+      <button
+        (click)="toggleTheme()"
+        class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
+        aria-label="Cambiar tema"
+      >
+        <svg *ngIf="!isDarkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg *ngIf="isDarkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+      </button>
+      <button
+        (click)="openSteamModal()"
+        class="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+      >
+        <img src="steam-logo.png" alt="Steam Logo" class="w-6 h-6">
+        <span>Conectar con Steam</span>
+      </button>
+      <button
+        (click)="goBack()"
+        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+      >
+        Volver
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto p-4 flex flex-col md:flex-row gap-6">
+    <!-- Left Column: Botones de acciones y Datos Opcionales -->
+    <div class="md:w-1/3 space-y-6">
+      <!-- Sección: Acciones de la cuenta -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Acciones de la cuenta</h2>
         <button
-          (click)="toggleTheme()"
-          class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-          aria-label="Cambiar tema"
+          (click)="openModal()"
+          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
-          <svg *ngIf="!isDarkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-          </svg>
-          <svg *ngIf="isDarkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-          </svg>
+          Modificar datos de la cuenta
         </button>
         <button
-          class="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
-          disabled
+          (click)="resetDatosVideojuegos()"
+          class="w-full mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
         >
-          Conectar con API externa
+          Restablecer datos sobre videojuegos
+        </button>
+      </section>
+
+      <!-- Sección: Datos Opcionales -->
+      <section>
+        <h2 class="text-xl font-semibold mb-4">Tus preferencias</h2>
+        <div *ngIf="isLoading" class="flex items-center justify-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <span class="ml-2 text-gray-700 dark:text-gray-200">Cargando...</span>
+        </div>
+        <div *ngIf="!isLoading && !datosOpcionales" class="text-gray-500 dark:text-gray-400">
+          No hay datos opcionales disponibles.
+        </div>
+        <div *ngIf="!isLoading && datosOpcionales" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 space-y-4">
+          <!-- Consolas -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Consolas:</strong></p>
+            <ul *ngIf="datosOpcionales.consolas?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let consola of datosOpcionales.consolas">{{ consola }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.consolas?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay consolas añadidas.</p>
+          </div>
+          <!-- Configuración PC -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Configuración PC:</strong></p>
+            <ul *ngIf="datosOpcionales.configuracionPc && (datosOpcionales.configuracionPc.so || datosOpcionales.configuracionPc.procesador || datosOpcionales.configuracionPc.memoria || datosOpcionales.configuracionPc.tarjetaGrafica)" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngIf="datosOpcionales.configuracionPc.so">SO: {{ datosOpcionales.configuracionPc.so }}</li>
+              <li *ngIf="datosOpcionales.configuracionPc.procesador">Procesador: {{ datosOpcionales.configuracionPc.procesador }}</li>
+              <li *ngIf="datosOpcionales.configuracionPc.memoria">Memoria: {{ datosOpcionales.configuracionPc.memoria }}</li>
+              <li *ngIf="datosOpcionales.configuracionPc.tarjetaGrafica">Tarjeta Gráfica: {{ datosOpcionales.configuracionPc.tarjetaGrafica }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.configuracionPc || (!datosOpcionales.configuracionPc.so && !datosOpcionales.configuracionPc.procesador && !datosOpcionales.configuracionPc.memoria && !datosOpcionales.configuracionPc.tarjetaGrafica)" class="text-sm text-gray-500 dark:text-gray-400">No hay configuración de PC añadida.</p>
+          </div>
+          <!-- Necesidades Especiales -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Necesidades Especiales:</strong></p>
+            <ul *ngIf="datosOpcionales.necesidadesEspeciales?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let necesidad of datosOpcionales.necesidadesEspeciales">{{ necesidad }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.necesidadesEspeciales?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay necesidades especiales añadidas.</p>
+          </div>
+          <!-- Juegos Gustados -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Juegos Gustados:</strong></p>
+            <ul *ngIf="datosOpcionales.juegosGustados?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let juego of datosOpcionales.juegosGustados">{{ juego }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.juegosGustados?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay juegos gustados añadidos.</p>
+          </div>
+          <!-- Juegos No Gustados -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Juegos No Gustados:</strong></p>
+            <ul *ngIf="datosOpcionales.juegosNoGustados?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let juego of datosOpcionales.juegosNoGustados">{{ juego }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.juegosNoGustados?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay juegos no gustados añadidos.</p>
+          </div>
+          <!-- Juegos Jugados -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Juegos Jugados:</strong></p>
+            <ul *ngIf="datosOpcionales.juegosJugados?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let juego of datosOpcionales.juegosJugados">{{ juego }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.juegosJugados?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay juegos jugados añadidos.</p>
+          </div>
+          <!-- Suscripciones -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Suscripciones:</strong></p>
+            <ul *ngIf="datosOpcionales.suscripciones?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let suscripcion of datosOpcionales.suscripciones">{{ suscripcion }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.suscripciones?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay suscripciones añadidas.</p>
+          </div>
+          <!-- Idiomas -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Idiomas:</strong></p>
+            <ul *ngIf="datosOpcionales.idiomas?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let idioma of datosOpcionales.idiomas">{{ idioma }}</li>
+            </ul>
+            <p *ngIf="!datosOpcionales.idiomas?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay idiomas añadidos.</p>
+          </div>
+          <!-- Juegos Poseídos -->
+          <div>
+            <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Juegos Poseídos:</strong></p>
+            <ul *ngIf="datosOpcionales.juegosPoseidos?.length" class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
+              <li *ngFor="let juego of datosOpcionales.juegosPoseidos">
+                {{ juego.nombre }} ({{ juego.consolasDisponibles?.join(', ') || 'Desconocido' }})
+              </li>
+            </ul>
+            <p *ngIf="!datosOpcionales.juegosPoseidos?.length" class="text-sm text-gray-500 dark:text-gray-400">No hay juegos poseídos añadidos.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Column: Personalizar preferencias -->
+    <aside class="md:w-2/3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold mb-4">Personaliza tu experiencia</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">
+        Comparte con nuestros agentes tus consolas, configuración de PC, necesidades especiales o preferencias de juegos para obtener recomendaciones más precisas y personalizadas.
+      </p>
+      <form [formGroup]="peticionForm" (ngSubmit)="submitPeticion()">
+        <div class="mb-4">
+          <label for="peticion" class="block text-gray-700 dark:text-gray-200">Describe tus preferencias</label>
+          <textarea
+            formControlName="peticion"
+            id="peticion"
+            rows="4"
+            class="w-full p-2 border rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+            [class.border-red-500]="peticionForm.get('peticion')?.invalid && peticionForm.get('peticion')?.touched"
+            placeholder="Ejemplo: Tengo una PS5 y un PC con RTX 3080, me gustan los juegos de aventura"
+            (keydown.enter)="submitPeticion(); $event.preventDefault()"
+          ></textarea>
+          <div *ngIf="peticionForm.get('peticion')?.invalid && peticionForm.get('peticion')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="peticionForm.get('peticion')?.errors?.['required']">La petición es obligatoria.</span>
+          </div>
+        </div>
+        <button
+          type="submit"
+          [disabled]="peticionForm.invalid || isLoadingPeticion"
+          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {{ isLoadingPeticion ? 'Cargando...' : 'Enviar Preferencias' }}
+        </button>
+        <div *ngIf="isLoadingPeticion" class="mt-4 flex items-center justify-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
+        </div>
+        <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
+      </form>
+    </aside>
+  </main>
+
+  <!-- Modal para modificar datos -->
+  <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
+      <button (click)="closeModal()" class="float-right text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">X</button>
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Modificar datos de la cuenta</h2>
+      <form [formGroup]="datosForm" (ngSubmit)="submitDatos()">
+        <div class="mb-4">
+          <label for="currentPassword" class="block text-gray-700 dark:text-gray-200">Contraseña actual</label>
+          <input
+            formControlName="currentPassword"
+            type="password"
+            id="currentPassword"
+            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            [class.border-red-500]="datosForm.get('currentPassword')?.invalid && datosForm.get('currentPassword')?.touched"
+          />
+          <div *ngIf="datosForm.get('currentPassword')?.invalid && datosForm.get('currentPassword')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="datosForm.get('currentPassword')?.errors?.['required']">La contraseña actual es obligatoria.</span>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="newName" class="block text-gray-700 dark:text-gray-200">Nuevo nombre (opcional)</label>
+          <input
+            formControlName="newName"
+            type="text"
+            id="newName"
+            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="newPassword" class="block text-gray-700 dark:text-gray-200">Nueva contraseña (opcional)</label>
+          <input
+            formControlName="newPassword"
+            type="password"
+            id="newPassword"
+            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+          />
+        </div>
+        <button
+          type="submit"
+          [disabled]="datosForm.get('currentPassword')?.invalid || isLoading"
+          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {{ isLoading ? 'Cargando...' : 'Actualizar Datos' }}
         </button>
         <button
-          (click)="goBack()"
-          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          type="button"
+          (click)="deleteAccount()"
+          class="w-full mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+          [disabled]="isLoading"
         >
-          Volver
+          Borrar Cuenta
         </button>
-      </div>
-    </header>
-  
-    <!-- Main Content -->
-    <main class="container mx-auto p-4 flex flex-col md:flex-row gap-6">
-      <!-- Left Column: Botones de acciones y Datos Opcionales -->
-      <div class="md:w-1/3 space-y-6">
-        <!-- Sección: Acciones de la cuenta -->
-        <section>
-          <h2 class="text-xl font-semibold mb-4">Acciones de la cuenta</h2>
-          <button
-            (click)="openModal()"
-            class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-          >
-            Modificar datos de la cuenta
-          </button>
-          <button
-            (click)="resetDatosVideojuegos()"
-            class="w-full mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-          >
-            Restablecer datos sobre videojuegos
-          </button>
-        </section>
-  
-        <!-- Sección: Datos Opcionales -->
-        <section>
-          <h2 class="text-xl font-semibold mb-4">Tus preferencias</h2>
-          <div *ngIf="isLoading" class="flex items-center justify-center">
-            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-            <span class="ml-2 text-gray-700 dark:text-gray-200">Cargando...</span>
-          </div>
-          <div *ngIf="!isLoading && !datosOpcionales" class="text-gray-500 dark:text-gray-400">
-            No hay datos opcionales disponibles.
-          </div>
-          <div *ngIf="datosOpcionales" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
-            <p *ngIf="datosOpcionales.consolas?.length" class="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Consolas:</strong> {{ datosOpcionales.consolas?.join(', ') }}
-            </p>
-            <div *ngIf="datosOpcionales.configuracionPc">
-              <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Configuración PC:</strong></p>
-              <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
-                <li *ngIf="datosOpcionales.configuracionPc.so">SO: {{ datosOpcionales.configuracionPc.so }}</li>
-                <li *ngIf="datosOpcionales.configuracionPc.procesador">Procesador: {{ datosOpcionales.configuracionPc.procesador }}</li>
-                <li *ngIf="datosOpcionales.configuracionPc.memoria">Memoria: {{ datosOpcionales.configuracionPc.memoria }}</li>
-                <li *ngIf="datosOpcionales.configuracionPc.tarjetaGrafica">Tarjeta Gráfica: {{ datosOpcionales.configuracionPc.tarjetaGrafica }}</li>
-              </ul>
-            </div>
-            <p *ngIf="datosOpcionales.necesidadesEspeciales?.length" class="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Necesidades Especiales:</strong> {{ datosOpcionales.necesidadesEspeciales?.join(', ') }}
-            </p>
-            <p *ngIf="datosOpcionales.juegosGustados?.length" class="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Juegos Gustados:</strong> {{ datosOpcionales.juegosGustados?.join(', ') }}
-            </p>
-            <p *ngIf="datosOpcionales.juegosNoGustados?.length" class="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Juegos No Gustados:</strong> {{ datosOpcionales.juegosNoGustados?.join(', ') }}
-            </p>
-            <p *ngIf="datosOpcionales.juegosJugados?.length" class="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Juegos Jugados:</strong> {{ datosOpcionales.juegosJugados?.join(', ') }}
-            </p>
-            <p *ngIf="datosOpcionales.suscripciones?.length" class="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Suscripciones:</strong> {{ datosOpcionales.suscripciones?.join(', ') }}
-            </p>
-            <p *ngIf="datosOpcionales.idiomas?.length" class="text-sm text-gray-600 dark:text-gray-400">
-              <strong>Idiomas:</strong> {{ datosOpcionales.idiomas?.join(', ') }}
-            </p>
-            <div *ngIf="datosOpcionales.juegosPoseidos?.length">
-              <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Juegos Poseídos:</strong></p>
-              <ul class="list-disc pl-5 text-sm text-gray-600 dark:text-gray-400">
-                <li *ngFor="let juego of datosOpcionales.juegosPoseidos">
-                  {{ juego.nombre }} ({{ juego.consolasDisponibles?.join(', ') || 'Desconocido' }})
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </div>
-  
-      <!-- Right Column: Personalizar preferencias -->
-      <aside class="md:w-2/3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-semibold mb-4">Personaliza tu experiencia</h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-4">
-          Comparte con nuestros agentes tus consolas, configuración de PC, necesidades especiales o preferencias de juegos para obtener recomendaciones más precisas y personalizadas.
-        </p>
-        <form [formGroup]="peticionForm" (ngSubmit)="submitPeticion()">
-          <div class="mb-4">
-            <label for="peticion" class="block text-gray-700 dark:text-gray-200">Describe tus preferencias</label>
-            <textarea
-              formControlName="peticion"
-              id="peticion"
-              rows="4"
-              class="w-full p-2 border rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
-              [class.border-red-500]="peticionForm.get('peticion')?.invalid && peticionForm.get('peticion')?.touched"
-              placeholder="Ejemplo: Tengo una PS5 y un PC con RTX 3080, me gustan los juegos de aventura"
-              (keydown.enter)="submitPeticion(); $event.preventDefault()"
-            ></textarea>
-            <div *ngIf="peticionForm.get('peticion')?.invalid && peticionForm.get('peticion')?.touched" class="text-red-500 text-sm mt-1">
-              <span *ngIf="peticionForm.get('peticion')?.errors?.['required']">La petición es obligatoria.</span>
-            </div>
-          </div>
-          <button
-            type="submit"
-            [disabled]="peticionForm.invalid || isLoadingPeticion"
-            class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-          >
-            {{ isLoadingPeticion ? 'Cargando...' : 'Enviar Preferencias' }}
-          </button>
-          <div *ngIf="isLoadingPeticion" class="mt-4 flex items-center justify-center">
-            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-            <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
-          </div>
-          <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
-        </form>
-      </aside>
-    </main>
-  
-    <!-- Modal para modificar datos -->
-    <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
-        <button (click)="closeModal()" class="float-right text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">X</button>
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Modificar datos de la cuenta</h2>
-        <form [formGroup]="datosForm" (ngSubmit)="submitDatos()">
-          <div class="mb-4">
-            <label for="currentPassword" class="block text-gray-700 dark:text-gray-200">Contraseña actual</label>
-            <input
-              formControlName="currentPassword"
-              type="password"
-              id="currentPassword"
-              class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-              [class.border-red-500]="datosForm.get('currentPassword')?.invalid && datosForm.get('currentPassword')?.touched"
-            />
-            <div *ngIf="datosForm.get('currentPassword')?.invalid && datosForm.get('currentPassword')?.touched" class="text-red-500 text-sm mt-1">
-              <span *ngIf="datosForm.get('currentPassword')?.errors?.['required']">La contraseña actual es obligatoria.</span>
-            </div>
-          </div>
-          <div class="mb-4">
-            <label for="newName" class="block text-gray-700 dark:text-gray-200">Nuevo nombre (opcional)</label>
-            <input
-              formControlName="newName"
-              type="text"
-              id="newName"
-              class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            />
-          </div>
-          <div class="mb-4">
-            <label for="newPassword" class="block text-gray-700 dark:text-gray-200">Nueva contraseña (opcional)</label>
-            <input
-              formControlName="newPassword"
-              type="password"
-              id="newPassword"
-              class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            />
-          </div>
-          <button
-            type="submit"
-            [disabled]="datosForm.get('currentPassword')?.invalid || isLoading"
-            class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-          >
-            {{ isLoading ? 'Cargando...' : 'Actualizar Datos' }}
-          </button>
-          <button
-            type="button"
-            (click)="deleteAccount()"
-            class="w-full mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-            [disabled]="isLoading"
-          >
-            Borrar Cuenta
-          </button>
-          <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
-        </form>
-      </div>
+        <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
+      </form>
     </div>
   </div>
+
+  <!-- Modal para conectar con Steam -->
+  <div *ngIf="showSteamModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
+      <button (click)="closeSteamModal()" class="float-right text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">X</button>
+      <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Conectar con Steam</h2>
+      <p class="text-gray-600 dark:text-gray-400 mb-4">
+        Para conectar tu cuenta de Steam, introduce tu SteamID64. Asegúrate de que tu perfil de Steam y la lista de juegos estén configurados como públicos. Puedes encontrar más información aquí:
+        <a href="https://help.steampowered.com/es/faqs/view/588C-C67D-0251-C276" target="_blank" class="text-blue-500 hover:underline">Configurar perfil público</a>.
+        También necesitas tu SteamID64, que puedes obtener aquí:
+        <a href="https://help.steampowered.com/es/faqs/view/2816-BE67-5B69-0FEC" target="_blank" class="text-blue-500 hover:underline">Encontrar SteamID</a>.
+      </p>
+      <form [formGroup]="steamForm" (ngSubmit)="submitSteam()">
+        <div class="mb-4">
+          <label for="steamId" class="block text-gray-700 dark:text-gray-200">SteamID64</label>
+          <input
+            formControlName="steamId"
+            type="text"
+            id="steamId"
+            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            [class.border-red-500]="steamForm.get('steamId')?.invalid && steamForm.get('steamId')?.touched"
+            placeholder="Ejemplo: 76561197960435530"
+          />
+          <div *ngIf="steamForm.get('steamId')?.invalid && steamForm.get('steamId')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="steamForm.get('steamId')?.errors?.['required']">El SteamID64 es obligatorio.</span>
+            <span *ngIf="steamForm.get('steamId')?.errors?.['pattern']">El SteamID64 debe ser un número de 17 dígitos.</span>
+          </div>
+        </div>
+        <button
+          type="submit"
+          [disabled]="steamForm.invalid || isLoadingSteam"
+          class="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          {{ isLoadingSteam ? 'Conectando...' : 'Conectar con Steam' }}
+        </button>
+        <div *ngIf="isLoadingSteam" class="mt-4 flex items-center justify-center">
+          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
+        </div>
+        <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
+      </form>
+    </div>
+  </div>
+</div>
