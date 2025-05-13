@@ -5,9 +5,12 @@ from app.gestores.gestorUsuario import obtenerUsuarioPorCorreo, actualizarUsuari
 from app.servicios.servicioGenerarActualizacionUsuario import generarActualizacionDesdePeticion
 from app.servicios.servicioRecomendacionPersonalizada import generarRecomendacionPersonalizada, generarCambiosDesdePeticionRecomendacion
 from app.servicios.servicioProximosLanzamientos import obtenerProximosLanzamientosServicio
+from app.servicios.servicioSteam import obtener_juegos_steam
+from app.modelos.modeloUsuario import JuegoPoseido
 from datetime import datetime
 import json
 from typing import List
+
 
 def crearUsuarioServicio(usuario: Usuario) -> dict:
     return crearUsuario(usuario.dict())
@@ -102,3 +105,68 @@ def obtenerProximosLanzamientosServicioWrapper(correo: str) -> List[dict]:
     
     # Llamar al servicio
     return obtenerProximosLanzamientosServicio(datos_usuario)
+
+
+
+def obtenerDatosSteamServicio(correo: str, steam_id: str) -> dict:
+    """
+    Obtiene los juegos de un usuario desde Steam y actualiza su perfil.
+    
+    Args:
+        correo (str): Correo del usuario en la base de datos.
+        steam_id (str): SteamID64 del usuario.
+        
+    Returns:
+        dict: Mensaje de éxito y número de juegos añadidos.
+        
+    Raises:
+        ValueError: Si el usuario no se encuentra o la solicitud a Steam falla.
+    """
+    # Obtener el usuario
+    usuario = obtenerUsuarioPorCorreoServicio(correo)
+    if not usuario:
+        raise ValueError("Usuario no encontrado")
+
+    # Obtener juegos de Steam
+    juegos_steam = obtener_juegos_steam(steam_id)
+    if not juegos_steam:
+        return {"mensaje": "No se encontraron juegos en el perfil de Steam (puede ser privado o no existir)", "juegos_anadidos": 0}
+
+    # Preparar listas para actualizar
+    juegos_poseidos = usuario.get("juegosPoseidos", []) or []
+    juegos_jugados = usuario.get("juegosJugados", []) or []
+
+    # Crear nuevos juegos poseídos
+    nuevos_juegos_poseidos = []
+    nuevos_juegos_jugados = []
+    for juego in juegos_steam:
+        nombre_juego = juego["nombre"]
+        # Evitar duplicados en juegos poseídos
+        if not any(j["nombre"] == nombre_juego for j in juegos_poseidos):
+            nuevos_juegos_poseidos.append(JuegoPoseido(
+                nombre=nombre_juego,
+                consolasDisponibles=["PC"]  # Asumimos que los juegos de Steam son para PC
+            ).dict())
+        # Añadir a juegos jugados si tiene más de 60 minutos
+        if juego["playtime_forever"] > 60 and nombre_juego not in juegos_jugados:
+            nuevos_juegos_jugados.append(nombre_juego)
+
+    # Actualizar las listas
+    if nuevos_juegos_poseidos:
+        juegos_poseidos.extend(nuevos_juegos_poseidos)
+    if nuevos_juegos_jugados:
+        juegos_jugados.extend(nuevos_juegos_jugados)
+
+    # Actualizar el perfil del usuario
+    actualizacion = {
+        "juegosPoseidos": juegos_poseidos,
+        "juegosJugados": juegos_jugados
+    }
+    if not actualizarUsuarioPorCorreoServicio(correo, actualizacion):
+        raise ValueError("No se pudo actualizar el perfil del usuario")
+
+    return {
+        "mensaje": "Juegos de Steam añadidos correctamente",
+        "juegos_anadidos": len(nuevos_juegos_poseidos),
+        "juegos_jugados_anadidos": len(nuevos_juegos_jugados)
+    }

@@ -1,12 +1,12 @@
 # archivo: app/rutas/rutaUsuario.py
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from app.modelos.modeloUsuario import Usuario, UsuarioEnBaseDeDatos, UsuarioObligatorio, UsuarioOpcionalSinHistorial, UsuarioOpcionalConHistorial
 from app.servicios.serviciosUsuario import *
 from fastapi import Body
 from pydantic import BaseModel
 from typing import Optional
-
+from app.rutas.rutaAuth import get_current_user
 router = APIRouter(prefix="/usuarios", tags=["usuarios"])
 
 # Modelo de respuesta para el endpoint modificarPorPeticion
@@ -105,3 +105,26 @@ def actualizarDatosObligatorios(correo: str, datos: DatosObligatoriosActualizado
     if actualizado:
         return {"mensaje": "Datos obligatorios actualizados correctamente"}
     raise HTTPException(status_code=404, detail="Usuario no encontrado o no modificado")
+
+class SteamRequest(BaseModel):
+    steam_id: str
+
+@router.post("/porCorreo/{correo}/steam", response_model=dict)
+def obtenerDatosSteam(correo: str, datos: SteamRequest):
+    """
+    Obtiene los juegos de un usuario de Steam y actualiza su perfil.
+    
+    Args:
+        correo: Correo del usuario.
+        datos: Objeto con el steam_id.
+        
+    Returns:
+        Mensaje de éxito y número de juegos añadidos.
+    """
+    try:
+        resultado = obtenerDatosSteamServicio(correo, datos.steam_id)
+        return resultado
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error interno: {str(e)}")
