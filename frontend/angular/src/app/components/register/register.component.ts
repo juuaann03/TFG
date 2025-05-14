@@ -16,6 +16,7 @@ export class RegisterComponent {
   registerForm: FormGroup;
   error: string | null = null;
   isLoading = false;
+  showPassword = false;
   @Output() closeModal = new EventEmitter<void>();
 
   constructor(
@@ -26,8 +27,19 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)/)
+        ]
+      ]
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   submitRegister(): void {
@@ -44,8 +56,8 @@ export class RegisterComponent {
         next: (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('rol', response.rol);
-          localStorage.setItem('correo', this.registerForm.value.email); // Guardar correo
-          localStorage.setItem('nombre', this.registerForm.value.name); // Guardar correo
+          localStorage.setItem('correo', this.registerForm.value.email);
+          localStorage.setItem('nombre', this.registerForm.value.name);
           this.registerForm.reset();
           this.isLoading = false;
           this.closeModal.emit();

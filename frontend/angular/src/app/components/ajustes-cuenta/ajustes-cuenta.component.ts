@@ -1,5 +1,3 @@
-// archivo: src/app/components/ajustes-cuenta/ajustes-cuenta.component.ts
-
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -29,6 +27,8 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
   isDarkMode = false;
   showModal = false; // Para el modal de modificar datos
   showSteamModal = false; // Para el modal de Steam
+  showCurrentPassword = false; // Para controlar visibilidad de contraseña actual
+  showNewPassword = false; // Para controlar visibilidad de nueva contraseña
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -40,7 +40,10 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
     this.datosForm = this.fb.group({
       currentPassword: ['', Validators.required],
       newName: [''],
-      newPassword: ['']
+      newPassword: ['', [
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)/)
+      ]]
     });
 
     // Formulario para la petición de datos opcionales
@@ -70,6 +73,14 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
     this.isDarkMode = !this.isDarkMode;
     document.documentElement.classList.toggle('dark', this.isDarkMode);
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
+  }
+
+  toggleCurrentPasswordVisibility(): void {
+    this.showCurrentPassword = !this.showCurrentPassword;
+  }
+
+  toggleNewPasswordVisibility(): void {
+    this.showNewPassword = !this.showNewPassword;
   }
 
   cargarDatosOpcionales(): void {

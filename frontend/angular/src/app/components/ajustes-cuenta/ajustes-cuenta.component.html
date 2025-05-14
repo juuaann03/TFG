@@ -1,32 +1,32 @@
-<!-- archivo: src/app/components/ajustes-cuenta/ajustes-cuenta.component.html -->
-
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <!-- Header -->
-  <header class="flex justify-between items-center p-4 bg-white dark:bg-gray-800 shadow-md">
-    <h1 class="text-2xl font-bold">Ajustes de la cuenta</h1>
+  <header class="flex flex-col sm:flex-row justify-between items-center p-4 bg-white dark:bg-gray-800 shadow-md">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4 mb-2 sm:mb-0">
+      <div class="flex items-center space-x-4">
+        <h1 class="text-2xl sm:text-3xl md:text-4xl font-orbitron tracking-wide text-gray-900 dark:text-white">
+          LangGames
+        </h1>
+        <img
+          [src]="isDarkMode ? 'logo-simple-blanco.png' : 'logo-simple-negro.png'"
+          alt="LangGames Logo"
+          class="w-10 h-10 sm:w-12 sm:h-12"
+        >
+      </div>
+      <h2 *ngIf="nombreUsuario" class="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-200">
+        Ajustes de la cuenta de {{ nombreUsuario }}
+      </h2>
+    </div>
     <div class="flex items-center space-x-4">
       <button
-        (click)="toggleTheme()"
-        class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600"
-        aria-label="Cambiar tema"
-      >
-        <svg *ngIf="!isDarkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-        </svg>
-        <svg *ngIf="isDarkMode" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-        </svg>
-      </button>
-      <button
         (click)="openSteamModal()"
-        class="flex items-center space-x-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+        class="flex items-center space-x-2 px-4 py-2 text-green-500 dark:text-green-400 border border-green-500 dark:border-green-400 rounded-md hover:text-green-600 dark:hover:text-green-300 hover:border-green-600 dark:hover:border-green-300 transition-all"
       >
         <img src="steam-logo.png" alt="Steam Logo" class="w-6 h-6">
         <span>Conectar con Steam</span>
       </button>
       <button
         (click)="goBack()"
-        class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        class="px-4 py-2 text-blue-500 dark:text-blue-400 border border-blue-500 dark:border-blue-400 rounded-md hover:text-blue-600 dark:hover:text-blue-300 hover:border-blue-600 dark:hover:border-blue-300 transition-all"
       >
         Volver
       </button>
@@ -39,16 +39,16 @@
     <div class="md:w-1/3 space-y-6">
       <!-- Sección: Acciones de la cuenta -->
       <section>
-        <h2 class="text-xl font-semibold mb-4">Acciones de la cuenta</h2>
+        <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Acciones de la cuenta</h2>
         <button
           (click)="openModal()"
-          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          class="w-full px-4 py-2 text-blue-500 dark:text-blue-400 border border-blue-500 dark:border-blue-400 rounded-md hover:text-blue-600 dark:hover:text-blue-300 hover:border-blue-600 dark:hover:border-blue-300 transition-all"
         >
           Modificar datos de la cuenta
         </button>
         <button
           (click)="resetDatosVideojuegos()"
-          class="w-full mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+          class="w-full mt-4 px-4 py-2 text-red-500 dark:text-red-400 border border-red-500 dark:border-red-400 rounded-md hover:text-red-600 dark:hover:text-red-300 hover:border-red-600 dark:hover:border-red-300 transition-all"
         >
           Restablecer datos sobre videojuegos
         </button>
@@ -56,15 +56,15 @@
 
       <!-- Sección: Datos Opcionales -->
       <section>
-        <h2 class="text-xl font-semibold mb-4">Tus preferencias</h2>
+        <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Tus preferencias</h2>
         <div *ngIf="isLoading" class="flex items-center justify-center">
-          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-          <span class="ml-2 text-gray-700 dark:text-gray-200">Cargando...</span>
+          <img src="gif-pokeball.gif" alt="Cargando" class="w-6 h-6 sm:w-8 sm:h-8" />
+          <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
         </div>
         <div *ngIf="!isLoading && !datosOpcionales" class="text-gray-500 dark:text-gray-400">
           No hay datos opcionales disponibles.
         </div>
-        <div *ngIf="!isLoading && datosOpcionales" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 space-y-4">
+        <div *ngIf="!isLoading && datosOpcionales" class="p-4 space-y-4">
           <!-- Consolas -->
           <div>
             <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Consolas:</strong></p>
@@ -147,8 +147,8 @@
     </div>
 
     <!-- Right Column: Personalizar preferencias -->
-    <aside class="md:w-2/3 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-      <h2 class="text-xl font-semibold mb-4">Personaliza tu experiencia</h2>
+    <aside class="md:w-2/3 p-6">
+      <h2 class="text-xl font-semibold mb-4 text-gray-900 dark:text-white">Personaliza tu experiencia</h2>
       <p class="text-gray-600 dark:text-gray-400 mb-4">
         Comparte con nuestros agentes tus consolas, configuración de PC, necesidades especiales o preferencias de juegos para obtener recomendaciones más precisas y personalizadas.
       </p>
@@ -159,7 +159,7 @@
             formControlName="peticion"
             id="peticion"
             rows="4"
-            class="w-full p-2 border rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+            class="w-full p-3 border rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
             [class.border-red-500]="peticionForm.get('peticion')?.invalid && peticionForm.get('peticion')?.touched"
             placeholder="Ejemplo: Tengo una PS5 y un PC con RTX 3080, me gustan los juegos de aventura"
             (keydown.enter)="submitPeticion(); $event.preventDefault()"
@@ -171,12 +171,15 @@
         <button
           type="submit"
           [disabled]="peticionForm.invalid || isLoadingPeticion"
-          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          class="relative w-full px-4 py-2 text-blue-5
+
+00 dark:text-blue-400 border border-blue-500 dark:border-blue-400 rounded-md hover:text-blue-600 dark:hover:text-blue-300 hover:border-blue-600 dark:hover:border-blue-300 overflow-hidden group transition-all"
         >
-          {{ isLoadingPeticion ? 'Cargando...' : 'Enviar Preferencias' }}
+          <span class="relative z-10">{{ isLoadingPeticion ? 'Cargando...' : 'Enviar Preferencias' }}</span>
+          <span class="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
         </button>
         <div *ngIf="isLoadingPeticion" class="mt-4 flex items-center justify-center">
-          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <img src="gif-pokeball.gif" alt="Cargando" class="w-6 h-6 sm:w-8 sm:h-8" />
           <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
         </div>
         <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
@@ -185,56 +188,84 @@
   </main>
 
   <!-- Modal para modificar datos -->
-  <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
       <button (click)="closeModal()" class="float-right text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">X</button>
       <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Modificar datos de la cuenta</h2>
       <form [formGroup]="datosForm" (ngSubmit)="submitDatos()">
-        <div class="mb-4">
-          <label for="currentPassword" class="block text-gray-700 dark:text-gray-200">Contraseña actual</label>
-          <input
-            formControlName="currentPassword"
-            type="password"
-            id="currentPassword"
-            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            [class.border-red-500]="datosForm.get('currentPassword')?.invalid && datosForm.get('currentPassword')?.touched"
-          />
+        <div class="mb-4 relative">
+          <label for="currentPassword" class="block text-gray-700 dark:text-gray-200 mb-2">Contraseña actual</label>
+          <div class="relative">
+            <input
+              formControlName="currentPassword"
+              [type]="showCurrentPassword ? 'text' : 'password'"
+              id="currentPassword"
+              class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pr-10"
+              [class.border-red-500]="datosForm.get('currentPassword')?.invalid && datosForm.get('currentPassword')?.touched"
+            />
+            <button
+              type="button"
+              (click)="toggleCurrentPasswordVisibility()"
+              class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            >
+              <span class="material-icons text-lg">
+                {{ showCurrentPassword ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
           <div *ngIf="datosForm.get('currentPassword')?.invalid && datosForm.get('currentPassword')?.touched" class="text-red-500 text-sm mt-1">
             <span *ngIf="datosForm.get('currentPassword')?.errors?.['required']">La contraseña actual es obligatoria.</span>
           </div>
         </div>
         <div class="mb-4">
-          <label for="newName" class="block text-gray-700 dark:text-gray-200">Nuevo nombre (opcional)</label>
+          <label for="newName" class="block text-gray-700 dark:text-gray-200 mb-2">Nuevo nombre (opcional)</label>
           <input
             formControlName="newName"
             type="text"
             id="newName"
-            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
           />
         </div>
-        <div class="mb-4">
-          <label for="newPassword" class="block text-gray-700 dark:text-gray-200">Nueva contraseña (opcional)</label>
-          <input
-            formControlName="newPassword"
-            type="password"
-            id="newPassword"
-            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-          />
+        <div class="mb-4 relative">
+          <label for="newPassword" class="block text-gray-700 dark:text-gray-200 mb-2">Nueva contraseña (opcional)</label>
+          <div class="relative">
+            <input
+              formControlName="newPassword"
+              [type]="showNewPassword ? 'text' : 'password'"
+              id="newPassword"
+              class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all pr-10"
+              [class.border-red-500]="datosForm.get('newPassword')?.invalid && datosForm.get('newPassword')?.touched"
+            />
+            <button
+              type="button"
+              (click)="toggleNewPasswordVisibility()"
+              class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            >
+              <span class="material-icons text-lg">
+                {{ showNewPassword ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+          <div *ngIf="datosForm.get('newPassword')?.invalid && datosForm.get('newPassword')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="datosForm.get('newPassword')?.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</span>
+            <span *ngIf="datosForm.get('newPassword')?.errors?.['pattern']">La contraseña debe contener al menos una letra y un número.</span>
+          </div>
         </div>
         <button
           type="submit"
           [disabled]="datosForm.get('currentPassword')?.invalid || isLoading"
-          class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          class="relative w-full px-4 py-2 text-blue-500 dark:text-blue-400 border border-blue-500 dark:border-blue-400 rounded-md hover:text-blue-600 dark:hover:text-blue-300 hover:border-blue-600 dark:hover:border-blue-300 overflow-hidden group transition-all"
         >
-          {{ isLoading ? 'Cargando...' : 'Actualizar Datos' }}
+          <span class="relative z-10">{{ isLoading ? 'Cargando...' : 'Actualizar Datos' }}</span>
+          <span class="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
         </button>
         <button
           type="button"
           (click)="deleteAccount()"
-          class="w-full mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-          [disabled]="isLoading"
+          class="relative w-full mt-4 px-4 py-2 text-red-500 dark:text-red-400 border border-red-500 dark:border-red-400 rounded-md hover:text-red-600 dark:hover:text-red-300 hover:border-red-600 dark:hover:border-red-300 overflow-hidden group transition-all"
         >
-          Borrar Cuenta
+          <span class="relative z-10">Borrar Cuenta</span>
+          <span class="absolute inset-0 bg-red-500/10 dark:bg-red-400/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
         </button>
         <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
       </form>
@@ -242,7 +273,7 @@
   </div>
 
   <!-- Modal para conectar con Steam -->
-  <div *ngIf="showSteamModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div *ngIf="showSteamModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
       <button (click)="closeSteamModal()" class="float-right text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">X</button>
       <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Conectar con Steam</h2>
@@ -259,7 +290,7 @@
             formControlName="steamId"
             type="text"
             id="steamId"
-            class="w-full p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+            class="w-full p-3 border rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
             [class.border-red-500]="steamForm.get('steamId')?.invalid && steamForm.get('steamId')?.touched"
             placeholder="Ejemplo: 76561197960435530"
           />
@@ -271,16 +302,33 @@
         <button
           type="submit"
           [disabled]="steamForm.invalid || isLoadingSteam"
-          class="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          class="relative w-full px-4 py-2 text-green-500 dark:text-green-400 border border-green-500 dark:border-green-400 rounded-md hover:text-green-600 dark:hover:text-green-300 hover:border-green-600 dark:hover:border-green-300 overflow-hidden group transition-all"
         >
-          {{ isLoadingSteam ? 'Conectando...' : 'Conectar con Steam' }}
+          <span class="relative z-10">{{ isLoadingSteam ? 'Conectando...' : 'Conectar con Steam' }}</span>
+          <span class="absolute inset-0 bg-green-500/10 dark:bg-green-400/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
         </button>
         <div *ngIf="isLoadingSteam" class="mt-4 flex items-center justify-center">
-          <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+          <img src="gif-pokeball.gif" alt="Cargando" class="w-6 h-6 sm:w-8 sm:h-8" />
           <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
         </div>
         <div *ngIf="error" class="mt-2 text-red-500">{{ error }}</div>
       </form>
     </div>
+  </div>
+
+  <!-- Botón de modo claro/oscuro -->
+  <div class="fixed bottom-4 right-4 z-10">
+    <button
+      (click)="toggleTheme()"
+      class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full shadow-md hover:scale-105 transition-transform"
+      aria-label="Cambiar tema"
+    >
+      <svg *ngIf="!isDarkMode" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+      </svg>
+      <svg *ngIf="isDarkMode" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
+    </button>
   </div>
 </div>

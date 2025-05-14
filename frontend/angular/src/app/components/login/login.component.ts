@@ -16,6 +16,7 @@ export class LoginComponent {
   loginForm: FormGroup;
   error: string | null = null;
   isLoading = false;
+  showPassword = false;
   @Output() closeModal = new EventEmitter<void>();
 
   constructor(
@@ -25,8 +26,12 @@ export class LoginComponent {
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required] // Solo requerido, sin restricciones adicionales
     });
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   submitLogin(): void {
@@ -38,8 +43,8 @@ export class LoginComponent {
         next: (response) => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('rol', response.rol);
-          localStorage.setItem('correo', this.loginForm.value.email); // Guardar correo
-          localStorage.setItem('nombre', response.nombre); // Guardar el nombre
+          localStorage.setItem('correo', this.loginForm.value.email);
+          localStorage.setItem('nombre', response.nombre);
           this.loginForm.reset();
           this.isLoading = false;
           this.closeModal.emit();

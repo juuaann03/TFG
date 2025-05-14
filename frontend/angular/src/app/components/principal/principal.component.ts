@@ -29,15 +29,25 @@ interface HistorialResponse {
 })
 export class PrincipalComponent implements OnInit, OnDestroy {
   recomendacionForm: FormGroup;
-  recomendaciones: Recomendacion[] = []; // Para el historial (Últimas Recomendaciones)
-  nuevaRecomendacion: Recomendacion[] = []; // Para la nueva recomendación personalizada
-  proximosLanzamientos: ProximoLanzamiento[] = []; // Para los próximos lanzamientos
-  nombreUsuario: string | null = null; // Nombre del usuario
+  recomendaciones: Recomendacion[] = [];
+  nuevaRecomendacion: Recomendacion[] = [];
+  proximosLanzamientos: ProximoLanzamiento[] = [];
+  nombreUsuario: string | null = null;
   error: string | null = null;
   isLoading = false; // Para Próximos Lanzamientos
+  isLoadingRecomendaciones = false; // Para Últimas Recomendaciones
   isLoadingRecomendacion = false; // Para Recomendación Personalizada
   isDarkMode = false;
+  placeholderText: string = '';
   private destroy$ = new Subject<void>();
+
+  private placeholderTexts: string[] = [
+    'Ejemplo: Quiero un juego de aventuras para PS5',
+    'Ejemplo: Busco un shooter multijugador para Xbox',
+    'Ejemplo: Quiero un RPG para Nintendo Switch',
+    'Ejemplo: Busco un juego indie para PC',
+    'Ejemplo: Quiero un juego de puzzles para móvil'
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -51,17 +61,14 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // Cargar tema desde localStorage
     this.isDarkMode = localStorage.getItem('theme') === 'dark';
     document.documentElement.classList.toggle('dark', this.isDarkMode);
 
-    // Obtener nombre del usuario desde localStorage
     this.nombreUsuario = localStorage.getItem('nombre') || null;
 
-    // Obtener historial de recomendaciones
-    this.cargarUltimasRecomendaciones();
+    this.placeholderText = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
 
-    // Obtener próximos lanzamientos
+    this.cargarUltimasRecomendaciones();
     this.cargarProximosLanzamientos();
   }
 
@@ -78,12 +85,13 @@ export class PrincipalComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.isLoadingRecomendaciones = true;
     this.apiService.get<HistorialResponse>(`usuarios/porCorreo/${correo}/optativosConHistorial`).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
       next: (response: HistorialResponse) => {
-        const historial = (response.historialConversaciones || []).slice().reverse(); // Invertir para mostrar más recientes primero
-        this.recomendaciones = historial
+        const historial = (response.historialConversaciones || []).slice().reverse();
+        const recomendacionesSinFiltrar = historial
           .filter(conv => conv.respuesta)
           .flatMap(conv => {
             try {
@@ -96,11 +104,25 @@ export class PrincipalComponent implements OnInit, OnDestroy {
               console.error('Error al parsear respuesta:', e);
               return [];
             }
+          });
+
+        // Filtrar duplicados en Últimas Recomendaciones basados en el nombre
+        const nombresVistos = new Set<string>();
+        this.recomendaciones = recomendacionesSinFiltrar
+          .filter(juego => {
+            if (nombresVistos.has(juego.nombre)) {
+              return false;
+            }
+            nombresVistos.add(juego.nombre);
+            return true;
           })
           .slice(0, 6); // Limitar a 6 recomendaciones
+
+        this.isLoadingRecomendaciones = false;
       },
       error: (err: any) => {
         this.error = 'Error al cargar recomendaciones: ' + (err.error?.detail || err.message);
+        this.isLoadingRecomendaciones = false;
       }
     });
   }
@@ -117,7 +139,16 @@ export class PrincipalComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$)
     ).subscribe({
       next: (lanzamientos: ProximoLanzamiento[]) => {
-        this.proximosLanzamientos = lanzamientos;
+        // Filtrar duplicados en Próximos Lanzamientos basados en el título
+        const titulosVistos = new Set<string>();
+        this.proximosLanzamientos = lanzamientos.filter(juego => {
+          if (titulosVistos.has(juego.titulo)) {
+            return false;
+          }
+          titulosVistos.add(juego.titulo);
+          return true;
+        });
+
         this.isLoading = false;
       },
       error: (err: any) => {
@@ -143,16 +174,26 @@ export class PrincipalComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$)
       ).subscribe({
         next: (response: Recomendacion[]) => {
-          this.nuevaRecomendacion = response.map((juego: Recomendacion) => ({
-            nombre: juego.nombre || 'Juego desconocido',
-            imagen: juego.imagen || 'https://via.placeholder.com/150',
-            genero: juego.genero || 'Desconocido',
-            plataformas: juego.plataformas || 'Desconocido',
-            razon: juego.razon || 'No especificado'
-          }));
+          // Filtrar duplicados en Nueva Recomendación basados en el nombre
+          const nombresVistos = new Set<string>();
+          this.nuevaRecomendacion = response
+            .filter(juego => {
+              if (nombresVistos.has(juego.nombre || '')) {
+                return false;
+              }
+              nombresVistos.add(juego.nombre || '');
+              return true;
+            })
+            .map((juego: Recomendacion) => ({
+              nombre: juego.nombre || 'Juego desconocido',
+              imagen: juego.imagen || 'https://via.placeholder.com/150',
+              genero: juego.genero || 'Desconocido',
+              plataformas: juego.plataformas || 'Desconocido',
+              razon: juego.razon || 'No especificado'
+            }));
+
           this.recomendacionForm.reset();
           this.isLoadingRecomendacion = false;
-          // Recargar historial para actualizar Últimas Recomendaciones
           this.cargarUltimasRecomendaciones();
         },
         error: (err: any) => {
@@ -165,6 +206,17 @@ export class PrincipalComponent implements OnInit, OnDestroy {
 
   goToSettings(): void {
     this.router.navigate(['/ajustes-cuenta']);
+  }
+
+  logout(): void {
+    // Limpiar datos de la sesión en localStorage
+    localStorage.removeItem('correo');
+    localStorage.removeItem('nombre');
+    // Opcional: Limpiar el tema si no quieres que persista
+    // localStorage.removeItem('theme');
+
+    // Redirigir a la página de home
+    this.router.navigate(['/home']);
   }
 
   ngOnDestroy(): void {
