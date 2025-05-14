@@ -1,73 +1,114 @@
-<div [ngClass]="{'dark': isDarkMode}" class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">
-  <!-- Encabezado -->
-  <header class="flex justify-between items-center p-4">
-    <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-      GameFinder AI
-    </h1>
-    <div class="flex items-center space-x-2">
-      <button (click)="openAuthModal()" class="flex items-center space-x-1 text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400">
-        <span class="material-icons">account_circle</span>
-        <span>Crear cuenta / Iniciar sesión</span>
+<div class="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <!-- Header -->
+  <header class="flex flex-col sm:flex-row justify-between items-center p-4 bg-white dark:bg-gray-800 shadow-md">
+    <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-orbitron tracking-wide text-gray-900 dark:text-white">LangGames</h1>
+      <img
+        [src]="isDarkMode ? 'logo-simple-blanco.png' : 'logo-simple-negro.png'"
+        alt="LangGames Logo"
+        class="w-10 h-10 sm:w-12 sm:h-12"
+      >
+    </div>
+    <div class="flex items-center space-x-2 sm:space-x-4">
+      <button
+        (click)="openAuthModal('login')"
+        class="flex items-center space-x-2 px-3 py-1 text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition-all border border-blue-500 dark:border-blue-400 rounded-md"
+      >
+        <span class="material-icons text-lg sm:text-xl">account_circle</span>
+        <span class="text-sm sm:text-base">Iniciar Sesión</span>
+      </button>
+      <button
+        (click)="openAuthModal('register')"
+        class="flex items-center space-x-2 px-3 py-1 text-green-500 dark:text-green-400 hover:text-green-600 dark:hover:text-green-300 transition-all border border-green-500 dark:border-green-400 rounded-md"
+      >
+        <span class="material-icons text-lg sm:text-xl">person_add</span>
+        <span class="text-sm sm:text-base">Crear Cuenta</span>
       </button>
     </div>
   </header>
 
-  <!-- Contenido principal -->
+  <!-- Main Content -->
   <main class="flex-grow flex flex-col items-center p-4">
-    <p class="text-center text-lg md:text-xl text-gray-700 dark:text-gray-200 max-w-2xl mb-6">
-      ¿Qué quieres jugar, un shooter para PS4? ¿Un clásico de Nintendo? Nuestros agentes te ayudarán a encontrar los juegos que mejor se adaptan a tus necesidades. Pregúntales lo que quieras.
+    <p class="text-center text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-200 max-w-lg sm:max-w-2xl lg:max-w-4xl mb-6">
+      {{ introText }}
     </p>
 
     <!-- Formulario de recomendación -->
-    <form [formGroup]="recommendationForm" (ngSubmit)="submitRecommendation()" class="w-full max-w-lg">
-      <div class="flex flex-col md:flex-row gap-2">
-        <input
+    <form [formGroup]="recommendationForm" (ngSubmit)="submitRecommendation()" class="w-full max-w-lg sm:max-w-2xl lg:max-w-4xl">
+      <div class="mb-4">
+        <label for="prompt" class="block text-gray-700 dark:text-gray-200 mb-2 text-sm sm:text-base">¿Qué tipo de juego buscas?</label>
+        <textarea
           formControlName="prompt"
-          type="text"
-          placeholder="Ej: Shooter para PS4"
-          class="flex-grow p-2 border rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          type="submit"
-          [disabled]="recommendationForm.invalid || isLoading"
-          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-        >
-          {{ isLoading ? 'Cargando...' : 'Enviar' }}
-        </button>
+          id="prompt"
+          rows="4"
+          class="w-full p-3 border rounded-md bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base"
+          [class.border-red-500]="recommendationForm.get('prompt')?.invalid && recommendationForm.get('prompt')?.touched"
+          [placeholder]="placeholderText"
+          (keydown.enter)="submitRecommendation(); $event.preventDefault()"
+        ></textarea>
+        <div *ngIf="recommendationForm.get('prompt')?.invalid && recommendationForm.get('prompt')?.touched" class="text-red-500 text-xs sm:text-sm mt-1">
+          <span *ngIf="recommendationForm.get('prompt')?.errors?.['required']">La descripción es obligatoria.</span>
+        </div>
       </div>
+      <button
+        *ngIf="!isLoading"
+        type="submit"
+        [disabled]="recommendationForm.invalid"
+        class="relative w-full px-4 py-2 text-blue-500 dark:text-blue-400 border border-blue-500 dark:border-blue-400 rounded-md hover:text-blue-600 dark:hover:text-blue-300 hover:border-blue-600 dark:hover:border-blue-300 overflow-hidden group text-sm sm:text-base"
+      >
+        <span class="relative z-10">Obtener Recomendación</span>
+        <span class="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/10 transform translate-x-full group-hover:translate-x-0 transition-transform duration-300"></span>
+      </button>
     </form>
 
     <!-- Indicador de carga -->
     <div *ngIf="isLoading" class="mt-4 flex items-center justify-center">
-      <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-      <span class="ml-2 text-gray-700 dark:text-gray-200">Procesando...</span>
+      <img src="gif-pokeball.gif" alt="Cargando" class="w-6 h-6 sm:w-8 sm:h-8" />
+      <span class="ml-2 text-gray-700 dark:text-gray-200 text-sm sm:text-base">Procesando...</span>
     </div>
 
     <!-- Resultado de las recomendaciones -->
     <div *ngIf="recommendations && recommendations.length > 0" class="mt-6 w-full max-w-4xl">
-      <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Recomendaciones:</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-4">Tus Recomendaciones</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         <div *ngFor="let rec of recommendations" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex flex-col">
-          <img *ngIf="rec.imagen" [src]="rec.imagen" [alt]="rec.nombre" class="w-full h-48 object-cover rounded-md mb-4" />
-          <div *ngIf="!rec.imagen" class="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-md mb-4 flex items-center justify-center">
-            <span class="text-gray-500 dark:text-gray-400">Sin imagen</span>
+          <img *ngIf="rec.imagen" [src]="rec.imagen" [alt]="rec.nombre" class="w-full h-40 sm:h-48 object-cover rounded-md mb-4" />
+          <div *ngIf="!rec.imagen" class="w-full h-40 sm:h-48 bg-gray-200 dark:bg-gray-700 rounded-md mb-4 flex items-center justify-center">
+            <span class="text-gray-500 dark:text-gray-400 text-sm sm:text-base">Sin imagen</span>
           </div>
-          <h4 class="text-xl font-semibold text-gray-900 dark:text-white">{{ rec.nombre }}</h4>
-          <p class="text-gray-600 dark:text-gray-300"><span class="font-semibold">Género:</span> {{ rec.genero }}</p>
-          <p class="text-gray-600 dark:text-gray-300"><span class="font-semibold">Plataformas:</span> {{ rec.plataformas }}</p>
-          <p class="text-gray-600 dark:text-gray-300 mt-2"><span class="font-semibold">Razón:</span> {{ rec.razon }}</p>
+          <h4 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">{{ rec.nombre }}</h4>
+          <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base"><span class="font-semibold">Género:</span> {{ rec.genero }}</p>
+          <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base"><span class="font-semibold">Plataformas:</span> {{ rec.plataformas }}</p>
+          <p class="text-gray-600 dark:text-gray-300 mt-2 text-sm sm:text-base"><span class="font-semibold">Razón:</span> {{ rec.razon }}</p>
         </div>
       </div>
     </div>
-    <div *ngIf="error" class="mt-4 p-4 bg-red-100 dark:bg-red-900 rounded-md w-full max-w-lg">
-      <p class="text-red-700 dark:text-red-200">{{ error }}</p>
+    <div *ngIf="error" class="mt-4 p-4 bg-red-100 dark:bg-red-900 rounded-md w-full max-w-lg sm:max-w-2xl lg:max-w-4xl">
+      <p class="text-red-700 dark:text-red-200 text-sm sm:text-base">{{ error }}</p>
     </div>
   </main>
 
+  <!-- Footer -->
+  <footer class="p-4 text-center">
+    <img src="imagen-aplicacion.png" alt="LangGames Aplicación" class="mx-auto mb-4 w-40 sm:w-48 h-auto">
+    <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base">
+      © 2025 LangGames. Todos los derechos reservados.
+    </p>
+  </footer>
+
   <!-- Botón de modo claro/oscuro -->
   <div class="fixed bottom-4 right-4">
-    <button (click)="toggleDarkMode()" class="p-3 bg-gray-200 dark:bg-gray-700 rounded-full shadow-md hover:scale-105 transition-transform">
-      <span class="material-icons">{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</span>
+    <button
+      (click)="toggleDarkMode()"
+      class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-full shadow-md hover:scale-105 transition-transform"
+      aria-label="Cambiar tema"
+    >
+      <svg *ngIf="!isDarkMode" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+      </svg>
+      <svg *ngIf="isDarkMode" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+      </svg>
     </button>
   </div>
 
@@ -75,13 +116,6 @@
   <div *ngIf="showAuthModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md">
       <button (click)="closeAuthModal()" class="float-right text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">X</button>
-      <ng-container *ngIf="!authMode">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Autenticación</h2>
-        <div class="flex justify-around mb-4">
-          <button (click)="selectAuthMode('login')" class="px-4 py-2 bg-blue-500 text-white rounded-md">Iniciar Sesión</button>
-          <button (click)="selectAuthMode('register')" class="px-4 py-2 bg-green-500 text-white rounded-md">Crear Cuenta</button>
-        </div>
-      </ng-container>
       <app-login *ngIf="authMode === 'login'"></app-login>
       <app-register *ngIf="authMode === 'register'"></app-register>
     </div>

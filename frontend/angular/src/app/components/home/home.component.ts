@@ -28,6 +28,24 @@ export class HomeComponent implements OnInit {
   showAuthModal = false;
   authMode: 'login' | 'register' | null = null;
   isLoading = false;
+  introText: string = '';
+  placeholderText: string = '';
+
+  private introTexts: string[] = [
+    '¿Qué quieres jugar, un shooter para PS4? ¿Un clásico de Nintendo? Nuestros agentes te ayudarán a encontrar los juegos que mejor se adaptan a tus necesidades. Pregúntales lo que quieras.',
+    '¿Buscas un RPG épico para PC? ¿O tal vez un juego de plataformas para Switch? Describe lo que quieres y te recomendaremos lo mejor.',
+    '¿Te apetece un juego de aventuras en Xbox? ¿O un indie relajante? Nuestros agentes tienen la recomendación perfecta para ti.',
+    '¿Quieres un multijugador para PS5? ¿O un clásico retro? Dinos tus gustos y encontraremos tu próximo juego favorito.',
+    '¿Un juego de estrategia para PC? ¿O algo rápido para móvil? Pregunta lo que quieras y te sorprenderemos con las mejores recomendaciones.'
+  ];
+
+  private placeholderTexts: string[] = [
+    'Ejemplo: Quiero un juego de aventuras para PS5',
+    'Ejemplo: Busco un shooter multijugador para Xbox',
+    'Ejemplo: Quiero un RPG para Nintendo Switch',
+    'Ejemplo: Busco un juego indie para PC',
+    'Ejemplo: Quiero un juego de puzzles para móvil'
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -40,29 +58,31 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isDarkMode = localStorage.getItem('darkMode') === 'true';
+    this.isDarkMode = localStorage.getItem('theme') === 'dark';
     this.updateDarkMode();
+    this.introText = this.introTexts[Math.floor(Math.random() * this.introTexts.length)];
+    this.placeholderText = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
   }
 
   submitRecommendation(): void {
     if (this.recommendationForm.valid) {
-      this.recommendations = null; // Limpiar recomendaciones anteriores
-      this.error = null; // Limpiar errores anteriores
-      this.isLoading = true; // Activar carga
+      this.recommendations = null;
+      this.error = null;
+      this.isLoading = true;
       const prompt = this.recommendationForm.get('prompt')?.value;
       this.apiService.post<any>('recomendar', { descripcionUsuario: prompt }).subscribe({
         next: (response) => {
           this.recommendations = response.recomendaciones;
           this.error = null;
           this.recommendationForm.reset();
-          this.isLoading = false; // Desactivar carga
+          this.isLoading = false;
         },
         error: (err) => {
           console.log('Error completo:', err);
           const errorDetail = err.error?.detail || err.message;
           this.error = `Error al obtener la recomendación: ${typeof errorDetail === 'string' ? errorDetail : JSON.stringify(errorDetail)}`;
           this.recommendations = null;
-          this.isLoading = false; // Desactivar carga
+          this.isLoading = false;
         }
       });
     }
@@ -76,13 +96,13 @@ export class HomeComponent implements OnInit {
 
   toggleDarkMode(): void {
     this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('darkMode', this.isDarkMode.toString());
+    localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');
     this.updateDarkMode();
   }
 
-  openAuthModal(): void {
+  openAuthModal(mode: 'login' | 'register'): void {
+    this.authMode = mode;
     this.showAuthModal = true;
-    this.authMode = null;
   }
 
   closeAuthModal(): void {
@@ -90,15 +110,7 @@ export class HomeComponent implements OnInit {
     this.authMode = null;
   }
 
-  selectAuthMode(mode: 'login' | 'register'): void {
-    this.authMode = mode;
-  }
-
   private updateDarkMode(): void {
-    if (this.isDarkMode) {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    document.documentElement.classList.toggle('dark', this.isDarkMode);
   }
 }
