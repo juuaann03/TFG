@@ -9,11 +9,14 @@ import { ProximoLanzamiento } from '../../models/proximo-lanzamiento';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+interface JuegoRecomendado {
+  nombre: string;
+  imagen: string;
+}
+
 interface Conversacion {
   pregunta?: string;
-  respuesta?: string;
-  fecha?: string;
-  contexto?: string;
+  juegos?: JuegoRecomendado[];
 }
 
 interface HistorialResponse {
@@ -92,19 +95,11 @@ export class PrincipalComponent implements OnInit, OnDestroy {
       next: (response: HistorialResponse) => {
         const historial = (response.historialConversaciones || []).slice().reverse();
         const recomendacionesSinFiltrar = historial
-          .filter(conv => conv.respuesta)
-          .flatMap(conv => {
-            try {
-              const juegos = JSON.parse(conv.respuesta || '[]');
-              return juegos.map((juego: any) => ({
-                nombre: juego.nombre || 'Juego desconocido',
-                imagen: juego.imagen || 'https://via.placeholder.com/150'
-              }));
-            } catch (e) {
-              console.error('Error al parsear respuesta:', e);
-              return [];
-            }
-          });
+          .filter(conv => conv.juegos && conv.juegos.length > 0)
+          .flatMap(conv => (conv.juegos || []).map(juego => ({
+            nombre: juego.nombre || 'Juego desconocido',
+            imagen: juego.imagen || 'https://via.placeholder.com/150'
+          })));
 
         // Filtrar duplicados en Últimas Recomendaciones basados en el nombre
         const nombresVistos = new Set<string>();

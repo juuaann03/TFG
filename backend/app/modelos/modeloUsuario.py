@@ -14,18 +14,19 @@ class JuegoPoseido(BaseModel):
     nombre: str = None
     consolasDisponibles: List[str] = None
 
+class JuegoRecomendado(BaseModel):  # Nueva clase para los juegos en el historial
+    nombre: str
+    imagen: str
+
 class Conversacion(BaseModel):
-    pregunta: Optional[str] = None  
-    respuesta: Optional[str] = None  
-    fecha: Optional[datetime] = None  
-    contexto: Optional[str] = None  
+    pregunta: Optional[str] = None
+    juegos: Optional[List[JuegoRecomendado]] = None  # Reemplaza respuesta, fecha y contexto
 
 class Usuario(BaseModel):
     nombre: str = None
     correo: str = None
     contrasena: str = None
     rol: Literal["usuario", "administrador"] = None
-
     consolas: Optional[List[str]] = None
     configuracionPc: Optional[ConfiguracionPc] = None
     necesidadesEspeciales: Optional[List[str]] = None

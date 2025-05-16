@@ -38,7 +38,6 @@ Devuelve un JSON con la siguiente estructura:
 - "suscripciones": Lista de suscripciones relevantes (ej. ["PS Plus", "Xbox Game Pass"]).
 - "requisitosPc": Objeto con requisitos de PC inferidos o del perfil (ej. {{"procesador": "i7-12700H", "tarjetaGrafica": "RTX 3080"}}).
 - "preferenciasAdicionales": Cualquier otra preferencia mencionada (ej. "juegos cortos", "multijugador").
-- "contexto": Breve descripción del análisis para usar en el historial de conversaciones (ej. "Recomendación de aventuras para PS4, excluyendo God of War").
 
 Usa abreviaturas estándar:
 - Consolas: "PlayStation 4" → "PS4", "PlayStation 5" → "PS5", "Nintendo Switch" → "Switch", "Xbox Series X" → "XSX".
@@ -242,8 +241,6 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
     except Exception as e:
         raise ValueError(f"Error al preprocesar la petición: {str(e)}")
 
-    # Extraer contexto
-    contexto = datos_procesados.get("contexto", "Recomendación personalizada basada en la petición y datos del usuario.")
 
     # Generar recomendaciones iniciales
     modelos_recomendacion = [
@@ -331,4 +328,4 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
     except Exception as e:
         raise ValueError(f"Error al parsear la respuesta final: {str(e)}")
 
-    return recomendaciones, contexto
+    return recomendaciones
