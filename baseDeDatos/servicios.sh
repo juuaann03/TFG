@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🔧 Iniciando el servicio de MongoDB..."
+echo "Iniciando el servicio de MongoDB..."
 
 # Iniciar MongoDB
 sudo systemctl start mongod
@@ -14,7 +14,7 @@ sudo systemctl enable mongod
 
 # Comprobar el estado
 if systemctl is-active --quiet mongod; then
-    echo "✅ MongoDB se ha iniciado correctamente y está funcionando."
+    echo "MongoDB se ha iniciado correctamente y está funcionando."
 else
-    echo "❌ Ha ocurrido un error al iniciar MongoDB. Revisa con: sudo systemctl status mongod"
+    echo "Ha ocurrido un error al iniciar MongoDB. Revisa con: sudo systemctl status mongod"
 fi

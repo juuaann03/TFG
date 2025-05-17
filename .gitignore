@@ -411,3 +411,6 @@ venv/*
 env/*
 .env/*
 *venv/*
+
+.pycache 
+.__pycache__

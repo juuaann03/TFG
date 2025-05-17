@@ -3,6 +3,6 @@
 from pymongo import MongoClient
 
 cliente = MongoClient("mongodb://localhost:27017")
-bd = cliente["PlataformaConLangChainParaRecomendarVideojuegos"]
+bd = cliente["LangGames"]
 coleccionUsuarios = bd["Usuarios"]
 

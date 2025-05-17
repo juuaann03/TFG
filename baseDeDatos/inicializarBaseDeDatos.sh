@@ -1,17 +1,13 @@
 #!/bin/bash
 
-echo "🛠️ Inicializando base de datos y colecciones..."
+echo "Inicializando base de datos y colecciones..."
 
 mongosh <<EOF
-use PlataformaConLangChainParaRecomendarVideojuegos
+use LangGames
 
-// Crear colecciones si no existen (Mongo las crea automáticamente con insert, pero aquí es explícito)
+// Crear colecciones si no existen
 db.createCollection("Usuarios")
 db.createCollection("UsuarioAdministradores")
 
-// Puedes agregar más colecciones si lo necesitas
-// db.createCollection("Recomendaciones")
-// db.createCollection("Config")
-
-print("✅ Colecciones creadas correctamente en PlataformaConLangChainParaRecomendarVideojuegos.");
+print("Colecciones creadas correctamente en LangGames.");
 EOF
