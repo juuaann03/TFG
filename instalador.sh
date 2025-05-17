@@ -1,17 +1,19 @@
 #!/bin/bash
 
 # Instalacion y activacion base de datos
-bash ./baseDeDatos/instalacion.sh
-bash ./baseDeDatos/servicios.sh
-bash ./baseDeDatos/inicializarBaseDeDatos.sh 
+
+cd  ./baseDeDatos
+bash ./instalacion.sh
+bash ./servicios.sh
+bash ./inicializarBaseDeDatos.sh 
+cd ..
 
 # Instalacion del backend
-bash ./backend/instalarBackend.sh
-
+cd ./backend
+bash ./instalarBackend.sh
+cd ..
 
 # Instalacion del frontend
 cd ./frontend
 bash ./instalarFrontend.sh
 cd ..
-
-

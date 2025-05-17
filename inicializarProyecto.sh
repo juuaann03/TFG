@@ -1,11 +1,15 @@
 #!/bin/bash
 
 # Inicializar backend en segundo plano
-bash ./backend/inicializarBackend.sh > ./backend.log 2>&1 &
-echo $! > ./backend.pid
+cd ./backend
+bash ./inicializarBackend.sh > ../backend.log 2>&1 &
+echo $! > ../backend.pid
+cd ..
 
 # Inicializar frontend en segundo plano
-bash ./frontend/inicializarFrontend.sh > ./frontend.log 2>&1 &
-echo $! > ./frontend.pid
+cd ./frontend
+bash ./inicializarFrontend.sh > ../frontend.log 2>&1 &
+echo $! > ../frontend.pid
+cd ..
 
 echo "Backend y frontend lanzados en segundo plano."
