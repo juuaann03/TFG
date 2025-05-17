@@ -42,7 +42,7 @@ if [ -f "angular/package.json" ]; then
   npm install
   npm install -D tailwindcss postcss autoprefixer
   echo "Lanzando ng serve para primeras configuraciones."
-  ng serve --no-open
+  ng serve
 
   cd ..
 else
