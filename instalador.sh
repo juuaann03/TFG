@@ -10,6 +10,8 @@ bash ./backend/instalarBackend.sh
 
 
 # Instalacion del frontend
-bash ./frontend/instalarFrontend.sh
+cd ./frontend
+bash ./instalarFrontend.sh
+cd ..
 
 
