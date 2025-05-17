@@ -48,4 +48,3 @@ else
 fi
 
 echo "Instalación de dependencias para el frontend completada."
-echo "Para iniciar el frontend, ejecuta: cd frontend && bash ./inicializarFrontend.sh"
