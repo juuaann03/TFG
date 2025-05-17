@@ -6,13 +6,10 @@ bash ./baseDeDatos/servicios.sh
 bash ./baseDeDatos/inicializarBaseDeDatos.sh 
 
 # Instalacion del backend
-cd ./backend
-bash ./instalarBackend.sh
+bash ./backend/instalarBackend.sh
 
-cd ..
 
 # Instalacion del frontend
-cd ./frontend
-bash ./instalarFrontend.sh
+bash ./frontend/instalarFrontend.sh
 
 
