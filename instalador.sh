@@ -11,6 +11,7 @@ cd ..
 # Instalacion del backend
 cd ./backend
 bash ./instalarBackend.sh
+bash ./inicializarBackend.sh
 cd ..
 
 # Instalacion del frontend

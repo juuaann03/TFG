@@ -41,9 +41,7 @@ if [ -f "angular/package.json" ]; then
   cd angular
   npm install
   npm install -D tailwindcss postcss autoprefixer
-  echo "Lanzando ng serve para primeras configuraciones."
   ng serve
-
   cd ..
 else
   echo "No se encontró package.json en frontend/angular/. Asegúrate de que el proyecto Angular está creado."
