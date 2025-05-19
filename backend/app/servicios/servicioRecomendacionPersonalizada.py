@@ -1,5 +1,4 @@
 # archivo: app/servicios/servicioRecomendacionPersonalizada.py
-import os
 import json
 from typing import List, Dict, Tuple
 from dotenv import load_dotenv
@@ -9,17 +8,14 @@ from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from openai import BadRequestError
 from app.modelos.modeloUsuario import UsuarioOpcionalConHistorial
-import requests  # Añadir para solicitudes HTTP
-
-# Cargar variables del .env
-dotenv_path = Path(__file__).resolve().parents[2] / ".env"
-load_dotenv(dotenv_path=dotenv_path)
+from app.utils.utilidadesVarias import *
 
 # Prompt para preprocesar la petición
 prompt_preprocesamiento = PromptTemplate(
     input_variables=["peticion", "datosUsuario", "historial"],
     template="""
-Analiza la siguiente petición del usuario y los datos de su perfil para extraer información relevante que ayude a generar una recomendación de videojuegos personalizada:
+Analiza la siguiente petición del usuario y los datos de su perfil para extraer información relevante que ayude a generar una 
+recomendación de videojuegos personalizada:
 
 Petición: "{peticion}"
 
@@ -54,48 +50,116 @@ Devuelve solo el JSON.
 prompt_cambios = PromptTemplate(
     input_variables=["estadoActual", "peticion"],
     template="""
-Tienes este estado actual del perfil del usuario. Solo se incluyen campos opcionales del esquema completo (sin historial de conversaciones):
+**Tarea**: Generar un JSON válido con los cambios necesarios para actualizar el perfil de un usuario basado en información explícita o implícita en una petición de recomendación de videojuegos, según el estado actual del perfil. Sigue estrictamente las instrucciones y el esquema.
 
+**Estado actual del perfil**:
 {estadoActual}
 
-El usuario ha escrito esta petición para una recomendación de videojuegos:
-
+**Petición del usuario**:
 "{peticion}"
 
-Tu tarea es devolver un JSON **válido** con dos campos:
-- "mensaje": una cadena que describe los cambios realizados o indica si no se hicieron cambios.
-- "actualizacion": un JSON mínimo y conforme al siguiente esquema parcial, con solo los cambios necesarios para reflejar información implícita en la petición que deba actualizarse en el perfil del usuario.
+**Instrucciones**:
+- Devuelve EXCLUSIVAMENTE un JSON válido con dos campos:
+  - `"mensaje"`: String breve (máx. 100 caracteres) que describe los cambios realizados o explica por qué no se hicieron.
+  - `"actualizacion"`: Objeto con solo los campos modificados, conforme al esquema. Si no hay cambios, devuelve {{}}.
+- NO incluyas markdown (ej. ```json), comentarios, espacios extra, saltos de línea fuera del JSON, ni texto adicional.
+- Ejemplo de salida correcta: {{"mensaje": "Se añadió PS5 a consolas", "actualizacion": {{"consolas": ["PS5"]}}}}.
+- Solo genera actualizaciones basadas en información explícita o implícita en la petición que sea relevante para el perfil (ej. consolas adquiridas, juegos gustados/no gustados, suscripciones).
+- Ignora frases relacionadas con recomendaciones (ej. "recomiéndame juegos como GTA 5") a menos que indiquen una actualización clara del perfil (ej. "Me compré una PS5, recomiéndame juegos" implica añadir "PS5" a consolas).
+- Si la petición es vaga o solo pide recomendaciones sin actualizaciones (ej. "Quiero juegos divertidos"), devuelve: {{"mensaje": "Petición no implica cambios", "actualizacion": {{}}}}.
 
-Este es el formato correcto para los campos opcionales:
-- consolas: lista de strings
-- configuracionPc: objeto con claves so, procesador, memoria, tarjetaGrafica
-- necesidadesEspeciales: lista de strings
-- juegosGustados / juegosNoGustados / juegosJugados / suscripciones / idiomas: listas de strings
-- juegosPoseidos: lista de objetos con nombre y consolasDisponibles (lista de strings)
+**Esquema de los campos opcionales**:
+- `consolas`: Lista de strings (ej. ["PS5", "XSX"]).
+- `configuracionPc`: Objeto con claves `so`, `procesador`, `memoria`, `tarjetaGrafica` (ej. {{"so": "Windows 11", "procesador": "i7-12700H", "memoria": "16GB", "tarjetaGrafica": "RTX 3080"}}).
+- `necesidadesEspeciales`: Lista de strings (ej. ["Dificultad en la visión"]).
+- `juegosGustados`, `juegosNoGustados`, `juegosJugados`: Listas de strings (ej. ["GTA 5", "Zelda BOTW"]).
+- `suscripciones`: Lista de strings (ej. ["Xbox Game Pass", "PS Plus"]).
+- `idiomas`: Lista de strings (ej. ["Inglés", "Español"]).
+- `juegosPoseidos`: Lista de objetos con `nombre` (string) y `consolasDisponibles` (lista de strings, ej. [{{"nombre": "Pokémon Oro", "consolasDisponibles": ["Game Boy"]}}]).
 
-Instrucciones:
-- No devuelvas texto adicional, solo el JSON.
-- Si no hay cambios necesarios, devuelve un objeto con "mensaje" indicando que no se hicieron cambios y "actualizacion" como {{}}.
-- Solo genera cambios basados en información explícita o implícita en la petición que sea relevante para el perfil (ej. consolas adquiridas, juegos no gustados, suscripciones mencionadas). Ignora frases relacionadas con recomendaciones (ej. "recomiéndame juegos como GTA") a menos que indiquen claramente una actualización del perfil.
-- Usa abreviaturas estándar para consolas, juegos y hardware:
-  - Consolas: "PlayStation 4" o "Play Station 4" → "PS4", "PlayStation 5" → "PS5", "Nintendo Switch" → "Switch", "Xbox Series X" → "XSX".
-  - Juegos: "Grand Theft Auto 5" o "Grand Theft Auto Cinco" → "GTA 5", "The Legend of Zelda: Breath of the Wild" → "Zelda BOTW".
-  - Hardware: "Intel Core i7-12700H" → "i7-12700H", "NVIDIA GeForce RTX 3080" → "RTX 3080".
-- Corrige errores tipográficos obvios (ej. "Play Staton 4" → "PS4").
-- Si no conoces una abreviatura estándar, usa el nombre completo corregido.
-- Las abreviaturas deben estar en mayúsculas (ej. "PS4", no "ps4").
-- Para hardware, conserva detalles importantes como la generación del procesador (ej. "i7-12700H", no solo "i7").
-- Ejemplos:
-  - Petición: "Me compré una PS4 y no me gustó The Last of Us"
-    Respuesta: {{"mensaje": "Se añadió la PS4 a consolas y The Last of Us a juegosNoGustados", "actualizacion": {{"consolas": ["PS4"], "juegosNoGustados": ["The Last of Us"]}}}}
-  - Petición: "Recomiéndame juegos como GTA 5"
-    Respuesta: {{"mensaje": "No se realizaron cambios", "actualizacion": {{}}}}
-  - Petición: "Tengo una suscripción a PS Plus"
-    Respuesta: {{"mensaje": "Se añadió PS Plus a suscripciones", "actualizacion": {{"suscripciones": ["PS Plus"]}}}}
-  - Petición: "Quiero un juego para mi PC con procesador i7"
-    Respuesta: {{"mensaje": "Se actualizó la configuración de PC con procesador i7", "actualizacion": {{"configuracionPc": {{"procesador": "i7"}}}}}}
+**Reglas**:
+1. **Modificaciones**:
+   - Preserva datos existentes: Si modificas un campo (ej. `consolas`), incluye elementos previos no afectados (ej. ["PS4", "XSX"] con nueva PS5 → ["PS4", "XSX", "PS5"], no ["PS5"]).
+   - **Conflictos de gustos**:
+     - Si un juego gusta y está en `juegosNoGustados`, elimina SOLO ese juego de `juegosNoGustados`, añádelo a `juegosGustados`, y preserva los demás juegos en `juegosNoGustados`.
+     - Si no gusta y está en `juegosGustados`, elimina SOLO ese juego de `juegosGustados`, añádelo a `juegosNoGustados`, y preserva los demás juegos en `juegosGustados`.
+     - Ejemplo: If `juegosNoGustados` is ["GTA 5", "FIFA 23"] and the user says "Me gusta GTA 5", remove only "GTA 5", leaving ["FIFA 23"].
+   - Añade juegos mencionados como gustados/no gustados a `juegosJugados` si no están.
+   - Si el usuario indica que ya no tiene algo (ej. "Vendí mi PS4"), establece el campo como lista vacía ([]) si corresponde, no `null`.
 
-Devuelve solo el JSON.
+2. **Campos específicos**:
+   - **Idiomas**:
+     - Estandariza: "inglés" → "Inglés", "español" o "castellano" → "Español".
+     - Idiomas comunes: "Inglés", "Español", "Francés", "Alemán", "Italiano", "Portugués", "Japonés", "Chino", "Ruso".
+     - Añade idiomas mencionados a `idiomas`, respetando los existentes (ej. "Hablo inglés" → ["Inglés"]).
+     - Elimina idiomas si el usuario lo indica (ej. "Ya no hablo francés" → elimina "Francés").
+   - **Suscripciones**:
+     - Nombres estándar: "Xbox Game Pass", "PS Plus", "Nintendo Switch Online", "EA Play", "Steam", "Epic Games Store".
+     - Corrige: "gamepass" → "Xbox Game Pass", "playstation plus" → "PS Plus".
+     - Añade suscripciones mencionadas, respetando existentes (ej. "Suscrito a PS Plus" → ["PS Plus"]).
+     - Elimina si el usuario lo indica (ej. "Cancelé PS Plus" → elimina "PS Plus").
+   - **Juegos poseídos**:
+     - Para cada juego mencionado (ej. "Tengo Pokémon Oro"), crea un objeto con `nombre` y `consolasDisponibles`.
+     - `consolasDisponibles`: Usa SOLO consolas mencionadas explícitamente (ej. "Pokémon Oro en Game Boy" → ["Game Boy"]).
+     - Si no se especifica consola, usa [] and explica en `mensaje` (ej. "Añadido Pokémon Oro, consola no especificada").
+     - **No asumas consolas** bajo ninguna circunstancia.
+     - Corrige nombres: "Pokemon Oro" → "Pokémon Oro", "Sonic 1" → "Sonic the Hedgehog".
+     - Elimina juegos si el usuario lo indica (ej. "Vendí Pokémon Oro").
+   - **Configuración de PC**:
+     - Actualiza solo las claves mencionadas (ej. "Tengo un PC con i7" → {{"procesador": "i7"}}).
+     - Si se menciona un modelo específico (ej. "i7-12700H"), úsalo; si es genérico (ej. "i7"), explica en `mensaje` que falta detalle.
+
+3. **Abreviaturas y correcciones**:
+   - Consolas: "PlayStation 4" → "PS4", "PlayStation 5" → "PS5", "Nintendo Switch" → "Switch", "Xbox Series X" → "XSX", "Xbox One" → "XONE", "Game Boy" → "Game Boy".
+   - Juegos: "Grand Theft Auto 5" → "GTA 5", "The Legend of Zelda: Breath of the Wild" → "Zelda BOTW", "Pokemon Oro" → "Pokémon Oro", "Sonic 1" → "Sonic the Hedgehog".
+   - Hardware: "Intel Core i7-12700H" → "i7-12700H", "NVIDIA GeForce RTX 3080" → "RTX 3080", "16 GB RAM" → "16GB".
+   - Corrige errores: "Play Staton 4" → "PS4", "Pokemón" → "Pokémon".
+   - Usa nombre completo si no hay abreviatura estándar: "PlayStation 4 Pro" → "PS4 Pro".
+   - Conserva detalles en hardware: "i7-12700H", no "i7".
+   - Usa mayúsculas para abreviaturas: "PS4", no "ps4".
+
+4. **Casos extremos**:
+   - Petición vaga (ej. "Recomiéndame juegos divertidos"): {{"mensaje": "Petición no implica cambios", "actualizacion": {{}}}}.
+   - Petición contradictoria (ej. "Me gusta y no me gusta GTA 5"): Prioriza el último sentimiento y explica en `mensaje` (ej. "Se procesó el último sentimiento sobre GTA 5").
+   - Nombres desconocidos: Usa el nombre corregido, sin duplicados.
+   - Evita duplicados en listas (ej. no añadir "PS4" si ya está en `consolas`).
+
+**Ejemplos**:
+- Petición: "Me compré una PS5, recomiéndame juegos para ella"
+  - Estado: {{"consolas": ["PS4"]}}
+  - Respuesta: {{"mensaje": "Añadida PS5 a consolas", "actualizacion": {{"consolas": ["PS4", "PS5"]}}}}
+- Petición: "Recomiéndame juegos como GTA 5"
+  - Estado: {{}}
+  - Respuesta: {{"mensaje": "Petición no implica cambios", "actualizacion": {{}}}}
+- Petición: "No me gustó The Last of Us en mi PS4"
+  - Estado: {{"consolas": [], "juegosNoGustados": [], "juegosJugados": []}}
+  - Respuesta: {{"mensaje": "Añadidos PS4 y The Last of Us a no gustados", "actualizacion": {{"consolas": ["PS4"], "juegosNoGustados": ["The Last of Us"], "juegosJugados": ["The Last of Us"]}}}}
+- Petición: "Ahora me gusta GTA 5, recomiéndame juegos similares"
+  - Estado: {{"juegosGustados": [], "juegosNoGustados": ["GTA 5", "FIFA 23"], "juegosJugados": []}}
+  - Respuesta: {{"mensaje": "GTA 5 movido a juegosGustados", "actualizacion": {{"juegosGustados": ["GTA 5"], "juegosNoGustados": ["FIFA 23"], "juegosJugados": ["GTA 5"]}}}}
+- Petición: "Tengo una suscripción a PS Plus"
+  - Estado: {{"suscripciones": ["Xbox Game Pass"]}}
+  - Respuesta: {{"mensaje": "Añadida PS Plus a suscripciones", "actualizacion": {{"suscripciones": ["Xbox Game Pass", "PS Plus"]}}}}
+- Petición: "Quiero juegos para mi PC con procesador i7-12700H y RTX 3080"
+  - Estado: {{"configuracionPc": {{}}}}
+  - Respuesta: {{"mensaje": "Actualizada configuración de PC", "actualizacion": {{"configuracionPc": {{"procesador": "i7-12700H", "tarjetaGrafica": "RTX 3080"}}}}}}
+- Petición: "Tengo Pokémon Oro en Game Boy"
+  - Estado: {{"juegosPoseidos": [], "consolas": []}}
+  - Respuesta: {{"mensaje": "Añadido Pokémon Oro en Game Boy", "actualizacion": {{"juegosPoseidos": [{{"nombre": "Pokémon Oro", "consolasDisponibles": ["Game Boy"]}}], "consolas": ["Game Boy"]}}}}
+- Petición: "Cancelé mi suscripción a PS Plus"
+  - Estado: {{"suscripciones": ["PS Plus", "Xbox Game Pass"]}}
+  - Respuesta: {{"mensaje": "Eliminada PS Plus", "actualizacion": {{"suscripciones": ["Xbox Game Pass"]}}}}
+- Petición: "Ya no hablo francés"
+  - Estado: {{"idiomas": ["Inglés", "Francés"]}}
+  - Respuesta: {{"mensaje": "Eliminado Francés", "actualizacion": {{"idiomas": ["Inglés"]}}}}
+
+**Advertencias estrictas**:
+- Devuelve SOLO JSON válido, sin markdown (ej. ```json), comentarios, espacios extra, ni texto adicional.
+- Cumple estrictamente el esquema; no añadas campos no especificados.
+- Evita duplicados en listas (ej. no añadir "PS4" si ya está en `consolas`).
+- No inventes datos (ej. no asumas consolas para juegos si no se mencionan explícitamente).
+
+**Salida**: SOLO JSON válido, nada más.
 """
 )
 
@@ -103,7 +167,8 @@ Devuelve solo el JSON.
 prompt_recomendacion = PromptTemplate(
     input_variables=["peticion", "datosProcesados"],
     template="""
-Actúa como un experto en videojuegos. Genera recomendaciones de videojuegos basadas en la siguiente petición y datos procesados del usuario:
+Actúa como un experto en videojuegos. Genera recomendaciones de videojuegos basadas en la siguiente petición y datos 
+procesados del usuario:
 
 Petición: "{peticion}"
 
@@ -111,8 +176,12 @@ Datos procesados:
 {datosProcesados}
 
 Instrucciones:
-- Recomienda 3-5 videojuegos que cumplan con los géneros, plataformas, idiomas, suscripciones, necesidades especiales, y requisitos de PC especificados, 
-(si es posible) y coherentes con la descripción del usuario. Si el usuario pidió un número específico de juegos (por ejemplo, "quiero un juego"), selecciona solo ese número, eligiendo el más adecuado.
+- Recomienda 3-5 videojuegos que cumplan con los géneros, plataformas, idiomas, suscripciones, necesidades especiales, y 
+requisitos de PC especificados, (si es posible) y coherentes con la descripción del usuario.
+- Si el usuario especificó un número exacto de juegos (por ejemplo, "quiero 10 juegos" o "recomiendame un juego(en este caso sería 
+solo uno)" o recomienda un par(en este caso serían 2)), selecciona EXACTAMENTE ese número de recomendaciones, eligiendo las más 
+relevantes y coherentes con la descripción del usuario.Si no se especificó un número, selecciona las recomendaciones que consideres 
+adecuadas.
 - Excluye los juegos listados en "excluirJuegos".
 - Usa abreviaturas estándar (ej. "PS4", "GTA 5", "i7-12700H").
 - Presenta las recomendaciones en formato de lista con esta estructura:
@@ -130,7 +199,8 @@ Devuelve solo la lista de recomendaciones, sin explicaciones adicionales.
 prompt_sintesis = PromptTemplate(
     input_variables=["peticion", "datosProcesados", "respuestasModelos"],
     template="""
-Eres un experto en videojuegos. Tu tarea es sintetizar y validar recomendaciones de videojuegos provenientes de múltiples modelos para generar una lista final coherente y personalizada.
+Eres un experto en videojuegos. Tu tarea es sintetizar y validar recomendaciones de videojuegos provenientes de múltiples 
+modelos para generar una lista final coherente y personalizada.
 
 Petición del usuario: "{peticion}"
 
@@ -142,11 +212,17 @@ Recomendaciones de modelos:
 
 Instrucciones:
 - Combina las recomendaciones, eliminando duplicados y juegos en "excluirJuegos".
-- Selecciona las recomendaciones más relevantes y coherentes con la petición, géneros, plataformas, idiomas, suscripciones, necesidades especiales, y requisitos de PC.
+- Selecciona las recomendaciones más relevantes y coherentes con la petición, géneros, plataformas, idiomas, 
+suscripciones, necesidades especiales, y requisitos de PC.
 - Asegúrate de que las recomendaciones sean variadas en género y plataformas cuando sea posible.
 - Usa abreviaturas estándar (ej. "PS4", "GTA 5", "i7-12700H").
 - Cada recomendación DEBE incluir una razón clara y específica en "¿Porqué este videojuego?".
 - Presenta las recomendaciones en el siguiente formato:
+- Si el usuario especificó un número exacto de juegos (por ejemplo, "quiero 10 juegos" o "recomiendame un juego(en este caso sería 
+solo uno)" o recomienda un par(en este caso serían 2)), selecciona EXACTAMENTE ese número de recomendaciones, eligiendo las más 
+relevantes y coherentes con la descripción del usuario.Si no se especificó un número, selecciona las recomendaciones que consideres 
+adecuadas.
+
 
 1. **Nombre del juego**
    - Género:
@@ -157,42 +233,9 @@ Devuelve solo la lista final de recomendaciones.
 """
 )
 
-def obtener_imagen_juego(nombre_juego: str) -> str:
-    """Obtiene la URL de la imagen de un juego usando la API de RAWG."""
-    rawg_api_key = os.getenv("RAWG_API_KEY")
-    if not rawg_api_key:
-        return ""  # Devolver cadena vacía si no hay API key
 
-    try:
-        # Buscar el juego en RAWG
-        url = f"https://api.rawg.io/api/games?key={rawg_api_key}&search={nombre_juego}"
-        response = requests.get(url)
-        response.raise_for_status()
-        data = response.json()
-
-        # Obtener la primera coincidencia
-        if data["results"]:
-            # Usar background_image o la primera captura si está disponible
-            return data["results"][0].get("background_image", "")
-        return ""
-    except Exception as e:
-        print(f"Error al obtener imagen para {nombre_juego}: {str(e)}")
-        return ""
 
 def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str) -> tuple[str, dict]:
-    api_key = os.getenv("OPENROUTER_API_KEY")
-    if not api_key:
-        raise ValueError("OPENROUTER_API_KEY no está definido")
-
-    os.environ["OPENAI_API_KEY"] = api_key
-    os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
-
-    # Definir modelos: principal y de respaldo
-    modelos = [
-        "openai/gpt-3.5-turbo",  # Modelo principal
-        "meta-ai/llama-3.1-8b-instruct:free",  # Respaldo 1
-        "qwen/qwen3-0.6b-04-28:free"  # Respaldo 2
-    ]
 
     # Intentar con cada modelo hasta obtener una respuesta válida
     for modelo in modelos:
@@ -200,10 +243,13 @@ def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str)
             llm = ChatOpenAI(model_name=modelo, temperature=0.4)
             chain = prompt_cambios | llm | StrOutputParser()
             respuesta = chain.invoke({"estadoActual": json.dumps(estado_actual, default=str), "peticion": peticion})
-
+            # Limpiar respuesta
+            respuesta_limpia = limpiar_respuesta(respuesta)
+            if not respuesta_limpia:
+                continue  # Pasa al siguiente modelo si no se obtuvo JSON válido
             # Parsear la respuesta
             try:
-                respuesta_json = json.loads(respuesta)
+                respuesta_json = json.loads(respuesta_limpia)
                 mensaje = respuesta_json.get("mensaje", "No se proporcionó un mensaje")
                 actualizacion = respuesta_json.get("actualizacion", {})
                 return mensaje, actualizacion
@@ -222,12 +268,6 @@ def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str)
     raise ValueError("No se pudo obtener una respuesta válida de ningún modelo para generar cambios")
 
 def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tuple[List[Dict], str]:
-    openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-    if not openrouter_api_key:
-        raise ValueError("OPENROUTER_API_KEY no está definido en el .env")
-
-    os.environ["OPENAI_API_KEY"] = openrouter_api_key
-    os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
 
     # Preprocesar la petición
     try:
@@ -241,15 +281,8 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
     except Exception as e:
         raise ValueError(f"Error al preprocesar la petición: {str(e)}")
 
-
-    # Generar recomendaciones iniciales
-    modelos_recomendacion = [
-        "meta-llama/llama-guard-4-12b",
-        "qwen/qwen3-0.6b-04-28:free",
-        "openai/gpt-3.5-turbo"
-    ]
     respuestas_modelos = []
-    for modelo in modelos_recomendacion:
+    for modelo in modelos:
         try:
             llm = ChatOpenAI(model_name=modelo, temperature=0.7)
             chain = prompt_recomendacion | llm | StrOutputParser()
@@ -270,14 +303,8 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
 
     # Sintetizar recomendaciones
     respuestas_combinadas = "\n\n".join([f"Modelo {i+1}:\n{resp}" for i, resp in enumerate(respuestas_modelos)])
-    modelos_sintesis = [
-        "openai/gpt-4o-mini",  # Modelo principal
-        "openai/gpt-3.5-turbo",  # Respaldo 1
-        "meta-ai/llama-3.1-8b-instruct:free",  # Respaldo 2
-        "qwen/qwen3-0.6b-04-28:free"  # Respaldo 3
-    ]
 
-    for modelo in modelos_sintesis:
+    for modelo in modelos:
         try:
             llm_sintesis = ChatOpenAI(model_name=modelo, temperature=0.5)
             chain_sintesis = prompt_sintesis | llm_sintesis | StrOutputParser()
@@ -296,24 +323,31 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
     else:
         raise ValueError("No se pudo obtener una respuesta válida de ningún modelo de síntesis.")
 
-    # Parsear la respuesta final
+    # Convertir la respuesta final a una lista de diccionarios
     try:
         recomendaciones = []
-        for linea in respuesta_final.split("\n"):
-            if linea.strip().startswith(("1. ", "2. ", "3. ", "4. ", "5. ")):
-                nombre = linea.split("**")[1].strip()
+        lines = respuesta_final.split("\n")
+        i = 0
+        while i < len(lines):
+            line = lines[i].strip()
+            # Verificar si la línea comienza con un número seguido de un punto (por ejemplo, "1. ", "2. ", etc.)
+            if line and line[0].isdigit() and line[1:3] == ". ":
+                nombre = line.split("**")[1].strip() if "**" in line else line[3:].strip()
                 genero = ""
                 plataformas = ""
                 razon = ""
-                for sublinea in respuesta_final.split("\n")[respuesta_final.split("\n").index(linea)+1:]:
-                    if sublinea.strip().startswith("- Género:"):
+                # Procesar las líneas siguientes hasta encontrar otra recomendación o el final
+                j = i + 1
+                while j < len(lines) and not (lines[j].strip() and lines[j].strip()[0].isdigit() and lines[j].strip()[1:3] == ". "):
+                    sublinea = lines[j].strip()
+                    if sublinea.startswith("- Género:"):
                         genero = sublinea.replace("- Género:", "").strip()
-                    elif sublinea.strip().startswith("- Plataformas:"):
+                    elif sublinea.startswith("- Plataformas:"):
                         plataformas = sublinea.replace("- Plataformas:", "").strip()
-                    elif sublinea.strip().startswith("- ¿Porqué este videojuego?"):
+                    elif sublinea.startswith("- ¿Porqué este videojuego?"):
                         razon = sublinea.replace("- ¿Porqué este videojuego?", "").strip()
-                    elif sublinea.strip().startswith(("1. ", "2. ", "3. ", "4. ", "5. ")):
-                        break
+                    j += 1
+                # Solo añadir la recomendación si tiene una razón válida
                 if razon:
                     imagen = obtener_imagen_juego(nombre)  # Obtener URL de la imagen
                     recomendaciones.append({
@@ -321,8 +355,11 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
                         "genero": genero,
                         "plataformas": plataformas,
                         "razon": razon,
-                        "imagen": imagen  # Añadir campo imagen
+                        "imagen": imagen
                     })
+                i = j
+            else:
+                i += 1
         if not recomendaciones:
             raise ValueError("No se encontraron recomendaciones con razones válidas.")
     except Exception as e:

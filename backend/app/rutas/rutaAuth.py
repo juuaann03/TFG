@@ -12,8 +12,8 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 # Configuración de OAuth2
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
-# Clave secreta para JWT (debería estar en .env)
-SECRET_KEY = os.getenv("JWT_SECRET_KEY", "tu_clave_secreta")
+# Clave secreta para JWT (debe de estar en .env)
+SECRET_KEY = os.getenv("JWT_SECRET_KEY", "clave_secreta")
 ALGORITHM = "HS256"
 
 class LoginRequest(BaseModel):

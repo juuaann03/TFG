@@ -82,7 +82,16 @@
               <li *ngIf="datosOpcionales.configuracionPc.memoria">Memoria: {{ datosOpcionales.configuracionPc.memoria }}</li>
               <li *ngIf="datosOpcionales.configuracionPc.tarjetaGrafica">Tarjeta Gráfica: {{ datosOpcionales.configuracionPc.tarjetaGrafica }}</li>
             </ul>
-            <p *ngIf="!datosOpcionales.configuracionPc || (!datosOpcionales.configuracionPc.so && !datosOpcionales.configuracionPc.procesador && !datosOpcionales.configuracionPc.memoria && !datosOpcionales.configuracionPc.tarjetaGrafica)" class="text-sm text-gray-500 dark:text-gray-400">No hay configuración de PC añadida.</p>
+            <div *ngIf="!datosOpcionales.configuracionPc || (!datosOpcionales.configuracionPc.so && !datosOpcionales.configuracionPc.procesador && !datosOpcionales.configuracionPc.memoria && !datosOpcionales.configuracionPc.tarjetaGrafica)" class="text-sm text-gray-500 dark:text-gray-400">
+              No hay configuración de PC añadida.
+              <p class="mt-1">Ejemplo de configuración:</p>
+              <ul class="list-disc pl-5">
+                <li>SO: Windows 11</li>
+                <li>Procesador: i9</li>
+                <li>Memoria: 32GB RAM</li>
+                <li>Tarjeta Gráfica: RTX 4060</li>
+              </ul>
+            </div>
           </div>
           <!-- Necesidades Especiales -->
           <div>

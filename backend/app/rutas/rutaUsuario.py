@@ -9,10 +9,6 @@ from typing import Optional
 from app.rutas.rutaAuth import get_current_user
 router = APIRouter(prefix="/usuarios", tags=["usuarios"])
 
-# Modelo de respuesta para el endpoint modificarPorPeticion
-class RespuestaModificarPorPeticion(BaseModel):
-    mensaje: str
-    actualizacion: dict
 
 @router.post("/", response_model=dict)
 def crearUsuario(usuario: Usuario):
@@ -79,14 +75,18 @@ def actualizarDatosOptativosConHistorial(correo: str, datos: UsuarioOpcionalConH
         return {"mensaje": "Datos optativos con historial actualizados correctamente"}
     raise HTTPException(status_code=404, detail="Usuario no encontrado")
 
+
+# Modelo de respuesta para modificarPorPeticion
+class RespuestaModificarPorPeticion(BaseModel):
+    mensaje: str
+    actualizacion: dict
+
 @router.put("/porCorreo/{correo}/modificarPorPeticion", response_model=RespuestaModificarPorPeticion)
 def modificarUsuarioPorPeticionRuta(correo: str, peticion: str = Body(..., embed=True)):
     exito, mensaje, actualizacion = modificarUsuarioPorPeticionServicio(correo, peticion)
     if exito:
         return {"mensaje": mensaje, "actualizacion": actualizacion}
     raise HTTPException(status_code=404, detail=mensaje)
-
-
 
 
 class DatosObligatoriosActualizados(BaseModel):
@@ -111,16 +111,6 @@ class SteamRequest(BaseModel):
 
 @router.post("/porCorreo/{correo}/steam", response_model=dict)
 def obtenerDatosSteam(correo: str, datos: SteamRequest):
-    """
-    Obtiene los juegos de un usuario de Steam y actualiza su perfil.
-    
-    Args:
-        correo: Correo del usuario.
-        datos: Objeto con el steam_id.
-        
-    Returns:
-        Mensaje de éxito y número de juegos añadidos.
-    """
     try:
         resultado = obtenerDatosSteamServicio(correo, datos.steam_id)
         return resultado

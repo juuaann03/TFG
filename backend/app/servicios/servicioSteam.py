@@ -1,31 +1,12 @@
 # archivo: app/servicios/servicioSteam.py
 
-import os
 import requests
 from typing import List, Dict
-from dotenv import load_dotenv
-from pathlib import Path
+from app.utils.utilidadesVarias import *
 
-# Cargar variables del .env
-dotenv_path = Path(__file__).resolve().parents[2] / ".env"
-load_dotenv(dotenv_path=dotenv_path)
+# Obtiene los juegos poseídos por un usuario de Steam usando la Steam Web API.
 
 def obtener_juegos_steam(steam_id: str) -> List[Dict]:
-    """
-    Obtiene los juegos poseídos por un usuario de Steam usando la Steam Web API.
-    
-    Args:
-        steam_id (str): SteamID64 del usuario.
-        
-    Returns:
-        List[Dict]: Lista de juegos con nombre, appid y tiempo jugado.
-        
-    Raises:
-        ValueError: Si la clave de API no está definida o la solicitud falla.
-    """
-    steam_api_key = os.getenv("STEAM_API_KEY")
-    if not steam_api_key:
-        raise ValueError("STEAM_API_KEY no está definido en el .env")
 
     url = f"http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/"
     params = {

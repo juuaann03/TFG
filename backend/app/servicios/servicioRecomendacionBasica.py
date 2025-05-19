@@ -1,8 +1,5 @@
 # archivo: app/servicios/servicioRecomendacionBasica.py
 
-
-import os
-import json
 from typing import List, Dict
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
@@ -10,11 +7,8 @@ from langchain_core.output_parsers import StrOutputParser
 from dotenv import load_dotenv
 from pathlib import Path
 from openai import BadRequestError
-import requests  # Añadir para solicitudes HTTP
-
-# Cargar variables del .env
-dotenv_path = Path(__file__).resolve().parents[2] / ".env"
-load_dotenv(dotenv_path=dotenv_path)
+import re
+from app.utils.utilidadesVarias import *
 
 # Prompt para los modelos de recomendación individuales
 prompt_recomendacion = PromptTemplate(
@@ -31,7 +25,13 @@ Recomienda algunos videojuegos que se adapten a lo que pide. Ten en cuenta si ha
 - Juegos similares
 - Otras necesidades particulares
 
-Responde en español, de forma clara, concisa y amigable. Presenta las recomendaciones en formato de lista con esta estructura:
+Responde en español por defecto, o en el idioma que te haya hablado o pedido, de forma clara, concisa y amigable. 
+Presenta las recomendaciones en formato de lista con esta estructura:
+
+Si el usuario especificó un número exacto de juegos (por ejemplo, "quiero 10 juegos" o "recomiendame un juego(en este caso sería 
+solo uno)" o recomienda un par(en este caso serían 2)), selecciona EXACTAMENTE ese número de recomendaciones, eligiendo las más 
+relevantes y coherentes con la descripción del usuario.Si no se especificó un número, selecciona las recomendaciones que consideres 
+adecuadas.
 
 1. **Nombre del juego**
    - Género:
@@ -46,7 +46,8 @@ No expliques tu razonamiento, solo da la respuesta final con los juegos recomend
 prompt_sintesis = PromptTemplate(
     input_variables=["descripcionUsuario", "respuestasModelos"],
     template="""
-Eres un experto en videojuegos y tu tarea es sintetizar recomendaciones de videojuegos provenientes de múltiples fuentes para generar una lista final coherente y optimizada.
+Eres un experto en videojuegos y tu tarea es sintetizar recomendaciones de videojuegos provenientes de múltiples fuentes para 
+generar una lista final coherente y optimizada.
 
 El usuario proporcionó la siguiente descripción:
 
@@ -58,9 +59,12 @@ Recibiste las siguientes recomendaciones de modelos:
 
 Tu tarea es:
 1. Combinar las recomendaciones, eliminando duplicados.
-2. Seleccionar las 3-5 recomendaciones más relevantes (si es posible) y coherentes con la descripción del usuario. Si el usuario pidió un número específico de juegos (por ejemplo, "quiero un juego"), selecciona solo ese número, eligiendo el más adecuado.
+2. Si el usuario especificó un número exacto de juegos (por ejemplo, "quiero 10 juegos" o "dame un juego(en este caso sería solo uno)" 
+o dame un par(en este caso serían 2)), selecciona EXACTAMENTE ese número de recomendaciones, eligiendo las más relevantes 
+y coherentes con la descripción del usuario.Si no se especificó un número, selecciona las recomendaciones que consideres adecuadas.
 3. Asegurarte de que las recomendaciones sean variadas en género y plataformas cuando sea posible.
-4. Cada recomendación DEBE incluir una razón clara y específica en el campo "¿Porqué este videojuego?". Este campo es OBLIGATORIO y no puede estar vacío bajo ninguna circunstancia.
+4. Cada recomendación DEBE incluir una razón clara y específica en el campo "¿Porqué este videojuego?". 
+Este campo es OBLIGATORIO y no puede estar vacío bajo ninguna circunstancia.
 
 Presenta las recomendaciones en el siguiente formato:
 
@@ -69,50 +73,16 @@ Presenta las recomendaciones en el siguiente formato:
    - Plataformas:
    - ¿Porqué este videojuego? [Razón clara y específica, obligatoria]
 
-Responde solo con la lista final de recomendaciones, sin explicaciones adicionales. Si no puedes proporcionar una razón válida para una recomendación, no la incluyas.
+Responde solo con la lista final de recomendaciones, sin explicaciones adicionales. Si no puedes proporcionar una razón 
+válida para una recomendación, no la incluyas.
 """
 )
 
-def obtener_imagen_juego(nombre_juego: str) -> str:
-    """Obtiene la URL de la imagen de un juego usando la API de RAWG."""
-    rawg_api_key = os.getenv("RAWG_API_KEY")
-    if not rawg_api_key:
-        return ""  # Devolver cadena vacía si no hay API key
-
-    try:
-        # Buscar el juego en RAWG
-        url = f"https://api.rawg.io/api/games?key={rawg_api_key}&search={nombre_juego}"
-        response = requests.get(url)
-        response.raise_for_status()
-        data = response.json()
-
-        # Obtener la primera coincidencia
-        if data["results"]:
-            # Usar background_image o la primera captura si está disponible
-            return data["results"][0].get("background_image", "")
-        return ""
-    except Exception as e:
-        print(f"Error al obtener imagen para {nombre_juego}: {str(e)}")
-        return ""
 
 def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
-    openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-    if not openrouter_api_key:
-        raise ValueError("OPENROUTER_API_KEY no está definido en el .env")
-
-    os.environ["OPENAI_API_KEY"] = openrouter_api_key
-    os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
-
-    # Definir los modelos para recomendaciones iniciales
-    modelos_recomendacion = [
-        "meta-llama/llama-guard-4-12b",
-        "qwen/qwen3-0.6b-04-28:free",
-        "openai/gpt-3.5-turbo"
-    ]
-
     # Crear cadenas para cada modelo de recomendación
     respuestas_modelos = []
-    for modelo in modelos_recomendacion:
+    for modelo in modelos:
         try:
             llm = ChatOpenAI(model_name=modelo, temperature=0.7)
             chain = prompt_recomendacion | llm | StrOutputParser()
@@ -132,16 +102,9 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
     # Combinar respuestas para el modelo de síntesis
     respuestas_combinadas = "\n\n".join([f"Modelo {i+1}:\n{resp}" for i, resp in enumerate(respuestas_modelos)])
 
-    # Definir los modelos para síntesis
-    modelos_sintesis = [
-        "openai/gpt-4o-mini",
-        "openai/gpt-3.5-turbo",
-        "qwen/qwen3-0.6b-04-28:free"
-    ]
-
     # Intentar con cada modelo de síntesis hasta obtener una respuesta válida
     respuesta_final = None
-    for modelo in modelos_sintesis:
+    for modelo in modelos:
         try:
             llm_sintesis = ChatOpenAI(model_name=modelo, temperature=0.5)
             chain_sintesis = prompt_sintesis | llm_sintesis | StrOutputParser()
@@ -164,21 +127,27 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
     # Convertir la respuesta final a una lista de diccionarios
     try:
         recomendaciones = []
-        for linea in respuesta_final.split("\n"):
-            if linea.strip().startswith(("1. ", "2. ", "3. ", "4. ", "5. ")):
-                nombre = linea.split("**")[1].strip()
+        lines = respuesta_final.split("\n")
+        i = 0
+        while i < len(lines):
+            line = lines[i].strip()
+            # Verificar si la línea comienza con un número seguido de un punto (por ejemplo, "1. ", "2. ", etc.)
+            if line and line[0].isdigit() and line[1:3] == ". ":
+                nombre = line.split("**")[1].strip() if "**" in line else line[3:].strip()
                 genero = ""
                 plataformas = ""
                 razon = ""
-                for sublinea in respuesta_final.split("\n")[respuesta_final.split("\n").index(linea)+1:]:
-                    if sublinea.strip().startswith("- Género:"):
+                # Procesar las líneas siguientes hasta encontrar otra recomendación o el final
+                j = i + 1
+                while j < len(lines) and not (lines[j].strip() and lines[j].strip()[0].isdigit() and lines[j].strip()[1:3] == ". "):
+                    sublinea = lines[j].strip()
+                    if sublinea.startswith("- Género:"):
                         genero = sublinea.replace("- Género:", "").strip()
-                    elif sublinea.strip().startswith("- Plataformas:"):
+                    elif sublinea.startswith("- Plataformas:"):
                         plataformas = sublinea.replace("- Plataformas:", "").strip()
-                    elif sublinea.strip().startswith("- ¿Porqué este videojuego?"):
+                    elif sublinea.startswith("- ¿Porqué este videojuego?"):
                         razon = sublinea.replace("- ¿Porqué este videojuego?", "").strip()
-                    elif sublinea.strip().startswith(("1. ", "2. ", "3. ", "4. ", "5. ")):
-                        break
+                    j += 1
                 # Solo añadir la recomendación si tiene una razón válida
                 if razon:
                     imagen = obtener_imagen_juego(nombre)  # Obtener URL de la imagen
@@ -187,10 +156,15 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
                         "genero": genero,
                         "plataformas": plataformas,
                         "razon": razon,
-                        "imagen": imagen  # Añadir campo imagen
+                        "imagen": imagen
                     })
+                i = j
+            else:
+                i += 1
+
         if not recomendaciones:
             raise ValueError("No se encontraron recomendaciones con razones válidas.")
+
         return recomendaciones
     except Exception as e:
         raise ValueError(f"Error al parsear la respuesta final: {str(e)}")

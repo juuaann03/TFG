@@ -7,7 +7,6 @@ use LangGames
 
 // Crear colecciones si no existen
 db.createCollection("Usuarios")
-db.createCollection("UsuarioAdministradores")
 
 print("Colecciones creadas correctamente en LangGames.");
 EOF

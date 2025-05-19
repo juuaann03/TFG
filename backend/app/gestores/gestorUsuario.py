@@ -20,16 +20,8 @@ def obtenerUsuarioPorCorreo(correo: str) -> dict | None:
 def verificarContrasena(correo: str, contrasena: str) -> dict | None:
     usuario = obtenerUsuarioPorCorreo(correo)
     if usuario:
-        print(f"Correo encontrado: {correo}")
-        print(f"Contraseña recibida: {contrasena}")
-        print(f"Hash almacenado: {usuario['contrasena']}")
         if bcrypt.checkpw(contrasena.encode('utf-8'), usuario["contrasena"].encode('utf-8')):
-            print("Contraseña verificada correctamente")
             return usuario
-        else:
-            print("Contraseña no coincide")
-    else:
-        print(f"Correo no encontrado: {correo}")
     return None
 
 def actualizarUsuarioPorCorreo(correo: str, datosActualizados: dict) -> bool:

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Detener BACKEND
+# Detener backend
 if [ -f backend.pid ]; then
     PID=$(cat backend.pid)
     echo "Matando proceso backend con PID $PID"
@@ -10,7 +10,7 @@ else
     echo "No se encontró backend.pid"
 fi
 
-# Detener FRONTEND
+# Detener frontend
 if [ -f frontend.pid ]; then
     PID=$(cat frontend.pid)
     echo "Matando proceso frontend con PID $PID"

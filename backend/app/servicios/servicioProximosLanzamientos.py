@@ -1,21 +1,17 @@
 # archivo: app/servicios/servicioProximosLanzamientos.py
 
-
 import os
 import json
 from typing import List, Dict
-from dotenv import load_dotenv
-from pathlib import Path
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from openai import BadRequestError
 import requests
 from datetime import datetime, timedelta
+from app.utils.utilidadesVarias import *
 
-# Cargar variables del .env
-dotenv_path = Path(__file__).resolve().parents[2] / ".env"
-load_dotenv(dotenv_path=dotenv_path)
+
 
 # Prompt para preprocesar los datos del usuario
 prompt_preprocesamiento = PromptTemplate(
@@ -61,7 +57,8 @@ Lista de juegos disponibles (próximos lanzamientos):
 
 Instrucciones:
 - Selecciona exactamente 4 videojuegos de la lista proporcionada que sean los más relevantes para el usuario.
-- Los juegos deben coincidir con los géneros, plataformas, idiomas, suscripciones, necesidades especiales y requisitos de PC especificados si es posible.
+- Los juegos deben coincidir con los géneros, plataformas, idiomas, suscripciones, necesidades especiales, franquicias
+ y requisitos de PC especificados si es posible.
 - Asegúrate de que las recomendaciones sean variadas en género y plataformas cuando sea posible.
 - Usa abreviaturas estándar (ej. "PS4", "i7-12700H").
 - No modifiques los datos de los juegos (nombres, plataformas, fechas) ni inventes información.
@@ -75,16 +72,15 @@ Devuelve solo la lista de recomendaciones.
 """
 )
 
+#Obtiene una lista de juegos próximos a lanzarse usando la API de RAWG.
 def obtener_juegos_proximos() -> List[Dict]:
-    """Obtiene una lista de juegos próximos a lanzarse usando la API de RAWG."""
-    rawg_api_key = os.getenv("RAWG_API_KEY")
-    if not rawg_api_key:
-        raise ValueError("RAWG_API_KEY no está definido en el .env")
 
-    # Calcular fechas para los próximos 12 meses
+
+
+    # Calcular fechas para los próximos 2 años
     today = datetime.now()
     start_date = (today + timedelta(days=1)).strftime("%Y-%m-%d")
-    end_date = (today + timedelta(days=365)).strftime("%Y-%m-%d")
+    end_date = (today + timedelta(days=730)).strftime("%Y-%m-%d")
 
     juegos = []
     page = 1
@@ -97,12 +93,8 @@ def obtener_juegos_proximos() -> List[Dict]:
             response.raise_for_status()
             data = response.json()
 
-            # Depuración: Imprimir la respuesta para verificar
-            print(f"RAWG API response (page {page}): {json.dumps(data, indent=2)}")
-
             results = data.get("results")
             if not results:
-                print(f"No se encontraron resultados en la página {page}.")
                 break
 
             for game in results:
@@ -142,48 +134,35 @@ def obtener_juegos_proximos() -> List[Dict]:
         return juegos
 
     except requests.exceptions.RequestException as e:
-        print(f"Error en la solicitud a RAWG API: {str(e)}")
         raise ValueError(f"Error al obtener juegos próximos de RAWG: {str(e)}")
     except Exception as e:
-        print(f"Error inesperado al procesar la respuesta de RAWG: {str(e)}")
         raise ValueError(f"Error al obtener juegos próximos de RAWG: {str(e)}")
 
-def obtener_imagen_juego(nombre_juego: str) -> str:
-    """Obtiene la URL de la imagen de un juego usando la API de RAWG."""
-    rawg_api_key = os.getenv("RAWG_API_KEY")
-    if not rawg_api_key:
-        return ""
 
-    try:
-        url = f"https://api.rawg.io/api/games?key={rawg_api_key}&search={nombre_juego}"
-        response = requests.get(url)
-        response.raise_for_status()
-        data = response.json()
-        results = data.get("results", [])
-        if results:
-            return results[0].get("background_image", "")
-        return ""
-    except Exception as e:
-        print(f"Error al obtener imagen para {nombre_juego}: {str(e)}")
-        return ""
 
 def obtenerProximosLanzamientosServicio(datos_usuario: dict) -> List[Dict]:
-    openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
-    if not openrouter_api_key:
-        raise ValueError("OPENROUTER_API_KEY no está definido en el .env")
-
-    os.environ["OPENAI_API_KEY"] = openrouter_api_key
-    os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
 
     # Preprocesar los datos del usuario
-    try:
-        llm_preprocesamiento = ChatOpenAI(model_name="openai/gpt-3.5-turbo", temperature=0.4)
-        chain_preprocesamiento = prompt_preprocesamiento | llm_preprocesamiento | StrOutputParser()
-        datos_procesados = json.loads(chain_preprocesamiento.invoke({
-            "datosUsuario": json.dumps(datos_usuario, default=str)
-        }))
-    except Exception as e:
-        raise ValueError(f"Error al preprocesar los datos del usuario: {str(e)}")
+    datos_procesados = None
+    for modelo in modelos:
+        try:
+            llm_preprocesamiento = ChatOpenAI(model_name=modelo, temperature=0.4)
+            chain_preprocesamiento = prompt_preprocesamiento | llm_preprocesamiento | StrOutputParser()
+            respuesta = chain_preprocesamiento.invoke({
+                "datosUsuario": json.dumps(datos_usuario, default=str)
+            })
+            # Limpiar respuesta
+            respuesta_limpia = limpiar_respuesta(respuesta)
+            if not respuesta_limpia:
+                continue  # Pasa al siguiente modelo si no se obtuvo JSON válido
+            # Parsear respuesta
+            datos_procesados = json.loads(respuesta_limpia)
+            break  # Salir si se obtiene una respuesta válida
+        except (BadRequestError, json.JSONDecodeError, Exception):
+            continue  # Pasa al siguiente modelo si hay un error
+
+    if not datos_procesados:
+        raise ValueError("No se pudo preprocesar los datos del usuario con ningún modelo")
 
     # Obtener juegos próximos desde RAWG
     try:
@@ -191,16 +170,14 @@ def obtenerProximosLanzamientosServicio(datos_usuario: dict) -> List[Dict]:
         if not juegos_disponibles:
             raise ValueError("No se encontraron juegos próximos en RAWG.")
     except Exception as e:
-        raise ValueError(f"Error al obtener juegos próximos: {str(e)}")
+        raise ValueError("Error al obtener juegos próximos: {str(e)}")
 
     # Filtrar y personalizar recomendaciones
-    modelos_filtrado = [
-        "openai/gpt-4o-mini",
-        "openai/gpt-3.5-turbo",
-        "meta-ai/llama-3.1-8b-instruct:free"
-    ]
-    respuestas_modelos = []
-    for modelo in modelos_filtrado:
+    recomendaciones = []
+    seen = set()
+    for modelo in modelos:
+        if len(recomendaciones) >= 4:  # Detener si ya tenemos 4 recomendaciones únicas
+            break
         try:
             llm = ChatOpenAI(model_name=modelo, temperature=0.7)
             chain = prompt_filtrado | llm | StrOutputParser()
@@ -208,29 +185,7 @@ def obtenerProximosLanzamientosServicio(datos_usuario: dict) -> List[Dict]:
                 "datosProcesados": json.dumps(datos_procesados, default=str),
                 "juegosDisponibles": json.dumps(juegos_disponibles, default=str)
             })
-            respuestas_modelos.append(respuesta)
-        except BadRequestError as e:
-            print(f"Error con el modelo {modelo}: {str(e)}. Continuando con los demás modelos.")
-            continue
-        except Exception as e:
-            print(f"Error inesperado con el modelo {modelo}: {str(e)}. Continuando con los demás modelos.")
-            continue
-
-    if not respuestas_modelos:
-        # Fallback: Seleccionar 4 juegos aleatorios si los modelos fallan
-        import random
-        recomendaciones = random.sample(juegos_disponibles, min(4, len(juegos_disponibles)))
-        return [{
-            "titulo": game["nombre"],
-            "plataformas": game["plataformas"],
-            "fecha_lanzamiento": game["fecha_lanzamiento"],
-            "imagen": obtener_imagen_juego(game["nombre"])
-        } for game in recomendaciones]
-
-    # Combinar y parsear respuestas
-    try:
-        recomendaciones = []
-        for respuesta in respuestas_modelos:
+            # Parsear respuesta del modelo
             for linea in respuesta.split("\n"):
                 if linea.strip().startswith(("1. ", "2. ", "3. ", "4. ")):
                     nombre = linea.split("**")[1].strip()
@@ -245,32 +200,41 @@ def obtenerProximosLanzamientosServicio(datos_usuario: dict) -> List[Dict]:
                             break
                     # Validar contra datos de RAWG
                     for game in juegos_disponibles:
-                        if game["nombre"].lower() == nombre.lower():
+                        if game["nombre"].lower() == nombre.lower() and game["nombre"] not in seen:
                             recomendaciones.append({
                                 "titulo": game["nombre"],
                                 "plataformas": game["plataformas"],
                                 "fecha_lanzamiento": game["fecha_lanzamiento"],
                                 "imagen": obtener_imagen_juego(game["nombre"])
                             })
+                            seen.add(game["nombre"])
                             break
-        # Eliminar duplicados y asegurar exactamente 4 recomendaciones
-        recomendaciones_unicas = []
-        seen = set()
-        for rec in recomendaciones:
-            if rec["titulo"] not in seen:
-                recomendaciones_unicas.append(rec)
-                seen.add(rec["titulo"])
-        if len(recomendaciones_unicas) < 4:
-            # Completar con juegos adicionales si es necesario
-            for game in juegos_disponibles:
-                if game["nombre"] not in seen and len(recomendaciones_unicas) < 4:
-                    recomendaciones_unicas.append({
-                        "titulo": game["nombre"],
-                        "plataformas": game["plataformas"],
-                        "fecha_lanzamiento": game["fecha_lanzamiento"],
-                        "imagen": obtener_imagen_juego(game["nombre"])
-                    })
-                    seen.add(game["nombre"])
-        return recomendaciones_unicas[:4]
-    except Exception as e:
-        raise ValueError(f"Error al parsear las recomendaciones: {str(e)}")
+        except BadRequestError:
+            continue
+        except Exception:
+            continue
+
+    # Si no se alcanzaron 4 recomendaciones, completar con juegos adicionales
+    if len(recomendaciones) < 4:
+        for game in juegos_disponibles:
+            if game["nombre"] not in seen and len(recomendaciones) < 4:
+                recomendaciones.append({
+                    "titulo": game["nombre"],
+                    "plataformas": game["plataformas"],
+                    "fecha_lanzamiento": game["fecha_lanzamiento"],
+                    "imagen": obtener_imagen_juego(game["nombre"])
+                })
+                seen.add(game["nombre"])
+
+    if not recomendaciones:
+        # Fallback: Seleccionar 4 juegos aleatorios si los modelos fallan
+        import random
+        recomendaciones = random.sample(juegos_disponibles, min(4, len(juegos_disponibles)))
+        recomendaciones = [{
+            "titulo": game["nombre"],
+            "plataformas": game["plataformas"],
+            "fecha_lanzamiento": game["fecha_lanzamiento"],
+            "imagen": obtener_imagen_juego(game["nombre"])
+        } for game in recomendaciones]
+
+    return recomendaciones[:4]

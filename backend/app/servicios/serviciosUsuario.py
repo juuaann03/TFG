@@ -1,14 +1,12 @@
 # archivo: app/servicios/serviciosUsuario.py
 from app.gestores.gestorUsuario import *
-from app.modelos.modeloUsuario import Usuario, UsuarioObligatorio, UsuarioOpcionalSinHistorial, UsuarioOpcionalConHistorial, Conversacion, JuegoRecomendado
+from app.modelos.modeloUsuario import Usuario, UsuarioOpcionalSinHistorial, UsuarioOpcionalConHistorial, Conversacion, JuegoRecomendado
 from app.gestores.gestorUsuario import obtenerUsuarioPorCorreo, actualizarUsuarioPorCorreo
 from app.servicios.servicioGenerarActualizacionUsuario import generarActualizacionDesdePeticion
 from app.servicios.servicioRecomendacionPersonalizada import generarRecomendacionPersonalizada, generarCambiosDesdePeticionRecomendacion
 from app.servicios.servicioProximosLanzamientos import obtenerProximosLanzamientosServicio
 from app.servicios.servicioSteam import obtener_juegos_steam
 from app.modelos.modeloUsuario import JuegoPoseido
-from datetime import datetime
-import json
 from typing import List
 
 def crearUsuarioServicio(usuario: Usuario) -> dict:
@@ -45,7 +43,7 @@ def obtenerRecomendacionPersonalizadaServicio(correo: str, peticion: str) -> Lis
     # Extraer datos opcionales
     datos_usuario = {k: usuario.get(k) for k in UsuarioOpcionalConHistorial.__fields__}
     historial = datos_usuario.get("historialConversaciones", []) or []  # Asegurar que historial sea una lista
-    # Filtrar el historial para excluir imágenes
+    # Filtrar el historial para excluir imágenes y ahorrar tokens
     historial_filtrado = [
         {
             "pregunta": conv.get("pregunta"),
@@ -63,7 +61,7 @@ def obtenerRecomendacionPersonalizadaServicio(correo: str, peticion: str) -> Lis
     except Exception as e:
         print(f"Error al procesar cambios de la petición: {str(e)}")
         mensaje_cambios, actualizacion = "No se procesaron cambios de la petición", {}
-    # Generar recomendación personalizada con historial filtrado
+    # Generar recomendación personalizada con historial de conversaciones sin imágenes
     try:
         recomendaciones = generarRecomendacionPersonalizada(peticion, datos_usuario_filtrado)
     except Exception as e:
