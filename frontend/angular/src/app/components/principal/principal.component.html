@@ -116,7 +116,7 @@
 
       <!-- Nueva Recomendación -->
       <div class="mt-6" *ngIf="nuevaRecomendacion.length > 0">
-        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Tu Nueva Recomendación</h3>
+        <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Tus Nuevas Recomendaciones</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div *ngFor="let juego of nuevaRecomendacion" class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
             <img [src]="juego.imagen" [alt]="juego.nombre" class="w-full h-32 object-cover">
