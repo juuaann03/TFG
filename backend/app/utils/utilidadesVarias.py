@@ -11,6 +11,7 @@ modelos = [
     "google/gemini-2.0-flash-001"
 ]
 
+# Más rápido pero consume más tokens
 modelos2 = [
     "openai/gpt-4o-mini",
     "meta-ai/llama-3.1-70b-instruct",

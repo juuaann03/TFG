@@ -21,7 +21,7 @@ echo "Iniciando Angular con 'ng serve'..."
 cd angular
 ng serve > ../../frontend.log 2>&1 &    # Ejecuta en segundo plano y guarda log
 echo $! > ../../frontend.pid            # Guardar PID real
-sleep 2
+sleep 3
 # Abrir el navegador automáticamente en la URL de Angular
 xdg-open http://localhost:4200           # En Linux, esto abre el navegador automáticamente
 
