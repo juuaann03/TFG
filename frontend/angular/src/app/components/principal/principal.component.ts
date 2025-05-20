@@ -49,7 +49,8 @@ export class PrincipalComponent implements OnInit, OnDestroy {
     'Ejemplo: Busco un shooter multijugador para Xbox',
     'Ejemplo: Quiero un RPG para Nintendo Switch',
     'Ejemplo: Busco un juego indie para PC',
-    'Ejemplo: Quiero un juego de puzzles para móvil'
+    'Ejemplo: Quiero un juego de puzzles para móvil',
+    'Ejemplo: He comprado una PS4, quiero conocer sus 5 mejores juegos'
   ];
 
   constructor(
@@ -204,12 +205,11 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
+    // Limpiar caché de próximos lanzamientos
+    this.lanzamientosService.clearCache();
     // Limpiar datos de la sesión en localStorage
     localStorage.removeItem('correo');
     localStorage.removeItem('nombre');
-    // Opcional: Limpiar el tema si no quieres que persista
-    // localStorage.removeItem('theme');
-
     // Redirigir a la página de home
     this.router.navigate(['/home']);
   }

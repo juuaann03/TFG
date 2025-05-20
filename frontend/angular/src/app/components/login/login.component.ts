@@ -26,7 +26,7 @@ export class LoginComponent {
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required] // Solo requerido, sin restricciones adicionales
+      password: ['', Validators.required] // Solo requerido, sin restricciones adicionales, ya que se creó con las restricciones
     });
   }
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Script que se uso para crear el proyecto
 echo "Creando proyecto Angular para desarrollo..."
 
 # Función para verificar si un comando está instalado
@@ -126,4 +127,3 @@ else
 fi
 
 echo "Proyecto Angular creado y configurado en frontend/angular."
-echo "Para iniciar el frontend, ejecuta: cd frontend && bash ./lanzarFrontend.sh"

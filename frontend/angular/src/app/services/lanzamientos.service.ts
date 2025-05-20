@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class LanzamientosService {
-  private baseUrl = environment.apiUrl; // 'http://localhost:8000'
+  private baseUrl = environment.apiUrl; // http://localhost:8000
   private proximosLanzamientos: ProximoLanzamiento[] | null = null; // Caché en memoria
 
   constructor(private http: HttpClient) {}
@@ -38,7 +38,7 @@ export class LanzamientosService {
     );
   }
 
-  // Método para limpiar el caché (opcional, por si quieres forzar una recarga)
+  // Método para limpiar el caché
   clearCache(): void {
     this.proximosLanzamientos = null;
   }

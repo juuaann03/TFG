@@ -30,6 +30,24 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
   showCurrentPassword = false; // Para controlar visibilidad de contraseña actual
   showNewPassword = false; // Para controlar visibilidad de nueva contraseña
   private destroy$ = new Subject<void>();
+  introText: string = ''; // Texto de introducción para personalizar preferencias
+  placeholderText: string = ''; // Placeholder para el textarea de preferencias
+
+  private introTexts: string[] = [
+    'Cuéntanos qué juegos te gustan, cuáles no, o las consolas que tienes. También puedes mencionar necesidades especiales, como subtítulos grandes, para personalizar tus recomendaciones.',
+    'Dinos qué juegos has jugado, tu configuración de PC, o si necesitas controles adaptados por problemas psicomotrices. ¡Haremos que tus recomendaciones sean perfectas!',
+    'Comparte tus juegos favoritos, los que no te gustan, o los idiomas que prefieres. Si tienes consolas específicas o necesidades de accesibilidad, menciónalas aquí.',
+    'Indica qué juegos posees, en qué plataformas, o si hablas ciertos idiomas. También puedes mencionar problemas como de visión para recomendaciones más personalizadas a tu condiciones.',
+    'Ayúdanos a conocerte mejor: ¿qué juegos te encantan o has jugado? ¿Qué consolas usas? ¿Tienes necesidades especiales, como controles simplificados?'
+  ];
+
+  private placeholderTexts: string[] = [
+    'Ejemplo: Me gusta mucho The Witcher 3, tengo una PS5 y un PC con RTX 3070, hablo español e inglés, necesito subtítulos grandes.',
+    'Ejemplo: No me gusta Call of Duty Black Ops 5, tengo una Xbox Series X, he jugado Zelda en Switch, necesito controles adaptados por problemas psicomotrices.',
+    'Ejemplo: Poseo una Nintendo Switch con Mario Odyssey, me gusta mucho Zelda Breath of the Wild, hablo francés, tengo problemas de visión.',
+    'Ejemplo: Tengo un PC con 16GB RAM y GTX 1660, no me gusta Residente Evil 6, tengo Skyrim en pc, prefiero juegos en español.',
+    'Ejemplo: Juego en PS4, tengo God of War y me gusta mucho, hablo inglés, necesito opciones de accesibilidad para daltonismo.'
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +85,10 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
 
     // Cargar datos opcionales
     this.cargarDatosOpcionales();
+
+    // Seleccionar texto de introducción y placeholder aleatorios
+    this.introText = this.introTexts[Math.floor(Math.random() * this.introTexts.length)];
+    this.placeholderText = this.placeholderTexts[Math.floor(Math.random() * this.placeholderTexts.length)];
   }
 
   toggleTheme(): void {
@@ -137,7 +159,7 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
         this.error = 'No se encontró el correo del usuario';
         return;
       }
-  
+
       // Verificar contraseña actual
       this.isLoading = true;
       this.apiService.post<any>('auth/login', { correo, contrasena: currentPassword }).pipe(
@@ -148,19 +170,19 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
           const datosActualizados: any = {};
           if (newName) datosActualizados.nombre = newName;
           if (newPassword) datosActualizados.contrasena = newPassword;
-  
+
           if (Object.keys(datosActualizados).length === 0) {
             this.error = 'No se proporcionaron datos para actualizar';
             this.isLoading = false;
             return;
           }
-  
+
           // Confirmar cambios
           if (!window.confirm('¿Estás seguro de que quieres modificar los datos de tu cuenta?')) {
             this.isLoading = false;
             return;
           }
-  
+
           this.apiService.put<any>(`usuarios/porCorreo/${correo}/obligatorios`, datosActualizados).pipe(
             takeUntil(this.destroy$)
           ).subscribe({
@@ -259,11 +281,11 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
       this.error = 'No se encontró el correo del usuario';
       return;
     }
-  
+
     if (!window.confirm('¿Estás seguro de que quieres restablecer tus datos sobre videojuegos? Esto eliminará consolas, preferencias y más.')) {
       return;
     }
-  
+
     this.isLoading = true;
     this.apiService.put<any>(`usuarios/porCorreo/${correo}/limpiar`, {}).pipe(
       takeUntil(this.destroy$)
@@ -290,7 +312,7 @@ export class AjustesCuentaComponent implements OnInit, OnDestroy {
         this.isLoadingPeticion = false;
         return;
       }
-  
+
       const peticion = this.peticionForm.value.peticion;
       this.apiService.put<any>(`usuarios/porCorreo/${correo}/modificarPorPeticion`, { peticion }).pipe(
         takeUntil(this.destroy$)

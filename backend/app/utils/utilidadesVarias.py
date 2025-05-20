@@ -4,7 +4,14 @@ import requests  # Para solicitudes HTTP
 from dotenv import load_dotenv
 from pathlib import Path
 
+
 modelos = [
+    "openai/gpt-4o-mini",
+    "meta-llama/llama-3.3-70b-instruct",
+    "google/gemini-2.0-flash-001"
+]
+
+modelos2 = [
     "openai/gpt-4o-mini",
     "meta-ai/llama-3.1-70b-instruct",
     "google/gemini-pro-1.5"

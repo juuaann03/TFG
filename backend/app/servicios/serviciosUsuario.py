@@ -101,17 +101,9 @@ def obtenerProximosLanzamientosServicioWrapper(correo: str) -> List[dict]:
     # Llamar al servicio
     return obtenerProximosLanzamientosServicio(datos_usuario)
 
+# Obtiene los juegos de un usuario desde Steam y actualiza su perfil.
 def obtenerDatosSteamServicio(correo: str, steam_id: str) -> dict:
-    """
-    Obtiene los juegos de un usuario desde Steam y actualiza su perfil.
-    Args:
-        correo (str): Correo del степа usuario en la base de datos.
-        steam_id (str): SteamID64 del usuario.
-    Returns:
-        dict: Mensaje de éxito y número de juegos añadidos.
-    Raises:
-        ValueError: Si el usuario no se encuentra o la solicitud a Steam falla.
-    """
+
     # Obtener el usuario
     usuario = obtenerUsuarioPorCorreoServicio(correo)
     if not usuario:
