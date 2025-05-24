@@ -6,7 +6,6 @@ from app.servicios.serviciosUsuario import *
 from fastapi import Body
 from pydantic import BaseModel
 from typing import Optional
-from app.rutas.rutaAuth import get_current_user
 router = APIRouter(prefix="/usuarios", tags=["usuarios"])
 
 

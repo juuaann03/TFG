@@ -1,6 +1,5 @@
 # archivo: app/servicios/servicioProximosLanzamientos.py
 
-import os
 import json
 from typing import List, Dict
 from langchain_openai import ChatOpenAI

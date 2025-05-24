@@ -33,6 +33,8 @@ solo uno)" o recomienda un par(en este caso serían 2)), selecciona EXACTAMENTE 
 relevantes y coherentes con la descripción del usuario.Si no se especificó un número, selecciona las recomendaciones que consideres 
 adecuadas.
 
+Debes de poner todas las plataformas en las que está ese videojuego, no solo la que te pidió el usuario.
+
 1. **Nombre del juego**
    - Género:
    - Plataformas:
@@ -65,6 +67,7 @@ y coherentes con la descripción del usuario.Si no se especificó un número, se
 3. Asegurarte de que las recomendaciones sean variadas en género y plataformas cuando sea posible.
 4. Cada recomendación DEBE incluir una razón clara y específica en el campo "¿Porqué este videojuego?". 
 Este campo es OBLIGATORIO y no puede estar vacío bajo ninguna circunstancia.
+5.Debes de poner todas las plataformas en las que está ese videojuego, no solo la que te pidió el usuario.
 
 Presenta las recomendaciones en el siguiente formato:
 

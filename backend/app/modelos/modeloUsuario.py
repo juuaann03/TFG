@@ -2,7 +2,6 @@
 
 from pydantic import BaseModel
 from typing import List, Optional, Literal
-from datetime import datetime
 
 class ConfiguracionPc(BaseModel):
     so: Optional[str] = None

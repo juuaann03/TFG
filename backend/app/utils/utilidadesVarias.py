@@ -1,3 +1,6 @@
+# archivo: app/utils/utilidadesVarias.py
+
+
 import re
 import os
 import requests  # Para solicitudes HTTP

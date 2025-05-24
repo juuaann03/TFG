@@ -185,6 +185,7 @@ adecuadas.
 - Excluye los juegos listados en "excluirJuegos".
 - Usa abreviaturas estándar (ej. "PS4", "GTA 5", "i7-12700H").
 - Presenta las recomendaciones en formato de lista con esta estructura:
+- Debes de poner todas las plataformas en las que está ese videojuego, no solo la que te pidió el usuario.
 
 1. **Nombre del juego**
    - Género:
@@ -222,6 +223,8 @@ suscripciones, necesidades especiales, y requisitos de PC.
 solo uno)" o recomienda un par(en este caso serían 2)), selecciona EXACTAMENTE ese número de recomendaciones, eligiendo las más 
 relevantes y coherentes con la descripción del usuario.Si no se especificó un número, selecciona las recomendaciones que consideres 
 adecuadas.
+- Debes de poner todas las plataformas en las que está ese videojuego, no solo la que te pidió el usuario.
+
 
 
 1. **Nombre del juego**
