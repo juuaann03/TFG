@@ -1,0 +1,16 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'proyecto.blg'
+[28] biber:340> INFO - === mié may 21, 2025, 16:32:19
+[36] Biber.pm:419> INFO - Reading 'proyecto.bcf'
+[59] Biber.pm:979> INFO - Found 17 citekeys in bib section 0
+[64] Biber.pm:4419> INFO - Processing section 0
+[69] Biber.pm:4610> INFO - Looking for bibtex file 'capitulos/bibliografia.bib' for section 0
+[69] bibtex.pm:1713> INFO - LaTeX decoding ...
+[73] bibtex.pm:1519> INFO - Found BibTeX data source 'capitulos/bibliografia.bib'
+[101] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[101] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
+[101] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'es-ES'
+[106] bbl.pm:660> INFO - Writing 'proyecto.bbl' with encoding 'UTF-8'
+[108] bbl.pm:763> INFO - Output to proyecto.bbl
+[108] Biber.pm:131> WARN - Duplicate entry key: 'luz' in file 'capitulos/bibliografia.bib', skipping ...
+[108] Biber.pm:133> INFO - WARNINGS: 1

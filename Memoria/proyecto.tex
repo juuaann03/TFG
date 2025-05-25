@@ -1,0 +1,116 @@
+\documentclass[a4paper,11pt,oneside]{book}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage[table,xcdraw]{xcolor} % Esto es necesario para el color en las tablas
+\usepackage{caption}
+
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\decimalpoint
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{afterpage}
+\usepackage{longtable}
+\usepackage[pdfborder={0 0 0}]{hyperref}  % Paquete para enlaces y hipervínculos
+\usepackage{lastpage}
+\usepackage{url}
+\usepackage{colortbl,longtable}
+\usepackage[stable]{footmisc}
+\usepackage{color}
+\usepackage{xcolor} % Para cambiar el color de las citas
+\usepackage{graphicx}
+\usepackage{hyperref}  % Si es necesario para el manejo de hipervínculos
+
+% Paquete para bibliografía con hipervínculos
+\usepackage[backend=biber,style=numeric,sorting=none,hyperref=true]{biblatex}
+\addbibresource{capitulos/bibliografia.bib} % Ruta al archivo .bib
+
+% Cambiar el color de los números en las citas
+\DeclareFieldFormat{labelnumber}{\textcolor{green}{#1}} 
+
+% Configuración de los enlaces (en azul)
+\hypersetup{
+    colorlinks=true,     % Hacer los enlaces de colores (no recuadrados)
+    linkcolor=blue,      % Color de los enlaces internos (como los del índice y secciones)
+    citecolor=blue,      % Color de las citas en el texto
+    urlcolor=blue,       % Color de los enlaces URL
+    pdfborder={0 0 0}    % Desactiva los bordes alrededor de los enlaces
+}
+
+% Numeración página/total abajo derecha
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[OR]{\thepage/\pageref*{LastPage}} % Página actual / Total de páginas (sin hipervínculo)
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyfoot[OR]{\thepage/\pageref*{LastPage}} % Página actual / Total de páginas (sin hipervínculo)
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+% Modificar \chaptermark para que incluya "Capítulo X: Título"
+\renewcommand{\chaptermark}[1]{\markboth{\textbf{Capítulo \thechapter}: \textbf{#1}}{}}
+
+% Configuración del encabezado para incluir el "Capítulo X: Título" en el lado izquierdo
+\fancyhead[L]{\leftmark} % El "Capítulo X: Título" del capítulo en el encabezado izquierdo
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Evitar páginas en blanco
+%\let\cleardoublepage\clearpage
+
+\begin{document}
+% Portada
+\input{portada/portada}  
+\clearpage \thispagestyle{empty} \null \clearpage
+\setcounter{page}{3}
+
+% Prefacio
+\input{prefacios/prefacio}
+\clearpage \thispagestyle{empty} \null \clearpage
+% Índice con enlaces en negro
+\begingroup
+\hypersetup{linkcolor=black} % Cambia el color de los enlaces internos solo para el índice
+\setcounter{tocdepth}{6}
+
+\tableofcontents
+\clearpage \thispagestyle{empty} \null \clearpage
+\listoffigures
+
+\endgroup
+\clearpage \thispagestyle{empty} \null \clearpage
+% Capítulos
+\input{capitulos/01_Introduccion} 
+\clearpage \thispagestyle{empty} \null \clearpage
+\input{capitulos/02_contexto_y_estado_del_arte}
+\clearpage \thispagestyle{empty} \null \clearpage
+\input{capitulos/03_Objetivos_y_metodologia_de_desarrollo}
+\clearpage \thispagestyle{empty} \null \clearpage
+\input{capitulos/04_analisis}
+\clearpage \thispagestyle{empty} \null \clearpage
+\input{capitulos/05_Diseno}
+\clearpage \thispagestyle{empty} \null \clearpage
+\input{capitulos/06_Implementacion}
+
+\clearpage
+\thispagestyle{empty}
+\null
+\clearpage
+
+\input{capitulos/07_Pruebas}
+\clearpage \thispagestyle{empty} \null \clearpage
+\input{capitulos/08_Conclusiones}
+\clearpage \thispagestyle{empty} \null \clearpage
+
+% Bibliografía
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliografía}
+\printbibliography
+\clearpage \thispagestyle{empty} \null \clearpage
+\end{document}

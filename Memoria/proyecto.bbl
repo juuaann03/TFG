@@ -1,0 +1,391 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{Videojuegos_economia}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=387884929512b39f3a406e314eadb46e}{%
+           family={Arias},
+           familyi={A\bibinitperiod},
+           given={Jorge},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{387884929512b39f3a406e314eadb46e}
+      \strng{fullhash}{387884929512b39f3a406e314eadb46e}
+      \strng{bibnamehash}{387884929512b39f3a406e314eadb46e}
+      \strng{authorbibnamehash}{387884929512b39f3a406e314eadb46e}
+      \strng{authornamehash}{387884929512b39f3a406e314eadb46e}
+      \strng{authorfullhash}{387884929512b39f3a406e314eadb46e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{La industria de los videojuegos ya genera más ingresos que la música y el cine juntos}
+      \field{year}{2023}
+      \verb{urlraw}
+      \verb https://theobjective.com/economia/2023-06-04/videojuegos-ingresos-musica-cine/#:~:text=Seg%C3%BAn%20los%20datos%20de%20la,%2C3%25%20respecto%20a%202021.
+      \endverb
+      \verb{url}
+      \verb https://theobjective.com/economia/2023-06-04/videojuegos-ingresos-musica-cine/#:~:text=Seg%C3%BAn%20los%20datos%20de%20la,%2C3%25%20respecto%20a%202021.
+      \endverb
+    \endentry
+    \entry{videojuegos_profesional}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=576225bc4e1a56be44a647b3e0064953}{%
+           family={Vázquez},
+           familyi={V\bibinitperiod},
+           given={David},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{576225bc4e1a56be44a647b3e0064953}
+      \strng{fullhash}{576225bc4e1a56be44a647b3e0064953}
+      \strng{bibnamehash}{576225bc4e1a56be44a647b3e0064953}
+      \strng{authorbibnamehash}{576225bc4e1a56be44a647b3e0064953}
+      \strng{authornamehash}{576225bc4e1a56be44a647b3e0064953}
+      \strng{authorfullhash}{576225bc4e1a56be44a647b3e0064953}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Cuando los videojuegos se pasan la pantalla: así se utilizan ya en el mundo corporativo, en el sector educativo o incluso en el Ejército}
+      \field{year}{2021}
+      \verb{urlraw}
+      \verb https://www.businessinsider.es/tecnologia/utilizan-videojuegos-empresas-sector-educativo-ejercito-900143
+      \endverb
+      \verb{url}
+      \verb https://www.businessinsider.es/tecnologia/utilizan-videojuegos-empresas-sector-educativo-ejercito-900143
+      \endverb
+    \endentry
+    \entry{wow}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=cfd511cdeeaccd39ad0c352500082c13}{%
+           family={Vicente},
+           familyi={V\bibinitperiod},
+           given={Judith},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{cfd511cdeeaccd39ad0c352500082c13}
+      \strng{fullhash}{cfd511cdeeaccd39ad0c352500082c13}
+      \strng{bibnamehash}{cfd511cdeeaccd39ad0c352500082c13}
+      \strng{authorbibnamehash}{cfd511cdeeaccd39ad0c352500082c13}
+      \strng{authornamehash}{cfd511cdeeaccd39ad0c352500082c13}
+      \strng{authorfullhash}{cfd511cdeeaccd39ad0c352500082c13}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{“La singular vida de Ibelin”: la verdadera historia de Mats Steen, el jugador con discapacidad que tenía una vida secreta en World of Warcraft}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://elcomercio.pe/mag/fama/que-ver/la-singular-vida-de-ibelin-la-verdadera-historia-de-mats-steen-el-jugador-discapacitado-que-tenia-una-vida-secreta-en-world-of-warcraft-documental-de-netflix-the-remarkable-life-of-ibelin-nnda-nnlt-noticia/
+      \endverb
+      \verb{url}
+      \verb https://elcomercio.pe/mag/fama/que-ver/la-singular-vida-de-ibelin-la-verdadera-historia-de-mats-steen-el-jugador-discapacitado-que-tenia-una-vida-secreta-en-world-of-warcraft-documental-de-netflix-the-remarkable-life-of-ibelin-nnda-nnlt-noticia/
+      \endverb
+    \endentry
+    \entry{PaginaLangChainOficial}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{title}{LangChain}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.langchain.com/
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/
+      \endverb
+    \endentry
+    \entry{PaginaLangChainOficialBasico}{misc}{}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labeltitlesource}{title}
+      \field{title}{LangChain Básico}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.langchain.com/langchain
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/langchain
+      \endverb
+    \endentry
+    \entry{PaginaLangChainOficialRAG}{misc}{}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labeltitlesource}{title}
+      \field{title}{RAG}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.langchain.com/retrieval
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/retrieval
+      \endverb
+    \endentry
+    \entry{PaginaLangChainOficialAgentes}{misc}{}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labeltitlesource}{title}
+      \field{title}{LangChain Agentes}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.langchain.com/agents
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/agents
+      \endverb
+    \endentry
+    \entry{PaginaLangChainOficialEvaluacion}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{title}{LangChain Evaluacion}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.langchain.com/evaluation
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/evaluation
+      \endverb
+    \endentry
+    \entry{PaginaLangChainOficialLangGraph}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{title}{LangChain LangGraph}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.langchain.com/langgraph
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/langgraph
+      \endverb
+    \endentry
+    \entry{PaginaLangChainOficialLangSmith}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{title}{LangChain LangSmith}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.langchain.com/langsmith
+      \endverb
+      \verb{url}
+      \verb https://www.langchain.com/langsmith
+      \endverb
+    \endentry
+    \entry{LangChainAnime}{article}{}
+      \name{author}{1}{}{%
+        {{hash=5ddec46e090404e1224890533cbaa882}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Ye},
+           giveni={Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{5ddec46e090404e1224890533cbaa882}
+      \strng{fullhash}{5ddec46e090404e1224890533cbaa882}
+      \strng{bibnamehash}{5ddec46e090404e1224890533cbaa882}
+      \strng{authorbibnamehash}{5ddec46e090404e1224890533cbaa882}
+      \strng{authornamehash}{5ddec46e090404e1224890533cbaa882}
+      \strng{authorfullhash}{5ddec46e090404e1224890533cbaa882}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Industrial Engineering and Applied Science}
+      \field{title}{Unlocking Personalized Anime Recommendations: Langchain and LLM at the Forefront}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://www.suaspress.org/ojs/index.php/JIEAS/article/view/v2n2a08/v2n2a08
+      \endverb
+      \verb{url}
+      \verb https://www.suaspress.org/ojs/index.php/JIEAS/article/view/v2n2a08/v2n2a08
+      \endverb
+    \endentry
+    \entry{recommender-agent-langchain}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c84817b3f22a84a3e46b629ba2936b06}{%
+           family={Quintero},
+           familyi={Q\bibinitperiod},
+           given={Johans},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{c84817b3f22a84a3e46b629ba2936b06}
+      \strng{fullhash}{c84817b3f22a84a3e46b629ba2936b06}
+      \strng{bibnamehash}{c84817b3f22a84a3e46b629ba2936b06}
+      \strng{authorbibnamehash}{c84817b3f22a84a3e46b629ba2936b06}
+      \strng{authornamehash}{c84817b3f22a84a3e46b629ba2936b06}
+      \strng{authorfullhash}{c84817b3f22a84a3e46b629ba2936b06}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Sistema de recomendación con agente LangChain}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://github.com/johansquintero/recommender-agent
+      \endverb
+      \verb{url}
+      \verb https://github.com/johansquintero/recommender-agent
+      \endverb
+    \endentry
+    \entry{recomendacion-videojuegos-uam}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=0b2d50c306dc6a75905bc1cbe773aad1}{%
+           family={Yélamos\bibnamedelima Pérez},
+           familyi={Y\bibinitperiod\bibinitdelim P\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{0b2d50c306dc6a75905bc1cbe773aad1}
+      \strng{fullhash}{0b2d50c306dc6a75905bc1cbe773aad1}
+      \strng{bibnamehash}{0b2d50c306dc6a75905bc1cbe773aad1}
+      \strng{authorbibnamehash}{0b2d50c306dc6a75905bc1cbe773aad1}
+      \strng{authornamehash}{0b2d50c306dc6a75905bc1cbe773aad1}
+      \strng{authorfullhash}{0b2d50c306dc6a75905bc1cbe773aad1}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Recomendación de videojuegos basado en análisis semántico y minería de opinión}
+      \field{year}{2016}
+      \verb{urlraw}
+      \verb https://repositorio.uam.es/handle/10486/676784
+      \endverb
+      \verb{url}
+      \verb https://repositorio.uam.es/handle/10486/676784
+      \endverb
+    \endentry
+    \entry{aplicacion-recomendacion-uoc}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=e019021b5d48e42c4c97a1778f32ea98}{%
+           family={Roldán\bibnamedelima Soblechero},
+           familyi={R\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={Alejandro},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{e019021b5d48e42c4c97a1778f32ea98}
+      \strng{fullhash}{e019021b5d48e42c4c97a1778f32ea98}
+      \strng{bibnamehash}{e019021b5d48e42c4c97a1778f32ea98}
+      \strng{authorbibnamehash}{e019021b5d48e42c4c97a1778f32ea98}
+      \strng{authornamehash}{e019021b5d48e42c4c97a1778f32ea98}
+      \strng{authorfullhash}{e019021b5d48e42c4c97a1778f32ea98}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Aplicación de recomendación de videojuegos}
+      \field{year}{2024}
+      \verb{urlraw}
+      \verb https://openaccess.uoc.edu/handle/10609/150892
+      \endverb
+      \verb{url}
+      \verb https://openaccess.uoc.edu/handle/10609/150892
+      \endverb
+    \endentry
+    \entry{sueldo}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=a1519fa43d515d12acd12aea436a8a3d}{%
+           family={Talent.com},
+           familyi={T\bibinitperiod},
+           given={Equipo},
+           giveni={E\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+      }
+      \strng{namehash}{a1519fa43d515d12acd12aea436a8a3d}
+      \strng{fullhash}{a1519fa43d515d12acd12aea436a8a3d}
+      \strng{bibnamehash}{a1519fa43d515d12acd12aea436a8a3d}
+      \strng{authorbibnamehash}{a1519fa43d515d12acd12aea436a8a3d}
+      \strng{authornamehash}{a1519fa43d515d12acd12aea436a8a3d}
+      \strng{authorfullhash}{a1519fa43d515d12acd12aea436a8a3d}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Sueldo medio informático España}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://es.talent.com/salary?job=ingeniero+inform%C3%A1tico#:~:text=El%20salario%20ingeniero%20inform%C3%A1tico%20promedio,hasta%20%E2%82%AC%2036.000%20al%20a%C3%B1o.
+      \endverb
+      \verb{url}
+      \verb https://es.talent.com/salary?job=ingeniero+inform%C3%A1tico#:~:text=El%20salario%20ingeniero%20inform%C3%A1tico%20promedio,hasta%20%E2%82%AC%2036.000%20al%20a%C3%B1o.
+      \endverb
+    \endentry
+    \entry{luz}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=ba1b390627746773907e060b1e37fc41}{%
+           family={CosteEnergia.es},
+           familyi={C\bibinitperiod},
+           given={Equipo},
+           giveni={E\bibinitperiod},
+           prefix={de},
+           prefixi={d\bibinitperiod}}}%
+      }
+      \strng{namehash}{ba1b390627746773907e060b1e37fc41}
+      \strng{fullhash}{ba1b390627746773907e060b1e37fc41}
+      \strng{bibnamehash}{ba1b390627746773907e060b1e37fc41}
+      \strng{authorbibnamehash}{ba1b390627746773907e060b1e37fc41}
+      \strng{authornamehash}{ba1b390627746773907e060b1e37fc41}
+      \strng{authorfullhash}{ba1b390627746773907e060b1e37fc41}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Coste del kwh 2025}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://www.costeenergia.es/historico/pvpc-anual
+      \endverb
+      \verb{url}
+      \verb https://www.costeenergia.es/historico/pvpc-anual
+      \endverb
+    \endentry
+    \entry{fair-use}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=e2ceeea38f8620383cfbd3e99c5c0cd8}{%
+           family={contributors},
+           familyi={c\bibinitperiod},
+           given={Wikipedia},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
+      \strng{fullhash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
+      \strng{bibnamehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
+      \strng{authorbibnamehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
+      \strng{authornamehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
+      \strng{authorfullhash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Fair use}
+      \field{year}{2025}
+      \verb{urlraw}
+      \verb https://en.wikipedia.org/wiki/Fair_use
+      \endverb
+      \verb{url}
+      \verb https://en.wikipedia.org/wiki/Fair_use
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

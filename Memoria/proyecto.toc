@@ -1,0 +1,62 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {chapter}{\numberline {1}Introducción}{16}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Contexto y estado del arte }{19}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Contexto}{20}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Procesadores de lenguajes}{20}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}LangChain}{22}{subsection.2.1.2}%
+\contentsline {subsubsection}{LangChain básico}{23}{section*.8}%
+\contentsline {subsubsection}{Métodos}{23}{section*.9}%
+\contentsline {subsubsection}{LangGraph}{25}{section*.10}%
+\contentsline {subsubsection}{LangSmith}{25}{section*.11}%
+\contentsline {section}{\numberline {2.2}Estado del arte}{26}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Objetivos y metodología de desarrollo}{28}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Objetivos}{29}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Metodología de desarrollo}{30}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Presupuesto}{31}{subsection.3.2.1}%
+\contentsline {chapter}{\numberline {4}Análisis}{35}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Obtención de Requisitos}{36}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos funcionales}{38}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Requisitos no funcionales}{39}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Requisitos de información}{40}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Actores}{41}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Casos de usos}{42}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Casos de uso del usuario no logueado}{42}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Casos de uso del usuario logueado}{46}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Casos de usos de administrador}{51}{subsection.4.6.3}%
+\contentsline {chapter}{\numberline {5}Diseño}{54}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Diseño de la arquitectura}{55}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Elementos de la arquitectura}{57}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Base de datos}{57}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Backend}{57}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Frontend}{58}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Diseño inicial de la interfaz}{59}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Implementación}{62}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Sistema operativo}{63}{section.6.1}%
+\contentsline {section}{\numberline {6.2}GitHub}{64}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Entorno de desarrollo}{65}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Base de datos: MongoDB}{66}{section.6.4}%
+\contentsline {section}{\numberline {6.5}BackEnd: Python, FastAPI y LangChain}{67}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}DB}{69}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Utils}{69}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Modelos}{69}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Gestores}{70}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Servicios}{70}{subsection.6.5.5}%
+\contentsline {subsection}{\numberline {6.5.6}Rutas}{71}{subsection.6.5.6}%
+\contentsline {subsection}{\numberline {6.5.7}Main}{72}{subsection.6.5.7}%
+\contentsline {section}{\numberline {6.6}FrontEnd: Angular}{73}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Componentes}{74}{subsection.6.6.1}%
+\contentsline {subsubsection}{Home}{75}{section*.53}%
+\contentsline {subsubsection}{Registro}{79}{section*.59}%
+\contentsline {subsubsection}{Login}{79}{section*.61}%
+\contentsline {subsubsection}{Principal}{80}{section*.63}%
+\contentsline {subsubsection}{Ajustes de cuenta}{81}{section*.66}%
+\contentsline {section}{\numberline {6.7}Puesta en marcha}{83}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Pruebas}{85}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Pruebas en la \textit {base de datos}}{86}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Pruebas en el \textit {backend}}{87}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{88}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Conclusión}{90}{section.7.4}%
+\contentsline {chapter}{\numberline {8}Conclusiones}{92}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Conclusiones de la aplicación}{93}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusiones personales}{95}{section.8.2}%
+\contentsline {chapter}{Bibliografía}{97}{section*.71}%
