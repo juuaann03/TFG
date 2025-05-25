@@ -5,6 +5,7 @@
 **Sugerencias de juegos con LangChain: Desarrollo de un sistema web de recomendaciones de videojuegos personalizadas a través de LangChain**
 
 Autor: Juan Manuel Garzón Ferrer
+
 Tutor: Ignacio Javier Pérez Gálvez
 
 Palabras clave: TFG, LangChain, LangGraph, LangSmith, procesadores de lenguajes, recomendaciones, sugerencias, videojuegos, recomendación de videojuegos, sugerencias de videojuegos.
@@ -117,6 +118,7 @@ Además, el uso de LangChain permite utilizar múltiples LLMs, lo que optimiza e
 **Suggestions for games with LangChain: Development of a web system for personalized video game recommendations using LangChain.**
 
 Author: Juan Manuel Garzón Ferrer
+
 Supervisor: Ignacio Javier Pérez Gálvez
 
 Keywords: Bachelor's Thesis, LangChain, LangGraph, LangSmith, language processors, recommendations, suggestions, video games, video game recommendation, video game suggestions.
