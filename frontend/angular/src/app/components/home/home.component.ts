@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
   isLoading = false;
   introText: string = '';
   placeholderText: string = '';
+  userPrompt: string = ''; 
+
 
   private introTexts: string[] = [
     '¿Qué quieres jugar, un shooter para PS4? ¿Un clásico de Nintendo? Nuestros agentes te ayudarán a encontrar los juegos que mejor se adaptan a tus necesidades. Pregúntales lo que quieras.',
@@ -70,6 +72,7 @@ export class HomeComponent implements OnInit {
       this.error = null;
       this.isLoading = true;
       const prompt = this.recommendationForm.get('prompt')?.value;
+      this.userPrompt = prompt; // Almacenar el prompt antes de resetear
       this.apiService.post<any>('recomendar', { descripcionUsuario: prompt }).subscribe({
         next: (response) => {
           this.recommendations = response.recomendaciones;

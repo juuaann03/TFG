@@ -42,6 +42,7 @@ export class PrincipalComponent implements OnInit, OnDestroy {
   isLoadingRecomendacion = false; // Para Recomendación Personalizada
   isDarkMode = false;
   placeholderText: string = '';
+  userPrompt: string = ''; // Para almacenar el prompt del usuario
   private destroy$ = new Subject<void>();
 
   private placeholderTexts: string[] = [
@@ -166,6 +167,7 @@ export class PrincipalComponent implements OnInit, OnDestroy {
       }
 
       const peticion = this.recomendacionForm.value.peticion;
+      this.userPrompt = peticion; // Almacenar el prompt antes de resetear
       this.apiService.post<Recomendacion[]>(`recomendaciones/personalizada/${correo}`, { peticion }).pipe(
         takeUntil(this.destroy$)
       ).subscribe({
