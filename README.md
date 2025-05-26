@@ -26,24 +26,24 @@ STEAM_API_KEY=key4
 A continuación, se explica para qué sirve cada clave y cómo obtenerla:
 
 #### OPENROUTER_API_KEY
-Clave necesaria para acceder a los modelos de lenguaje, el motor principal de este proyecto.  
-Puedes obtenerla creando una cuenta en la página oficial de OpenRouter:  
+Clave necesaria para acceder a los modelos de lenguaje, el motor principal de este proyecto.
+Puedes obtenerla creando una cuenta en la página oficial de OpenRouter:
 [enlace](https://openrouter.ai/)
 
 ![Página de open router](./imagenesREADME/openRouter.png)
 
 #### RAWG_API_KEY
-Clave para obtener imágenes e información de videojuegos.  
-Puedes conseguirla registrándote en el sitio web oficial de RAWG:  
+Clave para obtener imágenes e información de videojuegos.
+Puedes conseguirla registrándote en el sitio web oficial de RAWG:
 [enlace](https://rawg.io/login?forward=developer)
 
 ![Página de Rawg](./imagenesREADME/rawg.png)
 
 #### JWT_SECRET_KEY
-Clave secreta utilizada para firmar y verificar los tokens JWT (JSON Web Tokens) en el sistema de autenticación.  
+Clave secreta utilizada para firmar y verificar los tokens JWT (JSON Web Tokens) en el sistema de autenticación.
 Esta clave asegura que los tokens generados para los usuarios (por ejemplo, al iniciar sesión) sean seguros y no puedan ser manipulados por terceros.
 
-**Cómo obtenerla**:  
+**Cómo obtenerla**:
 No se obtiene de un servicio externo, sino que debe generarse manualmente de forma segura. Puedes crear una clave aleatoria utilizando uno de los siguientes métodos:
 
 En Python:
@@ -58,9 +58,9 @@ openssl rand -hex 32
 ```
 
 #### STEAM_API_KEY
-Clave obtenida a través de Steam. Para acceder a ella, necesitas tener una cuenta de Steam y haber gastado al menos 5 dólares (o su equivalente en tu moneda local).  
+Clave obtenida a través de Steam. Para acceder a ella, necesitas tener una cuenta de Steam y haber gastado al menos 5 dólares (o su equivalente en tu moneda local).
 
-Puedes obtenerla aquí:  
+Puedes obtenerla aquí:
 [enlace](https://steamcommunity.com/dev/apikey)
 
 ---
@@ -83,7 +83,7 @@ chmod +x ./instalador.sh
 
 (Este comando también aplica a cualquier otro script sin permisos de ejecución.)
 
-Este instalador configura todo: base de datos, backend y frontend.  
+Este instalador configura todo: base de datos, backend y frontend.
 Durante la instalación del frontend, aparecerán algunas preguntas de Angular. Se recomienda dejar todas las opciones por defecto (solo pulsa Enter).
 
 Si necesitas reinstalar algún componente de forma individual (por ejemplo, si fue eliminado o falló), puedes ejecutar el instalador correspondiente dentro de su carpeta respectiva.
@@ -140,24 +140,24 @@ STEAM_API_KEY=key4
 Below is an explanation of what each key does and how to obtain it:
 
 #### OPENROUTER_API_KEY
-Key required to access the language models, which are the core engine of this project.  
-You can get it by creating an account on the official OpenRouter website:  
+Key required to access the language models, which are the core engine of this project.
+You can get it by creating an account on the official OpenRouter website:
 [link](https://openrouter.ai/)
 
 ![OpenRouter page](./imagenesREADME/openRouter.png)
 
 #### RAWG_API_KEY
-Key used to fetch video game images and information.  
-You can obtain it by registering on the official RAWG website:  
+Key used to fetch video game images and information.
+You can obtain it by registering on the official RAWG website:
 [link](https://rawg.io/login?forward=developer)
 
 ![RAWG page](./imagenesREADME/rawg.png)
 
 #### JWT_SECRET_KEY
-Secret key used to sign and verify JWT (JSON Web Tokens) in the authentication system.  
+Secret key used to sign and verify JWT (JSON Web Tokens) in the authentication system.
 This key ensures that tokens generated for users (e.g., on login) are secure and can't be tampered with by third parties.
 
-**How to obtain it**:  
+**How to obtain it**:
 It’s not provided by any external service—you must generate it manually in a secure way. You can use one of the following methods:
 
 In Python:
@@ -174,14 +174,14 @@ openssl rand -hex 32
 #### STEAM_API_KEY
 Key obtained from Steam. To access it, you need a Steam account and must have spent at least $5 (or the equivalent in your local currency).
 
-You can get it here:  
+You can get it here:
 [link](https://steamcommunity.com/dev/apikey)
 
 ---
 
 ### Application Installation and Startup
 
-This application was developed for **Ubuntu**, so it is recommended to use this OS or a compatible one.  
+This application was developed for **Ubuntu**, so it is recommended to use this OS or a compatible one.
 Alternatively, you can run it on other systems using, for example, a virtual machine with Ubuntu on Windows that can be accessed via IP.
 
 To install the project, simply run the **instalador.sh** script from the root of the project. From the terminal, navigate to the project root and run:
@@ -198,12 +198,12 @@ chmod +x ./instalador.sh
 
 (This applies to any script lacking execution permissions.)
 
-The installer will set up everything: database, backend, and frontend.  
+The installer will set up everything: database, backend, and frontend.
 During the frontend installation, Angular may prompt some questions—just press Enter to keep the default options.
 
 If you ever need to reinstall any component individually (due to deletion, failure, etc.), you can run the corresponding installer inside its folder.
 
-After installation, the project will run automatically in the background.  
+After installation, the project will run automatically in the background.
 The backend and frontend logs are saved in their respective **log** files at the project root, to avoid cluttering the terminal output.
 
 To stop the processes, run:

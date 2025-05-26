@@ -16,7 +16,8 @@ from app.utils.utilidadesVarias import *
 prompt_preprocesamiento = PromptTemplate(
     input_variables=["datosUsuario"],
     template="""
-Analiza los siguientes datos del perfil del usuario para extraer información relevante que ayude a recomendar próximos lanzamientos de videojuegos:
+Analiza los siguientes datos del perfil del usuario para extraer información relevante que ayude a recomendar próximos 
+lanzamientos de videojuegos:
 
 Datos del usuario:
 {datosUsuario}
@@ -61,6 +62,7 @@ Instrucciones:
 - Asegúrate de que las recomendaciones sean variadas en género y plataformas cuando sea posible.
 - Usa abreviaturas estándar (ej. "PS4", "i7-12700H").
 - No modifiques los datos de los juegos (nombres, plataformas, fechas) ni inventes información.
+- Por ejemplo, si le gustan juegos de una saga como Grand Theft Auto, y está una nueva entrega de esa saga, deberías recomendarlo.
 - Presenta las recomendaciones en el siguiente formato:
 
 1. **Nombre del juego**

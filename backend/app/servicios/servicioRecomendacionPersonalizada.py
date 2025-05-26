@@ -25,7 +25,7 @@ Datos del usuario:
 Historial de conversaciones (preguntas y recomendaciones previas):
 {historial}
 
-Devuelve un JSON con la siguiente estructura:
+Devuelve un JSON con los datos del usuario ampliado(añadiendo campo o mejorando los presentes), con por ejemplo:
 - "generos": Lista de géneros mencionados o inferidos (ej. ["acción", "aventura"]).
 - "plataformas": Lista de plataformas mencionadas o disponibles (ej. ["PS4", "PC"]).
 - "idiomas": Lista de idiomas preferidos o mencionados (ej. ["español", "inglés"]).
@@ -34,6 +34,7 @@ Devuelve un JSON con la siguiente estructura:
 - "suscripciones": Lista de suscripciones relevantes (ej. ["PS Plus", "Xbox Game Pass"]).
 - "requisitosPc": Objeto con requisitos de PC inferidos o del perfil (ej. {{"procesador": "i7-12700H", "tarjetaGrafica": "RTX 3080"}}).
 - "preferenciasAdicionales": Cualquier otra preferencia mencionada (ej. "juegos cortos", "multijugador").
+- "juegosPoseidos": Juegos que tiene el usuario, excluyendo los que ya ha jugado"
 
 Usa abreviaturas estándar:
 - Consolas: "PlayStation 4" → "PS4", "PlayStation 5" → "PS5", "Nintendo Switch" → "Switch", "Xbox Series X" → "XSX".
@@ -186,6 +187,8 @@ adecuadas.
 - Usa abreviaturas estándar (ej. "PS4", "GTA 5", "i7-12700H").
 - Presenta las recomendaciones en formato de lista con esta estructura:
 - Debes de poner todas las plataformas en las que está ese videojuego, no solo la que te pidió el usuario.
+- Si el usuario te pide juegos que tiene o que posee, recomienda si es posible juegos que tiene en juegos poseidos, y que no estén
+en juegos jugados si es posible. Por ejemplo si tiene en Juegos Poseídos: juegos 
 
 1. **Nombre del juego**
    - Género:
@@ -224,7 +227,8 @@ solo uno)" o recomienda un par(en este caso serían 2)), selecciona EXACTAMENTE 
 relevantes y coherentes con la descripción del usuario.Si no se especificó un número, selecciona las recomendaciones que consideres 
 adecuadas.
 - Debes de poner todas las plataformas en las que está ese videojuego, no solo la que te pidió el usuario.
-
+- Si el usuario te pide juegos que tiene o que posee, recomienda si es posible juegos que tiene en juegos poseidos, y que no estén
+en juegos jugados si es posible.
 
 
 1. **Nombre del juego**
