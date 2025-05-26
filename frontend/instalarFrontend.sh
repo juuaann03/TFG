@@ -20,6 +20,12 @@ if ! check_command node; then
   sudo apt install -y nodejs npm
 fi
 
+if ! check_command npm; then
+  echo "Instalando Node.js y npm..."
+  sudo apt update
+  sudo apt install -y nodejs npm
+fi
+
 # Verificar versión de Node.js
 NODE_VERSION=$(node -v)
 echo "Versión de Node.js: $NODE_VERSION"
