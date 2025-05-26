@@ -138,7 +138,7 @@ A continuación, se describe con mayor detalle la estructura y funcionalidad de 
 
 \subsection{DB}
 
-La carpeta \texttt{db} contiene un único archivo llamado \texttt{mongodb.py}, el cual se encarga de gestionar la conexión con la base de datos MongoDB.
+La carpeta \texttt{db} contiene un único archivo llamado \texttt{mongodb}, el cual se encarga de gestionar la conexión con la base de datos MongoDB.
 
 En él se utiliza la biblioteca \texttt{pymongo} para establecer la conexión con el servidor local de MongoDB (\texttt{localhost:27017}). Una vez conectados, se selecciona la base de datos \texttt{LangGames} y se almacena la colección \texttt{Usuarios} en una variable que se puede importar fácilmente desde otros módulos del backend.
 
@@ -150,9 +150,9 @@ Esta estrategia favorece la reutilización y centralización del acceso a la bas
 Esta carpeta contiene dos archivos con funciones auxiliares esenciales para el funcionamiento del backend.
 
 \begin{itemize}
-	\item \textbf{jwt.py}: Este archivo se encarga de generar \textbf{tokens JWT (JSON Web Tokens)}, que permiten autenticar de forma segura a los usuarios. Cada vez que un usuario inicia sesión correctamente, se le genera un token que contiene su correo electrónico (u otro dato identificativo) y una fecha de expiración. Este token se firma digitalmente usando una clave secreta, de modo que el servidor pueda verificar su validez en futuras peticiones sin necesidad de mantener sesiones abiertas. Así se garantiza una comunicación segura y sin estado entre el cliente y el servidor.
+	\item \textbf{jwt}: Este archivo se encarga de generar \textbf{tokens JWT (JSON Web Tokens)}, que permiten autenticar de forma segura a los usuarios. Cada vez que un usuario inicia sesión correctamente, se le genera un token que contiene su correo electrónico (u otro dato identificativo) y una fecha de expiración. Este token se firma digitalmente usando una clave secreta, de modo que el servidor pueda verificar su validez en futuras peticiones sin necesidad de mantener sesiones abiertas. Así se garantiza una comunicación segura y sin estado entre el cliente y el servidor.
 	
-	\item \textbf{utilidadesVarias.py}: Aquí se agrupan funciones y configuraciones de utilidad. Por ejemplo:
+	\item \textbf{Utilidades Varias}: Aquí se agrupan funciones y configuraciones de utilidad. Por ejemplo:
 	\begin{itemize}
 		\item Se cargan las claves necesarias para acceder a las APIs externas desde un archivo \texttt{.env}.
 		\item Se definen listas con los modelos de lenguaje disponibles para su uso.
@@ -195,9 +195,25 @@ El servicio de usuario actúa como intermediario entre el gestor de usuarios y l
 
 El servicio de recomendación básica está diseñado para usuarios no autenticados que solicitan recomendaciones de videojuegos. Ante una petición, se consultan hasta tres modelos de lenguaje para obtener posibles respuestas. Si algún modelo falla, el sistema puede seguir con normalidad. Una vez obtenidas las respuestas, un modelo la sintetiza en una sola. Si el modelo falla, se sigue con los siguientes hasta que se obtiene una respuesta válida. Esta gestión secuencial de modelos se facilita mediante la biblioteca \texttt{LangChain}, que simplifica la invocación, manejo y conmutación entre modelos. Para acceder a los modelos, se utiliza \texttt{OpenRouter}, una API que permite interactuar con múltiples proveedores y modelos sin necesidad de gestionar varias claves de acceso. \texttt{OpenRouter} también ofrece una prueba gratuita limitada en tokens.
 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/esquemaRecomendacionBasica.png}
+	\caption[\textbf{Esquema recomendación básica}.]{\textbf{Esquema recomendación básica}. Para generar una recomendación básica, 3 modelos de lenguaje reciben la petición, la procesan y generan sus respuesta. Finalmente un modelo, con sus correspondientes respaldo, crea una respuesta única.}
+	\label{esquemaRB}
+\end{figure}
+
+
 El servicio de recomendación personalizada extiende la funcionalidad básica incorporando datos específicos del usuario, como su historial de videojuegos y recomendaciones previas, para evitar redundancias. Además, este servicio puede actualizar el perfil del usuario automáticamente si la petición incluye información que modifica su estado, como la venta de una consola o la adquisición de un nuevo juego.
 
-Por otro lado, existe un servicio dedicado exclusivamente a actualizar la información relativa a los videojuegos del usuario a partir del texto que éste proporciona. Este servicio utiliza modelos de lenguaje para analizar la petición y detectar los cambios necesarios, devolviendo una actualización precisa y estructurada.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/esquemaRecomendacionPersonalizada.png}
+	\caption[\textbf{Esquema recomendación personalizada}.]{\textbf{Esquema recomendación personalizada}. Para generar una recomendación personalizada, un modelo con sus correspondientes respaldos analiza los datos del usuario y la petición para generar unos datos más ricos, a continuación 3 modelos de lenguaje reciben la petición, la procesan y generan sus respuesta. Finalmente un modelo, con sus correspondientes respaldo, crea una respuesta única. Paralelamente se analiza la petición por si implica una modificación en la información sobre videojuegos del usuario.}
+	\label{esquemaRB}
+\end{figure}
+
+Por otro lado, existe un servicio dedicado exclusivamente a \textbf{actualizar la información relativa a los videojuegos del usuario} a partir del texto que éste proporciona. Este servicio utiliza modelos de lenguaje para analizar la petición y detectar los cambios necesarios, devolviendo una actualización precisa y estructurada.
 
 Asimismo, contamos con dos servicios innovadores que mejoran significativamente la experiencia de usuario:
 
@@ -226,7 +242,7 @@ Cada ruta está asociada a un módulo independiente dentro de la aplicación, lo
 
 \subsection{Main}
 
-El archivo \texttt{main.py} actúa como punto de entrada de la aplicación. Su función principal es inicializar el servidor web y registrar todas las rutas disponibles en el sistema. Para ello, importa los distintos módulos de rutas definidos en la aplicación y los incluye en la instancia principal de \texttt{FastAPI} mediante el método \texttt{include\_router()}.
+El archivo \texttt{main} actúa como punto de entrada de la aplicación. Su función principal es inicializar el servidor web y registrar todas las rutas disponibles en el sistema. Para ello, importa los distintos módulos de rutas definidos en la aplicación y los incluye en la instancia principal de \texttt{FastAPI} mediante el método \texttt{include\_router()}.
 
 Además, se configura el middleware de CORS (\textit{Cross-Origin Resource Sharing}) para permitir que la aplicación frontend (por ejemplo, una interfaz en Angular corriendo en \texttt{http://localhost:4200}) pueda comunicarse con el backend sin restricciones de origen.
 

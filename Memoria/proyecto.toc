@@ -41,23 +41,23 @@
 \contentsline {subsection}{\numberline {6.5.3}Modelos}{69}{subsection.6.5.3}%
 \contentsline {subsection}{\numberline {6.5.4}Gestores}{70}{subsection.6.5.4}%
 \contentsline {subsection}{\numberline {6.5.5}Servicios}{70}{subsection.6.5.5}%
-\contentsline {subsection}{\numberline {6.5.6}Rutas}{71}{subsection.6.5.6}%
-\contentsline {subsection}{\numberline {6.5.7}Main}{72}{subsection.6.5.7}%
-\contentsline {section}{\numberline {6.6}FrontEnd: Angular}{73}{section.6.6}%
-\contentsline {subsection}{\numberline {6.6.1}Componentes}{74}{subsection.6.6.1}%
-\contentsline {subsubsection}{Home}{75}{section*.54}%
-\contentsline {subsubsection}{Registro}{79}{section*.60}%
-\contentsline {subsubsection}{Login}{79}{section*.62}%
-\contentsline {subsubsection}{Principal}{80}{section*.64}%
-\contentsline {subsubsection}{Ajustes de cuenta}{81}{section*.67}%
-\contentsline {section}{\numberline {6.7}Puesta en marcha}{83}{section.6.7}%
-\contentsline {chapter}{\numberline {7}Pruebas}{85}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Pruebas en la \textit {base de datos}}{86}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Pruebas en el \textit {backend}}{87}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{89}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Pruebas extras}{90}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Conclusión}{91}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusiones}{93}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Conclusiones de la aplicación}{94}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusiones personales}{96}{section.8.2}%
-\contentsline {chapter}{Bibliografía}{98}{section*.72}%
+\contentsline {subsection}{\numberline {6.5.6}Rutas}{73}{subsection.6.5.6}%
+\contentsline {subsection}{\numberline {6.5.7}Main}{73}{subsection.6.5.7}%
+\contentsline {section}{\numberline {6.6}FrontEnd: Angular}{74}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Componentes}{75}{subsection.6.6.1}%
+\contentsline {subsubsection}{Home}{76}{section*.56}%
+\contentsline {subsubsection}{Registro}{80}{section*.62}%
+\contentsline {subsubsection}{Login}{80}{section*.64}%
+\contentsline {subsubsection}{Principal}{81}{section*.66}%
+\contentsline {subsubsection}{Ajustes de cuenta}{82}{section*.69}%
+\contentsline {section}{\numberline {6.7}Puesta en marcha}{84}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Pruebas}{86}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Pruebas en la \textit {base de datos}}{87}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Pruebas en el \textit {backend}}{88}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{90}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Pruebas extras}{91}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Conclusión}{92}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusiones}{94}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Conclusiones de la aplicación}{95}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusiones personales}{97}{section.8.2}%
+\contentsline {chapter}{Bibliografía}{99}{section*.74}%
