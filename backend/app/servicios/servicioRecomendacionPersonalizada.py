@@ -240,10 +240,7 @@ Devuelve solo la lista final de recomendaciones.
 """
 )
 
-
-
 def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str) -> tuple[str, dict]:
-
     # Intentar con cada modelo hasta obtener una respuesta válida
     for modelo in modelos:
         try:
@@ -275,7 +272,6 @@ def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str)
     raise ValueError("No se pudo obtener una respuesta válida de ningún modelo para generar cambios")
 
 def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tuple[List[Dict], str]:
-
     # Preprocesar la petición
     try:
         llm_preprocesamiento = ChatOpenAI(model_name="openai/gpt-3.5-turbo", temperature=0.4)
@@ -357,12 +353,16 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
                 # Solo añadir la recomendación si tiene una razón válida
                 if razon:
                     imagen = obtener_imagen_juego(nombre)  # Obtener URL de la imagen
+                    # Obtener las tiendas para el juego, usando las plataformas procesadas
+                    plataformas_str = plataformas if plataformas else ",".join(datos_procesados.get("plataformas", []))
+                    tiendas = obtener_tiendas_juego(nombre, plataformas_str)
                     recomendaciones.append({
                         "nombre": nombre,
                         "genero": genero,
                         "plataformas": plataformas,
                         "razon": razon,
-                        "imagen": imagen
+                        "imagen": imagen,
+                        "tiendas": tiendas  # Añadimos las tiendas
                     })
                 i = j
             else:

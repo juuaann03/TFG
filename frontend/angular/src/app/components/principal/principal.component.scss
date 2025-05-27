@@ -47,6 +47,14 @@ button {
   transform: translateX(0);
 }
 
+/* Estilo para los íconos de las tiendas */
+.store-icon {
+  @apply transition-transform duration-300;
+}
+.store-icon:hover {
+  @apply scale-110;
+}
+
 /* Ajustes para responsividad */
 @media (max-width: 640px) {
   header {

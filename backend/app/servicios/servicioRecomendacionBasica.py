@@ -154,12 +154,15 @@ def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
                 # Solo añadir la recomendación si tiene una razón válida
                 if razon:
                     imagen = obtener_imagen_juego(nombre)  # Obtener URL de la imagen
+                    # Pasar el campo plataformas para ordenar tiendas
+                    tiendas = obtener_tiendas_juego(nombre, plataformas)
                     recomendaciones.append({
                         "nombre": nombre,
                         "genero": genero,
                         "plataformas": plataformas,
                         "razon": razon,
-                        "imagen": imagen
+                        "imagen": imagen,
+                        "tiendas": tiendas
                     })
                 i = j
             else:

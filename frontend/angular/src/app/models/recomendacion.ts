@@ -4,4 +4,5 @@ export interface Recomendacion {
   genero?: string;
   plataformas?: string;
   razon?: string;
+  tiendas?: { nombre: string; slug: string; url: string; icono: string }[];
 }

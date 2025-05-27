@@ -187,7 +187,8 @@ export class PrincipalComponent implements OnInit, OnDestroy {
               imagen: juego.imagen || 'https://via.placeholder.com/150',
               genero: juego.genero || 'Desconocido',
               plataformas: juego.plataformas || 'Desconocido',
-              razon: juego.razon || 'No especificado'
+              razon: juego.razon || 'No especificado',
+              tiendas: juego.tiendas || [] // Añadimos el campo tiendas
             }));
 
           this.recomendacionForm.reset();

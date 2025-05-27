@@ -81,6 +81,12 @@
         <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base"><span class="font-semibold">Género:</span> {{ rec.genero }}</p>
         <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base"><span class="font-semibold">Plataformas:</span> {{ rec.plataformas }}</p>
         <p class="text-gray-600 dark:text-gray-300 mt-2 text-sm sm:text-base"><span class="font-semibold">Razón:</span> {{ rec.razon }}</p>
+        <div *ngIf="rec.tiendas && rec.tiendas.length > 0" class="mt-4 flex flex-wrap gap-2">
+          <span class="text-gray-600 dark:text-gray-300 text-sm sm:text-base font-semibold">Tiendas disponibles:</span>
+          <a *ngFor="let tienda of rec.tiendas" [href]="tienda.url" target="_blank" rel="noopener noreferrer" class="flex items-center" [title]="tienda.slug === 'website' ? 'Ir al sitio oficial de ' + rec.nombre : 'Buscar ' + rec.nombre + ' en ' + tienda.nombre">
+            <img [src]="isDarkMode ? tienda.icono.replace('color=currentColor', 'color=%23ffffff') : tienda.icono" [alt]="tienda.nombre" class="w-5 h-5 sm:w-6 sm:h-6 store-icon" />
+          </a>
+        </div>
       </div>
     </div>
   </div>

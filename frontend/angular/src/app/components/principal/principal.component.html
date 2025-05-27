@@ -128,6 +128,13 @@
               <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Género:</strong> {{ juego.genero }}</p>
               <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Plataformas:</strong> {{ juego.plataformas }}</p>
               <p class="text-sm text-gray-600 dark:text-gray-400"><strong>Razón:</strong> {{ juego.razon }}</p>
+              <!-- Mostrar las tiendas -->
+              <div *ngIf="juego.tiendas && juego.tiendas.length > 0" class="mt-2 flex flex-wrap gap-2">
+                <span class="text-gray-600 dark:text-gray-300 text-sm font-semibold">Tiendas disponibles:</span>
+                <a *ngFor="let tienda of juego.tiendas" [href]="tienda.url" target="_blank" rel="noopener noreferrer" class="flex items-center" [title]="tienda.slug === 'website' ? 'Ir al sitio oficial de ' + juego.nombre : 'Buscar ' + juego.nombre + ' en ' + tienda.nombre">
+                  <img [src]="isDarkMode ? tienda.icono.replace('color=currentColor', 'color=%23ffffff') : tienda.icono" [alt]="tienda.nombre" class="w-5 h-5 store-icon" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

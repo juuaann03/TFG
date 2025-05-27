@@ -6,7 +6,7 @@
   display: block;
 }
 
-/* Fuente Orbitron para el título*/
+/* Fuente Orbitron para el título */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
 
 .font-orbitron {
@@ -55,4 +55,12 @@ button {
 
 .recommendation-button:hover::before {
   transform: translateX(0);
+}
+
+/* Estilo para los íconos de las tiendas */
+.store-icon {
+  @apply transition-transform duration-300;
+}
+.store-icon:hover {
+  @apply scale-110;
 }
