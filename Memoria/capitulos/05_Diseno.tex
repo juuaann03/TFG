@@ -56,7 +56,7 @@ Una de sus principales responsabilidades es la gestión de usuarios. Para ello, 
 
 Otro aspecto central del backend es el sistema de recomendación basado en \texttt{LangChain}. Cuando el usuario realiza una solicitud (por ejemplo, pedir una recomendación de juegos), el backend debe encargarse de preparar el contexto necesario, incluyendo los datos del usuario (si está autenticado), y enviarlo a LangChain. El modelo generará una respuesta personalizada, que luego será procesada y enviada al frontend para su visualización.
 
-En esta capa también se define la configuración de los procesadores de lenguaje natural implicados, cómo interactúan entre sí y cómo se les indica qué tarea deben realizar. Esto incluye desde la selección de cadenas de herramientas hasta el uso de agentes, dependiendo del flujo de la conversación o la consulta del usuario.
+En esta capa también se define la configuración de los modelos generativos de lenguajes implicados, cómo interactúan entre sí y cómo se les indica qué tarea deben realizar. Esto incluye desde la selección de cadenas de herramientas hasta el uso de agentes, dependiendo del flujo de la conversación o la consulta del usuario.
 
 El controlador, ubicado en la parte superior del backend, actúa como intermediario entre el frontend y las capas lógicas inferiores. Expone una serie de métodos que permiten al frontend obtener y enviar datos, mientras que las capas inferiores se encargan de realizar operaciones sobre la base de datos y gestionar la lógica de recomendación.
 

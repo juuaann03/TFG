@@ -8,7 +8,7 @@ Autor: Juan Manuel Garzón Ferrer
 
 Tutor: Ignacio Javier Pérez Gálvez
 
-Palabras clave: TFG, LangChain, LangGraph, LangSmith, procesadores de lenguajes, recomendaciones, sugerencias, videojuegos, recomendación de videojuegos, sugerencias de videojuegos.
+Palabras clave: TFG, LangChain, LangGraph, LangSmith, modelos generativos de lenguajes, recomendaciones, sugerencias, videojuegos, recomendación de videojuegos, sugerencias de videojuegos.
 
 ### Consideraciones previas
 
@@ -121,7 +121,7 @@ Author: Juan Manuel Garzón Ferrer
 
 Supervisor: Ignacio Javier Pérez Gálvez
 
-Keywords: Bachelor's Thesis, LangChain, LangGraph, LangSmith, language processors, recommendations, suggestions, video games, video game recommendation, video game suggestions.
+Keywords: Bachelor's Thesis, LangChain, LangGraph, LangSmith, large language model, LLMs, recommendations, suggestions, video games, video game recommendation, video game suggestions.
 
 
 ### Preliminary Considerations
@@ -140,7 +140,7 @@ STEAM_API_KEY=key4
 Below is an explanation of what each key does and how to obtain it:
 
 #### OPENROUTER_API_KEY
-Key required to access the language models, which are the core engine of this project.
+Key required to access the LLMs models, which are the core engine of this project.
 You can get it by creating an account on the official OpenRouter website:
 [link](https://openrouter.ai/)
 

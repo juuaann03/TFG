@@ -18,11 +18,12 @@ A lo largo de este proyecto se ha puesto de manifiesto la relevancia actual tant
 
 En este contexto, herramientas como \textbf{LangChain} y \textbf{OpenRouter} han demostrado ser especialmente potentes a la hora de integrar diferentes modelos de lenguaje de manera flexible. Gracias a ellas, es posible aprovechar el potencial de la inteligencia artificial de forma accesible, facilitando el desarrollo de nuevas soluciones o la mejora de sistemas existentes mediante funcionalidades basadas en lenguaje natural.
 
-La plataforma desarrollada, \textbf{LangGames}, representa un primer paso hacia una solución que facilite al usuario la elección de un videojuego entre la inmensa oferta actual. La idea es ofrecer un sistema de recomendación sencillo e intuitivo, que funcione a partir de una breve descripción en lenguaje natural, y que además pueda mejorar progresivamente gracias a la información acumulada y al razonamiento de los procesadores de lenguaje subyacentes.
+La plataforma desarrollada, \textbf{LangGames}, representa un primer paso hacia una solución que facilite al usuario la elección de un videojuego entre la inmensa oferta actual. La idea es ofrecer un sistema de recomendación sencillo e intuitivo, que funcione a partir de una breve descripción en lenguaje natural, y que además pueda mejorar progresivamente gracias a la información acumulada y al razonamiento de los modelos generativos de lenguajes subyacentes.
 
 En términos generales, se puede afirmar que la mayoría de los objetivos planteados han sido alcanzados. La aplicación es capaz de recomendar videojuegos en base a preferencias expresadas por los usuarios, presenta una interfaz visualmente atractiva y ha demostrado un comportamiento robusto y razonablemente eficiente.
 
 No obstante, durante el desarrollo surgieron ciertos obstáculos que motivaron cambios en el planteamiento inicial. Por ejemplo, no se implementó un sistema completo de usuarios administradores, ya que muchas de sus funcionalidades pudieron gestionarse directamente desde las herramientas de desarrollo. Del mismo modo, las restricciones de uso en OpenRouter, especialmente en cuanto al número de tokens disponibles, limitaron el alcance de las pruebas y la variedad de modelos evaluados.
+
 
 Otro aspecto a mejorar es el tiempo de respuesta de los modelos, que resulta elevado debido al uso de una API externa y gratuita. Aunque es una limitación comprensible, puede afectar negativamente a la experiencia de usuario. Asimismo, las medidas de seguridad implementadas son limitadas, debido tanto al desconocimiento previo como a problemas técnicos encontrados al intentar añadir capas de seguridad más avanzadas.
 
@@ -34,6 +35,28 @@ Más allá de los videojuegos, este tipo de tecnología tiene un gran potencial 
 
 \newpage
 
+\section{Alineamiento con los Objetivos de Desarrollo Sostenible (ODS)}
+
+Este proyecto se ha alineado con varios de los Objetivos de Desarrollo Sostenible definidos por la ONU \cite{ONU_ODS_Web}, destacando los siguientes:
+
+\begin{itemize}
+
+	
+	\item \textbf{ODS 4: Educación de calidad} \\
+	Aunque la plataforma tiene un enfoque mayormente lúdico, la investigación y su base tecnológica puede adaptarse para apoyar experiencias educativas gamificadas, así como para recomendar videojuegos con contenido educativo, promoviendo la educación a través de medios digitales accesibles.
+	
+	\item \textbf{ODS 5: Igualdad de género} \\
+	La plataforma está diseñada para ser completamente inclusiva y accesible independientemente del género del usuario. No presenta ningún sesgo de género en sus recomendaciones ni en la interacción con la interfaz, fomentando así la igualdad de oportunidades en el acceso y disfrute del contenido.
+	
+		\item \textbf{ODS 9: Industria, Innovación e Infraestructura} \\
+	El desarrollo de esta plataforma de recomendación de videojuegos incorpora tecnologías emergentes como inteligencia artificial (LangChain), bases de datos NoSQL (MongoDB), API modernas (FastAPI) y frameworks de frontend modernos (Angular). Todo ello contribuye a fomentar la innovación tecnológica y la creación de infraestructuras digitales sostenibles y escalables.
+	
+	\item \textbf{ODS 10: Reducción de las desigualdades} \\
+	Se ha tenido en cuenta la diversidad de perfiles de usuario, incluyendo posibles limitaciones visuales, psicomotrices u otras necesidades específicas que puedan afectar la experiencia de juego. La plataforma está preparada para integrar mecanismos de accesibilidad y adaptar sus recomendaciones en función de las capacidades del usuario, contribuyendo a reducir desigualdades en el acceso al ocio digital.
+\end{itemize}
+
+
+\newpage
 \section{Conclusiones personales}
 
 A pesar de las dificultades personales que han acompañado el desarrollo de este trabajo, la valoración final es personalmente positiva.

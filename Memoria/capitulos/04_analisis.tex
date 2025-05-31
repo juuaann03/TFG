@@ -56,7 +56,7 @@ La aplicación debe permitir al usuario gestionar toda la información relaciona
 La aplicación debe ofrecer recomendaciones de videojuegos tanto a usuarios logueados como no logueados.
 
 \begin{itemize}
-    \item \textbf{RF-3.1}: Un usuario no logueado puede acceder a recomendaciones básicas, limitadas por la ausencia de historial e información personalizada, pero beneficiándose del uso de procesadores de lenguaje.
+    \item \textbf{RF-3.1}: Un usuario no logueado puede acceder a recomendaciones básicas, limitadas por la ausencia de historial e información personalizada, pero beneficiándose del uso de modelos generativos de lenguajes.
     \item \textbf{RF-3.2}: Un usuario logueado puede acceder a recomendaciones personalizadas, generadas a partir de sus conversaciones previas, la información introducida manualmente y los datos recuperados desde otras plataformas, con el objetivo de ofrecer sugerencias de alta calidad.
 \end{itemize}
 
@@ -78,7 +78,7 @@ El sistema debe responder con la mayor brevedad posible.
 
 \textbf{RNF-3: Disponibilidad}
 
-Si un procesador de lenguaje falla o tarda demasiado en responder, el sistema debe ser capaz de continuar funcionando sin depender de él.
+Si un LLM falla o tarda demasiado en responder, el sistema debe ser capaz de continuar funcionando sin depender de él.
 
 \textbf{RNF-4: Accesibilidad}
 
@@ -462,7 +462,7 @@ Los agentes tendrán la capacidad de recordar conversaciones anteriores con el u
 \hline
 \rowcolor{green!40} \textbf{Paso} & \textbf{Actor} & \textbf{Sistema} \\ \hline
 \rowcolor{blue!10} 1 & El usuario escribe su petición. &  \\ \hline
-\rowcolor{blue!10} 2 &  & El sistema pasa la petición a los procesadores de lenguaje junto a la información del usuario, y estos la procesan, almacenan y crean una respuesta. \\ \hline
+\rowcolor{blue!10} 2 &  & El sistema pasa la petición a los LLMs junto a la información del usuario, y estos la procesan, almacenan y crean una respuesta. \\ \hline
 \rowcolor{blue!10} 3 &  & El sistema devuelve la respuesta al usuario. \\ \hline
 \end{tabular}
 \caption{Flujo de eventos del caso de uso CU-08}
