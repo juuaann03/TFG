@@ -104,6 +104,17 @@ Para volver a iniciar la aplicación, ejecuta:
 ./inicializarProyecto.sh
 ```
 
+![](./imagenesREADME/licencia.png)
+
+
+Este proyecto está licenciado bajo la **Creative Commons Atribución-NoComercial 4.0 Internacional (CC BY-NC 4.0)**.
+
+Esto significa que puedes usar, consultar, compartir o adaptar el contenido para fines **no comerciales**, siempre y cuando **se cite adecuadamente al autor**.  
+No está permitido ningún uso con fines comerciales sin mi autorización expresa.
+
+Para más información, visita:  
+[https://creativecommons.org/licenses/by-nc/4.0/deed.es](https://creativecommons.org/licenses/by-nc/4.0/deed.es)
+
 
 **Resumen**
 
@@ -220,6 +231,13 @@ To restart the application, simply run:
 ./inicializarProyecto.sh
 ```
 
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**.
+
+You are free to use, share, or adapt the content for **non-commercial purposes**, provided that you **give appropriate credit** to the author.  
+Any commercial use is **not permitted** without my explicit permission.
+
+For more information, visit:  
+[https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)
 
 **Abstract**
 
