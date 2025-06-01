@@ -38,7 +38,7 @@ LangChain es una tecnología que permite a las aplicaciones razonar y procesar i
 
 Para cadenas y flujos de recuperación más sencillos, se recomienda usar LangChain junto con LangChain Expression Language para ensamblar componentes. Si estamos creando agentes o necesitamos una orquestación más compleja, utilizamos LangGraph.
 
-Por otro lado, \textbf{LangGraph Platform} se encarga de la ejecución, permitiendo desplegar y ejecutar las aplicaciones de manera eficiente. Además, \textbf{LangSmith} ofrece herramientas para gestionar y probar las aplicaciones, asegurando su correcto funcionamiento y mejorando el rendimiento. \cite{PaginaLangChainOficial}
+Por otro lado, \textbf{LangGraph Platform} se encarga de la ejecución, permitiendo desplegar y ejecutar las aplicaciones de manera eficiente. Además, \textbf{LangSmith} ofrece herramientas para gestionar y probar las aplicaciones, asegurando su correcto funcionamiento y mejorando el rendimiento. \cite{PaginaLangChainOficial} \cite{mavroudis2024langchain}
 
 
 
@@ -46,7 +46,7 @@ Por otro lado, \textbf{LangGraph Platform} se encarga de la ejecución, permitie
     \centering
     \includegraphics[width=\linewidth]{imagenes/lg.jpg}
     \caption[\textbf{Arquitectura productos LangChain}.]{\textbf{Arquitectura productos LangChain}. La arquitectura de referencia que las empresas adoptan para el éxito. Los productos de LangChain pueden usarse de forma independiente o combinada para lograr un impacto multiplicador, guiando en la construcción, ejecución y gestión de aplicaciones LLM. \cite{PaginaLangChainOficial}}
-    \label{productos-lang-chain}
+    \label{productos-lang-chain} 
 \end{figure}
 
 
@@ -55,7 +55,7 @@ Procedamos a analizar cada producto por separado.
 
 \subsubsection{LangChain básico}
 
-Es la tecnología base de todos los productos. Es compatible con JavaScript y Python. Cuenta con una amplia biblioteca de componentes para usar de principio a fin en las aplicaciones. Conecta los modelos generativos de lenguajes con cualquier fuente de datos o conocimiento, y APIs para crear aplicaciones conscientes del contexto y con capacidad de razonamiento, utilizando métodos populares como RAG (Retrieval-Augmented Generation), que recupera la información del usuario de, por ejemplo, bases de datos antes de generar una respuesta, para mejorarla; y cadenas simples, en las que se solicita la pregunta al usuario, se pasa al LLM y se envía la respuesta al usuario. LangChain es fácil de comenzar a usar y ofrece elección, flexibilidad y potencia a medida que escalas. Cuenta con más de 3000 colaboradores, la comunidad más grande de cualquier framework centrado en LLM, más de 600 integraciones y es fácil de usar, pero robusto para producción. Además, es de código abierto. \cite{PaginaLangChainOficialBasico}
+Es la tecnología base de todos los productos. Es compatible con JavaScript y Python. Cuenta con una amplia biblioteca de componentes para usar de principio a fin en las aplicaciones. Conecta los modelos generativos de lenguajes con cualquier fuente de datos o conocimiento, y APIs para crear aplicaciones conscientes del contexto y con capacidad de razonamiento, utilizando métodos populares como RAG (Retrieval-Augmented Generation), que recupera la información del usuario de, por ejemplo, bases de datos antes de generar una respuesta, para mejorarla; y cadenas simples, en las que se solicita la pregunta al usuario, se pasa al LLM y se envía la respuesta al usuario. LangChain es fácil de comenzar a usar y ofrece elección, flexibilidad y potencia a medida que escalas. Cuenta con más de 3000 colaboradores, la comunidad más grande de cualquier framework centrado en LLM, más de 600 integraciones y es fácil de usar, pero robusto para producción. Además, es de código abierto. \cite{PaginaLangChainOficialBasico} \cite{mavroudis2024langchain}
 
 
 \subsubsection{Métodos}
@@ -76,17 +76,17 @@ Cuenta con potentes algoritmos de recuperación como:
     \item \textbf{Multi Vector Retriever:} realiza consultas en múltiples vectores almacenados por documento, incluidos fragmentos más pequeños, resúmenes y preguntas hipotéticas.
 \end{itemize}
 
-La API de indexación de LangChain sincroniza los datos desde cualquier fuente hacia un almacén vectorial, ayudándote a ahorrar tiempo y recursos. \cite{PaginaLangChainOficialRAG}
+La API de indexación de LangChain sincroniza los datos desde cualquier fuente hacia un almacén vectorial, ayudándote a ahorrar tiempo y recursos. \cite{PaginaLangChainOficialRAG} \cite{mavroudis2024langchain}
 
 \textbf{Agentes}
 
-Los agentes pueden crear borradores iniciales para revisión a posteriori, actuar en tu nombre o esperar tu aprobación antes de la ejecución. LangGraph ofrece control para flujos de trabajo personalizados de agentes y multi-agentes, interacciones fluidas con intervención humana, y soporte nativo para transmisión de datos, lo que mejora la fiabilidad y ejecución de los agentes. Permite llamar de manera forzada a una herramienta, esperar la aprobación de intervención humana, la colaboración de múltiples agentes en un objetivo común y transmitir los pasos intermedios a medida que ocurren. Además, LangSmith ofrece la capacidad de explicar por qué los agentes se desvían y cómo hacer que vuelvan a funcionar correctamente. \cite{PaginaLangChainOficialAgentes}
+Los agentes pueden crear borradores iniciales para revisión a posteriori, actuar en tu nombre o esperar tu aprobación antes de la ejecución. LangGraph ofrece control para flujos de trabajo personalizados de agentes y multi-agentes, interacciones fluidas con intervención humana, y soporte nativo para transmisión de datos, lo que mejora la fiabilidad y ejecución de los agentes. Permite llamar de manera forzada a una herramienta, esperar la aprobación de intervención humana, la colaboración de múltiples agentes en un objetivo común y transmitir los pasos intermedios a medida que ocurren. Además, LangSmith ofrece la capacidad de explicar por qué los agentes se desvían y cómo hacer que vuelvan a funcionar correctamente. \cite{PaginaLangChainOficialAgentes} \cite{mavroudis2024langchain}
 
 \textbf{Evaluación}
 
 LangSmith permite medir el rendimiento de la aplicación a lo largo de todo su ciclo de desarrollo con multitud de métricas. Se puede usar evaluación offline, con integración continua y online.
 
-Un marco de pruebas sólido comienza con la creación de un conjunto de datos de referencia, una tarea que a menudo resulta tediosa. LangSmith simplifica esto permitiéndote guardar las trazas de depuración y producción en conjuntos de datos. Los conjuntos de datos son colecciones de entradas y salidas ejemplares o problemáticas que deben ser replicadas o corregidas, respectivamente. También te permite hacer un seguimiento de cómo se comparan las diferentes versiones de tu aplicación según los criterios de evaluación que hayas definido. Además, facilita la evaluación humana y en línea, no solo latencia, errores y costos, sino también medidas cualitativas para asegurar que tu aplicación responda de manera efectiva y cumpla con las expectativas del usuario. \cite{PaginaLangChainOficialEvaluacion}
+Un marco de pruebas sólido comienza con la creación de un conjunto de datos de referencia, una tarea que a menudo resulta tediosa. LangSmith simplifica esto permitiéndote guardar las trazas de depuración y producción en conjuntos de datos. Los conjuntos de datos son colecciones de entradas y salidas ejemplares o problemáticas que deben ser replicadas o corregidas, respectivamente. También te permite hacer un seguimiento de cómo se comparan las diferentes versiones de tu aplicación según los criterios de evaluación que hayas definido. Además, facilita la evaluación humana y en línea, no solo latencia, errores y costos, sino también medidas cualitativas para asegurar que tu aplicación responda de manera efectiva y cumpla con las expectativas del usuario. \cite{PaginaLangChainOficialEvaluacion} \cite{mavroudis2024langchain}
 
 
  
@@ -96,7 +96,7 @@ LangGraph controla, modera y guía las acciones de los agentes, evitando que se 
 
 LangGraph ofrece múltiples opciones de despliegue, incluye un estudio visual y es de código abierto, lo que facilita su integración y personalización.
 
-Asimismo, cuenta con una plataforma diseñada para desplegar y escalar aplicaciones LangGraph, con una API orientada a la creación de interfaces de usuario (UX) para agentes, además de un entorno de desarrollo integrado. Sin embargo, a diferencia de su núcleo, esta plataforma no es de código abierto.\cite{PaginaLangChainOficialLangGraph}
+Asimismo, cuenta con una plataforma diseñada para desplegar y escalar aplicaciones LangGraph, con una API orientada a la creación de interfaces de usuario (UX) para agentes, además de un entorno de desarrollo integrado. Sin embargo, a diferencia de su núcleo, esta plataforma no es de código abierto.\cite{PaginaLangChainOficialLangGraph} \cite{mavroudis2024langchain}
 
 
  
@@ -107,7 +107,7 @@ LangSmith es una plataforma todo en uno diseñada para desarrolladores, que abar
 
 Esta herramienta permite depurar, colaborar, realizar pruebas y monitorear, ofreciendo una visibilidad completa de toda la secuencia de llamadas. Esto facilita la identificación precisa de errores y cuellos de botella en el rendimiento en tiempo real. Además, permite revisar, etiquetar y evaluar el comportamiento de los agentes de forma sencilla, mejorando así la eficiencia y la fiabilidad del sistema.  
 
-LangSmith también puede ejecutarse de forma local, proporcionando flexibilidad y control total sobre el entorno de desarrollo.  \cite{PaginaLangChainOficialLangSmith}
+LangSmith también puede ejecutarse de forma local, proporcionando flexibilidad y control total sobre el entorno de desarrollo.  \cite{PaginaLangChainOficialLangSmith} \cite{mavroudis2024langchain}
 
 \newpage
 \section{Estado del arte}
@@ -118,13 +118,46 @@ Tras una exhaustiva búsqueda, no se ha encontrado ningún trabajo o artículo q
 
 Sin embargo, en una búsqueda más general, se han identificado artículos relacionados que merecen ser destacados:
 
-Un caso relevante es el de las \textbf{recomendaciones} en otros ámbitos \textbf{utilizando LangChain}. En un trabajo publicado por el Journal of Industrial Engineering and Applied Science, se observa cómo un grupo de estudiantes diseñó un sistema para recomendar anime de manera personalizada, utilizando LangChain. Los resultados obtenidos sometidos a numerosas métricas fueron muy satisfactorios gracias a las capacidades de esta tecnología. \cite{LangChainAnime}
+Un caso relevante es el de las \textbf{recomendaciones} en otros ámbitos \textbf{utilizando LangChain}. En un trabajo publicado por el Journal of Industrial Engineering and Applied Science, se observa cómo un grupo de estudiantes diseñó un sistema para recomendar anime de manera personalizada, utilizando LangChain. Los resultados obtenidos sometidos a numerosas métricas fueron muy satisfactorios gracias a las capacidades de esta tecnología. \cite{zhang2024unlocking}
 
 Otro trabajo notable es el de Johans Quintero, quien desarrolló un sistema que recomienda recursos mediante mecanismos de Procesamiento de Lenguaje Natural, utilizando agentes de LangChain. Este proyecto se centra principalmente en la recomendación de libros, pero su enfoque podría extrapolarse a otros ámbitos. \cite{recommender-agent-langchain}
 
-En cuanto a la \textbf{recomendación de videojuegos}, se han encontrado trabajos relevantes que utilizan otras tecnologías. Por ejemplo, Daniel Yélamos Pérez creó un sistema de recomendación de videojuegos basado en las opiniones de otros usuarios, empleando técnicas de extracción e interpretación semántica de datos en un entorno informal. \cite{recomendacion-videojuegos-uam}
+En cuanto a la \textbf{recomendación de videojuegos}, se han encontrado trabajos relevantes que utilizan otras tecnologías. Por ejemplo, Daniel Yélamos Pérez creó un sistema de recomendación de videojuegos basado en las opiniones de otros usuarios, empleando técnicas de extracción e interpretación semántica de datos en un entorno informal. \cite{yelamos2016recomendacion}
 
-Por último, cabe mencionar el trabajo de Alejandro Roldán Soblechero, quien desarrolló una aplicación móvil que permite a los usuarios opinar sobre videojuegos. Esta aplicación integra datos de IGDB (Internet Game Database) y otras bases de conocimiento, garantizando la solidez y actualidad de las sugerencias generadas por el sistema de recomendación. \cite{aplicacion-recomendacion-uoc}
+Por último, cabe mencionar el trabajo de Alejandro Roldán Soblechero, quien desarrolló una aplicación móvil que permite a los usuarios opinar sobre videojuegos. Esta aplicación integra datos de IGDB (Internet Game Database) y otras bases de conocimiento, garantizando la solidez y actualidad de las sugerencias generadas por el sistema de recomendación. \cite{roldan2024aplicacion}
+
+La siguiente tabla resume las características principales de cada trabajo:
+
+\begin{table}[H]
+	\centering
+	\caption{Comparativa entre trabajos analizados y el presente proyecto}
+	\label{tab:comparativa-trabajos}
+	\begin{tabular}{|p{5cm}|c|c|c|c|c|}
+		\hline
+		\textbf{Trabajo} & \textbf{C1} & \textbf{C2} & \textbf{C3} & \textbf{C4} & \textbf{C5} \\
+		\hline
+		\textit{Unlocking Personalized Anime Recommendations: Langchain and LLM at the Forefront} & \ding{51} & \ding{55} & \ding{51} & \ding{55} & \ding{51} \\
+		\hline
+		\textit{Sistema de recomendación con agente LangChain} & \ding{51} & \ding{55} & \ding{51} & \ding{55} & \ding{51} \\
+		\hline
+		\textit{Recomendación de videojuegos basado en análisis semántico y minería de opinión} & \ding{55} & \ding{51} & \ding{55} & \ding{55} & \ding{55} \\
+		\hline
+		\textit{Aplicación de recomendación de videojuegos (IGDB)} & \ding{55} & \ding{51} & \ding{51} & \ding{55} & \ding{55} \\
+		\hline
+		\textbf{Este trabajo} & \ding{51} & \ding{51} & \ding{51} & \ding{51} & \ding{51} \\
+		\hline
+	\end{tabular}
+	
+	\vspace{0.5cm}
+	\textbf{Leyenda de columnas:}
+	\begin{itemize}
+		\item[C1] Uso de LangChain
+		\item[C2] Dominio: Recomendación de videojuegos
+		\item[C3] Uso de múltiples fuentes de datos
+		\item[C4] Personalización contextual (recursos, accesibilidad, etc.)
+		\item[C5] Implementación práctica con tecnologías actuales
+	\end{itemize}
+\end{table}
 
 
 Estos estudios evidencian que tanto el ámbito de las recomendaciones de videojuegos como el uso de LangChain en sistemas de recomendación son temas explorados en la literatura, ofreciendo un valioso punto de referencia y posibles fuentes de inspiración. Sin embargo, la ausencia de trabajos que combinen específicamente LangChain con la recomendación de videojuegos destaca la originalidad y el carácter innovador de nuestro proyecto. 

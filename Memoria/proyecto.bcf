@@ -2361,26 +2361,42 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">capitulos/bibliografia.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">Videojuegos_economia</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">videojuegos_profesional</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">wow</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">arias2023industria</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">williamson2005video</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">van2025profound</bcf:citekey>
     <bcf:citekey order="4" intorder="1">PaginaLangChainOficial</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">PaginaLangChainOficial</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">mavroudis2024langchain</bcf:citekey>
     <bcf:citekey order="6" intorder="1">PaginaLangChainOficial</bcf:citekey>
-    <bcf:citekey order="7" intorder="1">PaginaLangChainOficialBasico</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">PaginaLangChainOficialRAG</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">PaginaLangChainOficialAgentes</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">PaginaLangChainOficialEvaluacion</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">PaginaLangChainOficialLangGraph</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">PaginaLangChainOficialLangSmith</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">LangChainAnime</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">recommender-agent-langchain</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">recomendacion-videojuegos-uam</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">aplicacion-recomendacion-uoc</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">sueldo</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">luz</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">fair-use</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">ONU_ODS_Web</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">PaginaLangChainOficial</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">PaginaLangChainOficialBasico</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">mavroudis2024langchain</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">PaginaLangChainOficialRAG</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">mavroudis2024langchain</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">PaginaLangChainOficialAgentes</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">mavroudis2024langchain</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">PaginaLangChainOficialEvaluacion</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">mavroudis2024langchain</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">PaginaLangChainOficialLangGraph</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">mavroudis2024langchain</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">PaginaLangChainOficialLangSmith</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">mavroudis2024langchain</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">zhang2024unlocking</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">recommender-agent-langchain</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">yelamos2016recomendacion</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">roldan2024aplicacion</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">sueldo</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">luz</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">yankwich1954fair</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">petersen2025ubuntu</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">zagalsky2015emergence</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">boicea2012mongodb</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">gyHorodi2015comparative</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">patkar2022python</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">lubanovic2023fastapi</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">lathkar2023getting</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">jones2015json</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">chiaretta2018front</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">ONU_ODS_Web</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

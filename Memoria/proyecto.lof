@@ -1,41 +1,41 @@
 \babel@toc {spanish}{}\relax 
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces \textbf {Captura de The Last of Us Parte II}.}}{18}{figure.caption.6}%
+\contentsline {figure}{\numberline {1.1}{\ignorespaces \textbf {Captura de The Last of Us Parte II}.}}{17}{figure.caption.6}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces \textbf {Ejemplos de modelos generativos de lenguajes}.}}{22}{figure.caption.7}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces \textbf {Arquitectura productos LangChain}.}}{23}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces \textbf {Ejemplos de modelos generativos de lenguajes}.}}{23}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces \textbf {Arquitectura productos LangChain}.}}{24}{figure.caption.8}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces \textbf {Planificación en diagrama de Gantt}.}}{31}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces \textbf {Planificación en diagrama de Gantt}.}}{33}{figure.caption.14}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces \textbf {Diagrama de casos de uso de usuario no logueado}}}{46}{figure.caption.26}%
-\contentsline {figure}{\numberline {4.2}{\ignorespaces \textbf {Diagrama de casos de uso de usuario logueado y administrador}}}{53}{figure.caption.43}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces \textbf {Diagrama de casos de uso de usuario no logueado}}}{48}{figure.caption.27}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces \textbf {Diagrama de casos de uso de usuario logueado y administrador}}}{55}{figure.caption.44}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces \textbf {Representación visual de la arquitectura}}}{57}{figure.caption.44}%
-\contentsline {figure}{\numberline {5.2}{\ignorespaces \textbf {Diseño preliminar de la página de inicio}.}}{60}{figure.caption.45}%
-\contentsline {figure}{\numberline {5.3}{\ignorespaces \textbf {Diseño preliminar de la página principal tras iniciar sesión}.}}{60}{figure.caption.46}%
-\contentsline {figure}{\numberline {5.4}{\ignorespaces \textbf {Diseño preliminar de la página de ajustes}.}}{61}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.1}{\ignorespaces \textbf {Representación visual de la arquitectura}}}{59}{figure.caption.45}%
+\contentsline {figure}{\numberline {5.2}{\ignorespaces \textbf {Diseño preliminar de la página de inicio}.}}{62}{figure.caption.46}%
+\contentsline {figure}{\numberline {5.3}{\ignorespaces \textbf {Diseño preliminar de la página principal tras iniciar sesión}.}}{62}{figure.caption.47}%
+\contentsline {figure}{\numberline {5.4}{\ignorespaces \textbf {Diseño preliminar de la página de ajustes}.}}{63}{figure.caption.48}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces \textbf {Logo de Ubuntu}.}}{64}{figure.caption.48}%
-\contentsline {figure}{\numberline {6.2}{\ignorespaces \textbf {Logo de GitHub}.}}{65}{figure.caption.49}%
-\contentsline {figure}{\numberline {6.3}{\ignorespaces \textbf {Interfaz de Visual Studio Code}.}}{66}{figure.caption.50}%
-\contentsline {figure}{\numberline {6.4}{\ignorespaces \textbf {Logo de MongoDB}.}}{67}{figure.caption.51}%
-\contentsline {figure}{\numberline {6.5}{\ignorespaces \textbf {Logo de Python}.}}{68}{figure.caption.52}%
-\contentsline {figure}{\numberline {6.6}{\ignorespaces \textbf {Logo de FastAPI}.}}{69}{figure.caption.53}%
-\contentsline {figure}{\numberline {6.7}{\ignorespaces \textbf {Esquema recomendación básica}.}}{72}{figure.caption.54}%
-\contentsline {figure}{\numberline {6.8}{\ignorespaces \textbf {Esquema recomendación personalizada}.}}{73}{figure.caption.55}%
-\contentsline {figure}{\numberline {6.9}{\ignorespaces \textbf {Logo de Angular}.}}{75}{figure.caption.56}%
-\contentsline {figure}{\numberline {6.10}{\ignorespaces \textbf {Imagen de home 1}.}}{77}{figure.caption.58}%
-\contentsline {figure}{\numberline {6.11}{\ignorespaces \textbf {Imagen de home 2}.}}{78}{figure.caption.59}%
-\contentsline {figure}{\numberline {6.12}{\ignorespaces \textbf {Modo claro}.}}{78}{figure.caption.60}%
-\contentsline {figure}{\numberline {6.13}{\ignorespaces \textbf {Vista móvil 1}.}}{79}{figure.caption.61}%
-\contentsline {figure}{\numberline {6.14}{\ignorespaces \textbf {Vista móvil 2}.}}{80}{figure.caption.62}%
-\contentsline {figure}{\numberline {6.15}{\ignorespaces \textbf {Registro}.}}{81}{figure.caption.64}%
-\contentsline {figure}{\numberline {6.16}{\ignorespaces \textbf {Inicio de sesión}.}}{82}{figure.caption.66}%
-\contentsline {figure}{\numberline {6.17}{\ignorespaces \textbf {Página principal 1}.}}{83}{figure.caption.68}%
-\contentsline {figure}{\numberline {6.18}{\ignorespaces \textbf {Página principal 2}.}}{83}{figure.caption.69}%
-\contentsline {figure}{\numberline {6.19}{\ignorespaces \textbf {Página de ajustes de la cuenta}.}}{84}{figure.caption.71}%
+\contentsline {figure}{\numberline {6.1}{\ignorespaces \textbf {Logo de Ubuntu}.}}{66}{figure.caption.49}%
+\contentsline {figure}{\numberline {6.2}{\ignorespaces \textbf {Logo de GitHub}.}}{67}{figure.caption.50}%
+\contentsline {figure}{\numberline {6.3}{\ignorespaces \textbf {Interfaz de Visual Studio Code}.}}{68}{figure.caption.51}%
+\contentsline {figure}{\numberline {6.4}{\ignorespaces \textbf {Logo de MongoDB}.}}{69}{figure.caption.52}%
+\contentsline {figure}{\numberline {6.5}{\ignorespaces \textbf {Logo de Python}.}}{70}{figure.caption.53}%
+\contentsline {figure}{\numberline {6.6}{\ignorespaces \textbf {Logo de FastAPI}.}}{71}{figure.caption.54}%
+\contentsline {figure}{\numberline {6.7}{\ignorespaces \textbf {Esquema recomendación básica}.}}{74}{figure.caption.55}%
+\contentsline {figure}{\numberline {6.8}{\ignorespaces \textbf {Esquema recomendación personalizada}.}}{75}{figure.caption.56}%
+\contentsline {figure}{\numberline {6.9}{\ignorespaces \textbf {Logo de Angular}.}}{77}{figure.caption.57}%
+\contentsline {figure}{\numberline {6.10}{\ignorespaces \textbf {Imagen de home 1}.}}{79}{figure.caption.59}%
+\contentsline {figure}{\numberline {6.11}{\ignorespaces \textbf {Imagen de home 2}.}}{80}{figure.caption.60}%
+\contentsline {figure}{\numberline {6.12}{\ignorespaces \textbf {Modo claro}.}}{80}{figure.caption.61}%
+\contentsline {figure}{\numberline {6.13}{\ignorespaces \textbf {Vista móvil 1}.}}{81}{figure.caption.62}%
+\contentsline {figure}{\numberline {6.14}{\ignorespaces \textbf {Vista móvil 2}.}}{82}{figure.caption.63}%
+\contentsline {figure}{\numberline {6.15}{\ignorespaces \textbf {Registro}.}}{83}{figure.caption.65}%
+\contentsline {figure}{\numberline {6.16}{\ignorespaces \textbf {Inicio de sesión}.}}{84}{figure.caption.67}%
+\contentsline {figure}{\numberline {6.17}{\ignorespaces \textbf {Página principal 1}.}}{85}{figure.caption.69}%
+\contentsline {figure}{\numberline {6.18}{\ignorespaces \textbf {Página principal 2}.}}{85}{figure.caption.70}%
+\contentsline {figure}{\numberline {6.19}{\ignorespaces \textbf {Página de ajustes de la cuenta}.}}{86}{figure.caption.72}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {7.1}{\ignorespaces \textbf {Vista general de Swagger}.}}{89}{figure.caption.72}%
-\contentsline {figure}{\numberline {7.2}{\ignorespaces \textbf {Vista del uso de un método en Swagger}.}}{90}{figure.caption.73}%
-\contentsline {figure}{\numberline {7.3}{\ignorespaces \textbf {Vista de las herramientas de desarrollo del navegador}.}}{91}{figure.caption.74}%
+\contentsline {figure}{\numberline {7.1}{\ignorespaces \textbf {Vista general de Swagger}.}}{91}{figure.caption.73}%
+\contentsline {figure}{\numberline {7.2}{\ignorespaces \textbf {Vista del uso de un método en Swagger}.}}{92}{figure.caption.74}%
+\contentsline {figure}{\numberline {7.3}{\ignorespaces \textbf {Vista de las herramientas de desarrollo del navegador}.}}{93}{figure.caption.75}%
 \addvspace {10\p@ }

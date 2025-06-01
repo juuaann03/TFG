@@ -15,7 +15,7 @@ Además, abordaremos los retos encontrados durante la implementación y las solu
 
 \section{Sistema operativo}
 
-Para el desarrollo de la plataforma se ha utilizado el sistema operativo Ubuntu, en concreto su versión 24.04.
+Para el desarrollo de la plataforma se ha utilizado el sistema operativo Ubuntu, en concreto su versión 24.04 \cite{petersen2025ubuntu}.
 
 Ubuntu es una distribución de Linux orientada al software libre y a la facilidad de uso. Es gratuita, fácil de instalar y ampliamente utilizada en el ámbito académico, especialmente en titulaciones relacionadas con la informática como la nuestra.
 
@@ -37,9 +37,9 @@ Para mantener nuestro trabajo seguro, con posibilidad de recuperar versiones ant
 
 GitHub permite crear un repositorio que contiene todos los archivos del proyecto. Este repositorio puede clonarse en cualquier ordenador, facilitando así el trabajo colaborativo o desde distintos entornos. Una de sus principales funcionalidades es la posibilidad de crear distintas ramas, lo que permite, por ejemplo, desarrollar nuevas funcionalidades o corregir bugs de forma aislada. Posteriormente, estos cambios pueden fusionarse con la rama principal, conservando un historial detallado de versiones.
 
-Gracias a GitHub, no solo almacenamos nuestro trabajo de forma remota en la nube, sino que también facilitamos el control de cambios, la colaboración con otras personas y la organización del desarrollo del proyecto.
+Gracias a GitHub, no solo almacenamos nuestro trabajo de forma remota en la nube, sino que también facilitamos el control de cambios, la colaboración con otras personas y la organización del desarrollo del proyecto \cite{zagalsky2015emergence}.
 
-El enlace al repositorio del proyecto es el siguiente: \url{https://github.com/juuaann03/TFG}
+El enlace al repositorio del proyecto es el siguiente: \textbf{\url{https://github.com/juuaann03/TFG}}
 
 
 \begin{figure}[H]
@@ -77,7 +77,7 @@ Su interfaz intuitiva y su flexibilidad lo convierten en una herramienta ideal p
 
 Para el almacenamiento de datos en nuestra plataforma, se ha optado por utilizar \textbf{MongoDB}, una base de datos NoSQL ampliamente utilizada debido a su potencia, escalabilidad y flexibilidad. MongoDB almacena los datos en documentos BSON (una representación binaria de JSON), lo cual permite una estructura de datos más dinámica en comparación con las bases de datos relacionales tradicionales.
 
-Una de las principales ventajas de MongoDB es su capacidad para manejar documentos con esquemas variables. Por ejemplo, un usuario puede tener 20 videojuegos marcados como favoritos, otro usuario solo 5, y otro ninguno, sin que ello suponga un problema a nivel de estructura de base de datos. Además, permite añadir o eliminar campos fácilmente durante el desarrollo sin necesidad de redefinir esquemas rígidos, algo que sería considerablemente más complejo en bases de datos SQL.
+Una de las principales ventajas de MongoDB es su capacidad para manejar documentos con esquemas variables. Por ejemplo, un usuario puede tener 20 videojuegos marcados como favoritos, otro usuario solo 5, y otro ninguno, sin que ello suponga un problema a nivel de estructura de base de datos. Además, permite añadir o eliminar campos fácilmente durante el desarrollo sin necesidad de redefinir esquemas rígidos, algo que sería considerablemente más complejo en bases de datos SQL o Oracle \cite{boicea2012mongodb} \cite{gyHorodi2015comparative}.
 
 Para nuestra plataforma se ha creado una única base de datos denominada \textbf{LangGames} —una combinación de \textit{LangChain} y \textit{video games}— y una colección principal llamada \textbf{Usuarios}, donde se almacenan los perfiles y preferencias de los usuarios.
 
@@ -101,7 +101,7 @@ Con el fin de facilitar la configuración del entorno de desarrollo, se han crea
 
 \section{BackEnd: Python, FastAPI y LangChain}
 
-El backend de la plataforma ha sido desarrollado en \textbf{Python}, un lenguaje de programación interpretado, multiparadigma y de alto nivel. Su sintaxis sencilla y su extensa comunidad lo han posicionado como una de las principales opciones en el desarrollo de software moderno, especialmente en áreas como la inteligencia artificial, ciencia de datos y desarrollo web.
+El backend de la plataforma ha sido desarrollado en \textbf{Python}, un lenguaje de programación interpretado, multiparadigma y de alto nivel. Su sintaxis sencilla y su extensa comunidad lo han posicionado como una de las principales opciones en el desarrollo de software moderno, especialmente en áreas como la inteligencia artificial, ciencia de datos y desarrollo web \cite{patkar2022python}.
 
 \begin{figure}[H]
 	\centering
@@ -112,7 +112,7 @@ El backend de la plataforma ha sido desarrollado en \textbf{Python}, un lenguaje
 
 Para construir la Api que comunica el backend con el frontend, se ha utilizado la biblioteca \textbf{FastAPI}. Esta herramienta permite definir endpoints de manera declarativa y estructurada, facilitando la validación de datos mediante el uso de modelos definidos con \textit{Pydantic}. Además, gracias a su integración con herramientas como OpenAPI, proporciona una documentación automática e interactiva.
 
-El servidor de desarrollo que ejecuta la aplicación FastAPI se gestiona mediante \textbf{Uvicorn}, un servidor ASGI (Asynchronous Server Gateway Interface) ligero y de alto rendimiento, especialmente diseñado para aplicaciones web modernas basadas en Python asíncrono.
+El servidor de desarrollo que ejecuta la aplicación FastAPI se gestiona mediante \textbf{Uvicorn}, un servidor ASGI (Asynchronous Server Gateway Interface) ligero y de alto rendimiento, especialmente diseñado para aplicaciones web modernas basadas en Python asíncrono. \cite{lubanovic2023fastapi}  \cite{lathkar2023getting}
 
 \begin{figure}[H]
 	\centering
@@ -150,7 +150,7 @@ Esta estrategia favorece la reutilización y centralización del acceso a la bas
 Esta carpeta contiene dos archivos con funciones auxiliares esenciales para el funcionamiento del backend.
 
 \begin{itemize}
-	\item \textbf{jwt}: Este archivo se encarga de generar \textbf{tokens JWT (JSON Web Tokens)}, que permiten autenticar de forma segura a los usuarios. Cada vez que un usuario inicia sesión correctamente, se le genera un token que contiene su correo electrónico (u otro dato identificativo) y una fecha de expiración. Este token se firma digitalmente usando una clave secreta, de modo que el servidor pueda verificar su validez en futuras peticiones sin necesidad de mantener sesiones abiertas. Así se garantiza una comunicación segura y sin estado entre el cliente y el servidor.
+	\item \textbf{jwt}: Este archivo se encarga de generar \textbf{tokens JWT (JSON Web Tokens)}, que permiten autenticar de forma segura a los usuarios \cite{jones2015json}. Cada vez que un usuario inicia sesión correctamente, se le genera un token que contiene su correo electrónico (u otro dato identificativo) y una fecha de expiración. Este token se firma digitalmente usando una clave secreta, de modo que el servidor pueda verificar su validez en futuras peticiones sin necesidad de mantener sesiones abiertas. Así se garantiza una comunicación segura y sin estado entre el cliente y el servidor.
 	
 	\item \textbf{Utilidades Varias}: Aquí se agrupan funciones y configuraciones de utilidad. Por ejemplo:
 	\begin{itemize}
@@ -253,7 +253,7 @@ Este archivo es esencial para arrancar el sistema y exponer todos los servicios 
 
 \section{FrontEnd: Angular}
 
-El frontend de la aplicación ha sido desarrollado utilizando \textbf{Angular}, un framework de desarrollo web moderno, mantenido por Google, que facilita la creación de aplicaciones de una sola página (SPA) con una arquitectura robusta y escalable.
+El frontend de la aplicación ha sido desarrollado utilizando \textbf{Angular}, un framework de desarrollo web moderno, mantenido por Google, que facilita la creación de aplicaciones de una sola página (SPA) con una arquitectura robusta y escalable \cite{chiaretta2018front}.
 
 Angular se basa principalmente en los lenguajes \textbf{HTML}, \textbf{SCSS/CSS} y \textbf{TypeScript}. Para el diseño visual y la personalización del estilo, se ha utilizado el framework de utilidades CSS \textbf{Tailwind CSS}, que permite construir interfaces de usuario de forma rápida y flexible mediante clases predefinidas.
 

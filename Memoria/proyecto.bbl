@@ -19,7 +19,7 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
-    \entry{Videojuegos_economia}{misc}{}
+    \entry{arias2023industria}{article}{}
       \name{author}{1}{}{%
         {{hash=387884929512b39f3a406e314eadb46e}{%
            family={Arias},
@@ -37,73 +37,98 @@
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{journaltitle}{THE OBJECTIVE}
       \field{title}{La industria de los videojuegos ya genera más ingresos que la música y el cine juntos}
       \field{year}{2023}
-      \verb{urlraw}
-      \verb https://theobjective.com/economia/2023-06-04/videojuegos-ingresos-musica-cine/#:~:text=Seg%C3%BAn%20los%20datos%20de%20la,%2C3%25%20respecto%20a%202021.
-      \endverb
-      \verb{url}
-      \verb https://theobjective.com/economia/2023-06-04/videojuegos-ingresos-musica-cine/#:~:text=Seg%C3%BAn%20los%20datos%20de%20la,%2C3%25%20respecto%20a%202021.
-      \endverb
     \endentry
-    \entry{videojuegos_profesional}{misc}{}
-      \name{author}{1}{}{%
-        {{hash=576225bc4e1a56be44a647b3e0064953}{%
-           family={Vázquez},
-           familyi={V\bibinitperiod},
+    \entry{williamson2005video}{article}{}
+      \name{author}{4}{}{%
+        {{hash=6c499f41d3ebc98486f87ef5c1b7a75e}{%
+           family={Williamson},
+           familyi={W\bibinitperiod},
            given={David},
            giveni={D\bibinitperiod}}}%
+        {{hash=6f88d4e8a0de2633587f53ee06024979}{%
+           family={Squire},
+           familyi={S\bibinitperiod},
+           given={K},
+           giveni={K\bibinitperiod}}}%
+        {{hash=b55413f5b9369eb918a532d1fddbdb48}{%
+           family={Halverson},
+           familyi={H\bibinitperiod},
+           given={R},
+           giveni={R\bibinitperiod}}}%
+        {{hash=9b915be8ca38b907ca12eec32f7c19e9}{%
+           family={Gee},
+           familyi={G\bibinitperiod},
+           given={JP},
+           giveni={J\bibinitperiod}}}%
       }
-      \strng{namehash}{576225bc4e1a56be44a647b3e0064953}
-      \strng{fullhash}{576225bc4e1a56be44a647b3e0064953}
-      \strng{bibnamehash}{576225bc4e1a56be44a647b3e0064953}
-      \strng{authorbibnamehash}{576225bc4e1a56be44a647b3e0064953}
-      \strng{authornamehash}{576225bc4e1a56be44a647b3e0064953}
-      \strng{authorfullhash}{576225bc4e1a56be44a647b3e0064953}
+      \strng{namehash}{07bcfb8d19066090b9a92359773d3929}
+      \strng{fullhash}{acd812405b7ba7f1777cd423507cb665}
+      \strng{bibnamehash}{07bcfb8d19066090b9a92359773d3929}
+      \strng{authorbibnamehash}{07bcfb8d19066090b9a92359773d3929}
+      \strng{authornamehash}{07bcfb8d19066090b9a92359773d3929}
+      \strng{authorfullhash}{acd812405b7ba7f1777cd423507cb665}
       \field{sortinit}{2}
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Cuando los videojuegos se pasan la pantalla: así se utilizan ya en el mundo corporativo, en el sector educativo o incluso en el Ejército}
-      \field{year}{2021}
-      \verb{urlraw}
-      \verb https://www.businessinsider.es/tecnologia/utilizan-videojuegos-empresas-sector-educativo-ejercito-900143
-      \endverb
-      \verb{url}
-      \verb https://www.businessinsider.es/tecnologia/utilizan-videojuegos-empresas-sector-educativo-ejercito-900143
-      \endverb
+      \field{journaltitle}{Phi Delta Kappan}
+      \field{number}{2}
+      \field{title}{Video games and the future of learning}
+      \field{volume}{87}
+      \field{year}{2005}
+      \field{pages}{104\bibrangedash 111}
+      \range{pages}{8}
     \endentry
-    \entry{wow}{misc}{}
+    \entry{van2025profound}{article}{}
       \name{author}{1}{}{%
-        {{hash=cfd511cdeeaccd39ad0c352500082c13}{%
-           family={Vicente},
-           familyi={V\bibinitperiod},
-           given={Judith},
-           giveni={J\bibinitperiod}}}%
+        {{hash=9710823df94a941ccf9e15c0ce9aba49}{%
+           family={Van\bibnamedelima Dorn},
+           familyi={V\bibinitperiod\bibinitdelim D\bibinitperiod},
+           given={Aaron},
+           giveni={A\bibinitperiod}}}%
       }
-      \strng{namehash}{cfd511cdeeaccd39ad0c352500082c13}
-      \strng{fullhash}{cfd511cdeeaccd39ad0c352500082c13}
-      \strng{bibnamehash}{cfd511cdeeaccd39ad0c352500082c13}
-      \strng{authorbibnamehash}{cfd511cdeeaccd39ad0c352500082c13}
-      \strng{authornamehash}{cfd511cdeeaccd39ad0c352500082c13}
-      \strng{authorfullhash}{cfd511cdeeaccd39ad0c352500082c13}
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{9710823df94a941ccf9e15c0ce9aba49}
+      \strng{fullhash}{9710823df94a941ccf9e15c0ce9aba49}
+      \strng{bibnamehash}{9710823df94a941ccf9e15c0ce9aba49}
+      \strng{authorbibnamehash}{9710823df94a941ccf9e15c0ce9aba49}
+      \strng{authornamehash}{9710823df94a941ccf9e15c0ce9aba49}
+      \strng{authorfullhash}{9710823df94a941ccf9e15c0ce9aba49}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{“La singular vida de Ibelin”: la verdadera historia de Mats Steen, el jugador con discapacidad que tenía una vida secreta en World of Warcraft}
-      \field{year}{2024}
-      \verb{urlraw}
-      \verb https://elcomercio.pe/mag/fama/que-ver/la-singular-vida-de-ibelin-la-verdadera-historia-de-mats-steen-el-jugador-discapacitado-que-tenia-una-vida-secreta-en-world-of-warcraft-documental-de-netflix-the-remarkable-life-of-ibelin-nnda-nnlt-noticia/
-      \endverb
-      \verb{url}
-      \verb https://elcomercio.pe/mag/fama/que-ver/la-singular-vida-de-ibelin-la-verdadera-historia-de-mats-steen-el-jugador-discapacitado-que-tenia-una-vida-secreta-en-world-of-warcraft-documental-de-netflix-the-remarkable-life-of-ibelin-nnda-nnlt-noticia/
-      \endverb
+      \field{journaltitle}{The Lancet Child \& Adolescent Health}
+      \field{number}{1}
+      \field{title}{A profound portrait of a life online}
+      \field{volume}{9}
+      \field{year}{2025}
+      \field{pages}{14\bibrangedash 15}
+      \range{pages}{2}
     \endentry
-    \entry{PaginaLangChainOficial}{misc}{}
+    \entry{PaginaLangChainOficial}{online}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{extraname}{1}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{LangChain}
       \field{year}{2025}
       \verb{urlraw}
@@ -113,10 +138,46 @@
       \verb https://www.langchain.com/
       \endverb
     \endentry
-    \entry{PaginaLangChainOficialBasico}{misc}{}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+    \entry{mavroudis2024langchain}{article}{}
+      \name{author}{1}{}{%
+        {{hash=04b61358fa22dd2d4f24997d7b0a675a}{%
+           family={Mavroudis},
+           familyi={M\bibinitperiod},
+           given={Vasilios},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{04b61358fa22dd2d4f24997d7b0a675a}
+      \strng{fullhash}{04b61358fa22dd2d4f24997d7b0a675a}
+      \strng{bibnamehash}{04b61358fa22dd2d4f24997d7b0a675a}
+      \strng{authorbibnamehash}{04b61358fa22dd2d4f24997d7b0a675a}
+      \strng{authornamehash}{04b61358fa22dd2d4f24997d7b0a675a}
+      \strng{authorfullhash}{04b61358fa22dd2d4f24997d7b0a675a}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{journaltitle}{Preprints}
+      \field{title}{LangChain v0. 3}
+      \field{year}{2024}
+    \endentry
+    \entry{PaginaLangChainOficialBasico}{online}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{extraname}{2}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{LangChain Básico}
       \field{year}{2025}
       \verb{urlraw}
@@ -126,10 +187,24 @@
       \verb https://www.langchain.com/langchain
       \endverb
     \endentry
-    \entry{PaginaLangChainOficialRAG}{misc}{}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+    \entry{PaginaLangChainOficialRAG}{online}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{extraname}{3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{RAG}
       \field{year}{2025}
       \verb{urlraw}
@@ -139,10 +214,24 @@
       \verb https://www.langchain.com/retrieval
       \endverb
     \endentry
-    \entry{PaginaLangChainOficialAgentes}{misc}{}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+    \entry{PaginaLangChainOficialAgentes}{online}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{extraname}{4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{LangChain Agentes}
       \field{year}{2025}
       \verb{urlraw}
@@ -152,11 +241,25 @@
       \verb https://www.langchain.com/agents
       \endverb
     \endentry
-    \entry{PaginaLangChainOficialEvaluacion}{misc}{}
+    \entry{PaginaLangChainOficialEvaluacion}{online}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{extraname}{5}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{LangChain Evaluacion}
+      \field{note}{Último acceso: marzo de 2025}
+      \field{title}{LangChain Evaluación}
       \field{year}{2025}
       \verb{urlraw}
       \verb https://www.langchain.com/evaluation
@@ -165,10 +268,24 @@
       \verb https://www.langchain.com/evaluation
       \endverb
     \endentry
-    \entry{PaginaLangChainOficialLangGraph}{misc}{}
+    \entry{PaginaLangChainOficialLangGraph}{online}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{extraname}{6}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{LangChain LangGraph}
       \field{year}{2025}
       \verb{urlraw}
@@ -178,10 +295,24 @@
       \verb https://www.langchain.com/langgraph
       \endverb
     \endentry
-    \entry{PaginaLangChainOficialLangSmith}{misc}{}
+    \entry{PaginaLangChainOficialLangSmith}{online}{}
+      \name{author}{1}{}{%
+        {{hash=bb0155493cf46514a4b6186fc6d25e35}{%
+           family={{LangChain Inc.}},
+           familyi={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{fullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{bibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorbibnamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authornamehash}{bb0155493cf46514a4b6186fc6d25e35}
+      \strng{authorfullhash}{bb0155493cf46514a4b6186fc6d25e35}
+      \field{extraname}{7}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{LangChain LangSmith}
       \field{year}{2025}
       \verb{urlraw}
@@ -191,33 +322,51 @@
       \verb https://www.langchain.com/langsmith
       \endverb
     \endentry
-    \entry{LangChainAnime}{article}{}
-      \name{author}{1}{}{%
+    \entry{zhang2024unlocking}{article}{}
+      \name{author}{5}{}{%
         {{hash=5ddec46e090404e1224890533cbaa882}{%
            family={Zhang},
            familyi={Z\bibinitperiod},
            given={Ye},
            giveni={Y\bibinitperiod}}}%
+        {{hash=c4679c2394f3e819d43edc20ed39227a}{%
+           family={Gui},
+           familyi={G\bibinitperiod},
+           given={Kailin},
+           giveni={K\bibinitperiod}}}%
+        {{hash=a8dccdd2b3ce26b6a7832d1569119c54}{%
+           family={Zhu},
+           familyi={Z\bibinitperiod},
+           given={Mengran},
+           giveni={M\bibinitperiod}}}%
+        {{hash=e048530a3c657eb731468d7c4fd09715}{%
+           family={Hao},
+           familyi={H\bibinitperiod},
+           given={Yong},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=41e21eb973c94a56ae8821e1002e4dc7}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Haozhan},
+           giveni={H\bibinitperiod}}}%
       }
-      \strng{namehash}{5ddec46e090404e1224890533cbaa882}
-      \strng{fullhash}{5ddec46e090404e1224890533cbaa882}
-      \strng{bibnamehash}{5ddec46e090404e1224890533cbaa882}
-      \strng{authorbibnamehash}{5ddec46e090404e1224890533cbaa882}
-      \strng{authornamehash}{5ddec46e090404e1224890533cbaa882}
-      \strng{authorfullhash}{5ddec46e090404e1224890533cbaa882}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \strng{namehash}{3083e4f00816542ac194fbee58df11e5}
+      \strng{fullhash}{e36d745b1c4a7eaf0a15e84e9efd7603}
+      \strng{bibnamehash}{3083e4f00816542ac194fbee58df11e5}
+      \strng{authorbibnamehash}{3083e4f00816542ac194fbee58df11e5}
+      \strng{authornamehash}{3083e4f00816542ac194fbee58df11e5}
+      \strng{authorfullhash}{e36d745b1c4a7eaf0a15e84e9efd7603}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Journal of Industrial Engineering and Applied Science}
-      \field{title}{Unlocking Personalized Anime Recommendations: Langchain and LLM at the Forefront}
+      \field{number}{2}
+      \field{title}{Unlocking personalized anime recommendations: Langchain and llm at the forefront}
+      \field{volume}{2}
       \field{year}{2024}
-      \verb{urlraw}
-      \verb https://www.suaspress.org/ojs/index.php/JIEAS/article/view/v2n2a08/v2n2a08
-      \endverb
-      \verb{url}
-      \verb https://www.suaspress.org/ojs/index.php/JIEAS/article/view/v2n2a08/v2n2a08
-      \endverb
+      \field{pages}{46\bibrangedash 53}
+      \range{pages}{8}
     \endentry
     \entry{recommender-agent-langchain}{misc}{}
       \name{author}{1}{}{%
@@ -233,8 +382,8 @@
       \strng{authorbibnamehash}{c84817b3f22a84a3e46b629ba2936b06}
       \strng{authornamehash}{c84817b3f22a84a3e46b629ba2936b06}
       \strng{authorfullhash}{c84817b3f22a84a3e46b629ba2936b06}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Sistema de recomendación con agente LangChain}
@@ -246,7 +395,9 @@
       \verb https://github.com/johansquintero/recommender-agent
       \endverb
     \endentry
-    \entry{recomendacion-videojuegos-uam}{misc}{}
+    \entry{yelamos2016recomendacion}{thesis}{}
+      \true{moreauthor}
+      \true{morelabelname}
       \name{author}{1}{}{%
         {{hash=0b2d50c306dc6a75905bc1cbe773aad1}{%
            family={Yélamos\bibnamedelima Pérez},
@@ -254,26 +405,21 @@
            given={Daniel},
            giveni={D\bibinitperiod}}}%
       }
-      \strng{namehash}{0b2d50c306dc6a75905bc1cbe773aad1}
-      \strng{fullhash}{0b2d50c306dc6a75905bc1cbe773aad1}
-      \strng{bibnamehash}{0b2d50c306dc6a75905bc1cbe773aad1}
-      \strng{authorbibnamehash}{0b2d50c306dc6a75905bc1cbe773aad1}
-      \strng{authornamehash}{0b2d50c306dc6a75905bc1cbe773aad1}
-      \strng{authorfullhash}{0b2d50c306dc6a75905bc1cbe773aad1}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \strng{namehash}{ff19304a180702ef43202ec90fd751b9}
+      \strng{fullhash}{ff19304a180702ef43202ec90fd751b9}
+      \strng{bibnamehash}{ff19304a180702ef43202ec90fd751b9}
+      \strng{authorbibnamehash}{ff19304a180702ef43202ec90fd751b9}
+      \strng{authornamehash}{ff19304a180702ef43202ec90fd751b9}
+      \strng{authorfullhash}{ff19304a180702ef43202ec90fd751b9}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Recomendación de videojuegos basado en análisis semántico y minería de opinión}
+      \field{type}{{B.S.} thesis}
       \field{year}{2016}
-      \verb{urlraw}
-      \verb https://repositorio.uam.es/handle/10486/676784
-      \endverb
-      \verb{url}
-      \verb https://repositorio.uam.es/handle/10486/676784
-      \endverb
     \endentry
-    \entry{aplicacion-recomendacion-uoc}{misc}{}
+    \entry{roldan2024aplicacion}{article}{}
       \name{author}{1}{}{%
         {{hash=e019021b5d48e42c4c97a1778f32ea98}{%
            family={Roldán\bibnamedelima Soblechero},
@@ -281,26 +427,23 @@
            given={Alejandro},
            giveni={A\bibinitperiod}}}%
       }
+      \list{publisher}{1}{%
+        {Universitat Oberta de Catalunya (UOC)}%
+      }
       \strng{namehash}{e019021b5d48e42c4c97a1778f32ea98}
       \strng{fullhash}{e019021b5d48e42c4c97a1778f32ea98}
       \strng{bibnamehash}{e019021b5d48e42c4c97a1778f32ea98}
       \strng{authorbibnamehash}{e019021b5d48e42c4c97a1778f32ea98}
       \strng{authornamehash}{e019021b5d48e42c4c97a1778f32ea98}
       \strng{authorfullhash}{e019021b5d48e42c4c97a1778f32ea98}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Aplicación de recomendación de videojuegos}
       \field{year}{2024}
-      \verb{urlraw}
-      \verb https://openaccess.uoc.edu/handle/10609/150892
-      \endverb
-      \verb{url}
-      \verb https://openaccess.uoc.edu/handle/10609/150892
-      \endverb
     \endentry
-    \entry{sueldo}{misc}{}
+    \entry{sueldo}{online}{}
       \name{author}{1}{}{%
         {{hash=a1519fa43d515d12acd12aea436a8a3d}{%
            family={Talent.com},
@@ -316,10 +459,11 @@
       \strng{authorbibnamehash}{a1519fa43d515d12acd12aea436a8a3d}
       \strng{authornamehash}{a1519fa43d515d12acd12aea436a8a3d}
       \strng{authorfullhash}{a1519fa43d515d12acd12aea436a8a3d}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{Sueldo medio informático España}
       \field{year}{2025}
       \verb{urlraw}
@@ -329,7 +473,7 @@
       \verb https://es.talent.com/salary?job=ingeniero+inform%C3%A1tico#:~:text=El%20salario%20ingeniero%20inform%C3%A1tico%20promedio,hasta%20%E2%82%AC%2036.000%20al%20a%C3%B1o.
       \endverb
     \endentry
-    \entry{luz}{misc}{}
+    \entry{luz}{online}{}
       \name{author}{1}{}{%
         {{hash=ba1b390627746773907e060b1e37fc41}{%
            family={CosteEnergia.es},
@@ -345,10 +489,11 @@
       \strng{authorbibnamehash}{ba1b390627746773907e060b1e37fc41}
       \strng{authornamehash}{ba1b390627746773907e060b1e37fc41}
       \strng{authorfullhash}{ba1b390627746773907e060b1e37fc41}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
+      \field{note}{Último acceso: marzo de 2025}
       \field{title}{Coste del kwh 2025}
       \field{year}{2025}
       \verb{urlraw}
@@ -358,34 +503,336 @@
       \verb https://www.costeenergia.es/historico/pvpc-anual
       \endverb
     \endentry
-    \entry{fair-use}{misc}{}
+    \entry{yankwich1954fair}{article}{}
       \name{author}{1}{}{%
-        {{hash=e2ceeea38f8620383cfbd3e99c5c0cd8}{%
-           family={contributors},
-           familyi={c\bibinitperiod},
-           given={Wikipedia},
-           giveni={W\bibinitperiod}}}%
+        {{hash=76b4dff192e3b58986417ed4c98d3206}{%
+           family={Yankwich},
+           familyi={Y\bibinitperiod},
+           given={Leon\bibnamedelima R},
+           giveni={L\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
       }
-      \strng{namehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
-      \strng{fullhash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
-      \strng{bibnamehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
-      \strng{authorbibnamehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
-      \strng{authornamehash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
-      \strng{authorfullhash}{e2ceeea38f8620383cfbd3e99c5c0cd8}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{76b4dff192e3b58986417ed4c98d3206}
+      \strng{fullhash}{76b4dff192e3b58986417ed4c98d3206}
+      \strng{bibnamehash}{76b4dff192e3b58986417ed4c98d3206}
+      \strng{authorbibnamehash}{76b4dff192e3b58986417ed4c98d3206}
+      \strng{authornamehash}{76b4dff192e3b58986417ed4c98d3206}
+      \strng{authorfullhash}{76b4dff192e3b58986417ed4c98d3206}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{Fair use}
-      \field{year}{2025}
-      \verb{urlraw}
-      \verb https://en.wikipedia.org/wiki/Fair_use
-      \endverb
-      \verb{url}
-      \verb https://en.wikipedia.org/wiki/Fair_use
-      \endverb
+      \field{journaltitle}{The University of Chicago Law Review}
+      \field{number}{1}
+      \field{title}{What Is Fair Use?}
+      \field{volume}{22}
+      \field{year}{1954}
+      \field{pages}{203\bibrangedash 215}
+      \range{pages}{13}
     \endentry
-    \entry{ONU_ODS_Web}{misc}{}
+    \entry{petersen2025ubuntu}{book}{}
+      \name{author}{1}{}{%
+        {{hash=ef7d244d85b665446b026a6c23ee0d07}{%
+           family={Petersen},
+           familyi={P\bibinitperiod},
+           given={Richard},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {surfing turtle press}%
+      }
+      \strng{namehash}{ef7d244d85b665446b026a6c23ee0d07}
+      \strng{fullhash}{ef7d244d85b665446b026a6c23ee0d07}
+      \strng{bibnamehash}{ef7d244d85b665446b026a6c23ee0d07}
+      \strng{authorbibnamehash}{ef7d244d85b665446b026a6c23ee0d07}
+      \strng{authornamehash}{ef7d244d85b665446b026a6c23ee0d07}
+      \strng{authorfullhash}{ef7d244d85b665446b026a6c23ee0d07}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Ubuntu 24.04 LTS Server: Administration and Reference}
+      \field{year}{2025}
+    \endentry
+    \entry{zagalsky2015emergence}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=e0b0e931fc637876380c2f7092dc15c9}{%
+           family={Zagalsky},
+           familyi={Z\bibinitperiod},
+           given={Alexey},
+           giveni={A\bibinitperiod}}}%
+        {{hash=bcacb67a6057c1483f63822cd79de81e}{%
+           family={Feliciano},
+           familyi={F\bibinitperiod},
+           given={Joseph},
+           giveni={J\bibinitperiod}}}%
+        {{hash=d88bfec92aef818de9532a68531f7f5c}{%
+           family={Storey},
+           familyi={S\bibinitperiod},
+           given={Margaret-Anne},
+           giveni={M\bibinithyphendelim A\bibinitperiod}}}%
+        {{hash=ea02b34c30b768ba5d04b3030fa3560a}{%
+           family={Zhao},
+           familyi={Z\bibinitperiod},
+           given={Yiyun},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=855b902d4c6ab634575e258decadef86}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Weiliang},
+           giveni={W\bibinitperiod}}}%
+      }
+      \strng{namehash}{88f70ec75b235ec10d9ec4338f1521b4}
+      \strng{fullhash}{a5737241d3339229cce9eb75fc5305ad}
+      \strng{bibnamehash}{88f70ec75b235ec10d9ec4338f1521b4}
+      \strng{authorbibnamehash}{88f70ec75b235ec10d9ec4338f1521b4}
+      \strng{authornamehash}{88f70ec75b235ec10d9ec4338f1521b4}
+      \strng{authorfullhash}{a5737241d3339229cce9eb75fc5305ad}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 18th ACM conference on computer supported cooperative work \& social computing}
+      \field{title}{The emergence of github as a collaborative platform for education}
+      \field{year}{2015}
+      \field{pages}{1906\bibrangedash 1917}
+      \range{pages}{12}
+    \endentry
+    \entry{boicea2012mongodb}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=d1d03e4b9e6780b80589ab98d0db2856}{%
+           family={Boicea},
+           familyi={B\bibinitperiod},
+           given={Alexandru},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4c31bd7f79c8647ccd033e49dcedc7bc}{%
+           family={Radulescu},
+           familyi={R\bibinitperiod},
+           given={Florin},
+           giveni={F\bibinitperiod}}}%
+        {{hash=7659464223ebc6310a19277339393a08}{%
+           family={Agapin},
+           familyi={A\bibinitperiod},
+           given={Laura\bibnamedelima Ioana},
+           giveni={L\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{f44b09b37253a2ef861ff1c1df3c91fe}
+      \strng{fullhash}{f44b09b37253a2ef861ff1c1df3c91fe}
+      \strng{bibnamehash}{f44b09b37253a2ef861ff1c1df3c91fe}
+      \strng{authorbibnamehash}{f44b09b37253a2ef861ff1c1df3c91fe}
+      \strng{authornamehash}{f44b09b37253a2ef861ff1c1df3c91fe}
+      \strng{authorfullhash}{f44b09b37253a2ef861ff1c1df3c91fe}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2012 third international conference on emerging intelligent data and web technologies}
+      \field{title}{MongoDB vs Oracle--database comparison}
+      \field{year}{2012}
+      \field{pages}{330\bibrangedash 335}
+      \range{pages}{6}
+    \endentry
+    \entry{gyHorodi2015comparative}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=992e2a997c22a716418378c66cb5327f}{%
+           family={Győrödi},
+           familyi={G\bibinitperiod},
+           given={Cornelia},
+           giveni={C\bibinitperiod}}}%
+        {{hash=5e6c50dd8f1aa4f9a8e0bf4746653b2f}{%
+           family={Győrödi},
+           familyi={G\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=301aaebc1a03d95ac9ac16358fe473c1}{%
+           family={Pecherle},
+           familyi={P\bibinitperiod},
+           given={George},
+           giveni={G\bibinitperiod}}}%
+        {{hash=53a85331785cd0a44bbf3d78fce02da0}{%
+           family={Olah},
+           familyi={O\bibinitperiod},
+           given={Andrada},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{organization}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{9e052fdd3072c583017269ccfdd9a9fa}
+      \strng{fullhash}{232fe756365a1619f4acadf365d95df5}
+      \strng{bibnamehash}{9e052fdd3072c583017269ccfdd9a9fa}
+      \strng{authorbibnamehash}{9e052fdd3072c583017269ccfdd9a9fa}
+      \strng{authornamehash}{9e052fdd3072c583017269ccfdd9a9fa}
+      \strng{authorfullhash}{232fe756365a1619f4acadf365d95df5}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{2015 13th international conference on engineering of modern electric systems (EMES)}
+      \field{title}{A comparative study: MongoDB vs. MySQL}
+      \field{year}{2015}
+      \field{pages}{1\bibrangedash 6}
+      \range{pages}{6}
+    \endentry
+    \entry{patkar2022python}{article}{}
+      \name{author}{5}{}{%
+        {{hash=90312aeb5125813f506b49d1496fa995}{%
+           family={Patkar},
+           familyi={P\bibinitperiod},
+           given={Uday},
+           giveni={U\bibinitperiod}}}%
+        {{hash=c769be0b3c138e289e76709f45a04e1d}{%
+           family={Singh},
+           familyi={S\bibinitperiod},
+           given={Priyanshu},
+           giveni={P\bibinitperiod}}}%
+        {{hash=7d9a2613d64d549575797fc462de5920}{%
+           family={Panse},
+           familyi={P\bibinitperiod},
+           given={Harshit},
+           giveni={H\bibinitperiod}}}%
+        {{hash=1e4894d4d4e1f61a70dfb4205325264c}{%
+           family={Bhavsar},
+           familyi={B\bibinitperiod},
+           given={Shubham},
+           giveni={S\bibinitperiod}}}%
+        {{hash=dd195585763485f7f65626d1e0b69bae}{%
+           family={Pandey},
+           familyi={P\bibinitperiod},
+           given={Chandramani},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{cc878e7b7d04080b883a5c71b9a2de2e}
+      \strng{fullhash}{a6f13351fe2584f9e7b27c645ea1085c}
+      \strng{bibnamehash}{cc878e7b7d04080b883a5c71b9a2de2e}
+      \strng{authorbibnamehash}{cc878e7b7d04080b883a5c71b9a2de2e}
+      \strng{authornamehash}{cc878e7b7d04080b883a5c71b9a2de2e}
+      \strng{authorfullhash}{a6f13351fe2584f9e7b27c645ea1085c}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{International Journal of Computer Science and Mobile Computing}
+      \field{number}{4}
+      \field{title}{Python for web development}
+      \field{volume}{11}
+      \field{year}{2022}
+      \field{pages}{36}
+      \range{pages}{1}
+    \endentry
+    \entry{lubanovic2023fastapi}{book}{}
+      \name{author}{1}{}{%
+        {{hash=0d97d3fd6e428b16a2b7852b209ec017}{%
+           family={Lubanovic},
+           familyi={L\bibinitperiod},
+           given={Bill},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {" O'Reilly Media, Inc."}%
+      }
+      \strng{namehash}{0d97d3fd6e428b16a2b7852b209ec017}
+      \strng{fullhash}{0d97d3fd6e428b16a2b7852b209ec017}
+      \strng{bibnamehash}{0d97d3fd6e428b16a2b7852b209ec017}
+      \strng{authorbibnamehash}{0d97d3fd6e428b16a2b7852b209ec017}
+      \strng{authornamehash}{0d97d3fd6e428b16a2b7852b209ec017}
+      \strng{authorfullhash}{0d97d3fd6e428b16a2b7852b209ec017}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{FastAPI}
+      \field{year}{2023}
+    \endentry
+    \entry{lathkar2023getting}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=07b88aa10618d92b53fa3be9ca66608d}{%
+           family={Lathkar},
+           familyi={L\bibinitperiod},
+           given={Malhar},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{07b88aa10618d92b53fa3be9ca66608d}
+      \strng{fullhash}{07b88aa10618d92b53fa3be9ca66608d}
+      \strng{bibnamehash}{07b88aa10618d92b53fa3be9ca66608d}
+      \strng{authorbibnamehash}{07b88aa10618d92b53fa3be9ca66608d}
+      \strng{authornamehash}{07b88aa10618d92b53fa3be9ca66608d}
+      \strng{authorfullhash}{07b88aa10618d92b53fa3be9ca66608d}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{High-Performance Web Apps with FastAPI: The Asynchronous Web Framework Based on Modern Python}
+      \field{title}{Getting started with FastAPI}
+      \field{year}{2023}
+      \field{pages}{29\bibrangedash 64}
+      \range{pages}{36}
+    \endentry
+    \entry{jones2015json}{report}{}
+      \name{author}{3}{}{%
+        {{hash=5a25bc91f524ca6dfc2ecf9f4a13903c}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={Michael},
+           giveni={M\bibinitperiod}}}%
+        {{hash=c3a5019aee084bfff02cd2a5cb7d7c70}{%
+           family={Campbell},
+           familyi={C\bibinitperiod},
+           given={Brian},
+           giveni={B\bibinitperiod}}}%
+        {{hash=289d5d37708c3a07065c8ce8081d0c43}{%
+           family={Mortimore},
+           familyi={M\bibinitperiod},
+           given={Chuck},
+           giveni={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{6381a9638e9c6a23cffce26e4cdd7ea3}
+      \strng{fullhash}{6381a9638e9c6a23cffce26e4cdd7ea3}
+      \strng{bibnamehash}{6381a9638e9c6a23cffce26e4cdd7ea3}
+      \strng{authorbibnamehash}{6381a9638e9c6a23cffce26e4cdd7ea3}
+      \strng{authornamehash}{6381a9638e9c6a23cffce26e4cdd7ea3}
+      \strng{authorfullhash}{6381a9638e9c6a23cffce26e4cdd7ea3}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Json web token (jwt) profile for oauth 2.0 client authentication and authorization grants}
+      \field{type}{techreport}
+      \field{year}{2015}
+    \endentry
+    \entry{chiaretta2018front}{book}{}
+      \name{author}{1}{}{%
+        {{hash=ff6125a58cd51dc63a3a1ef286d87cee}{%
+           family={Chiaretta},
+           familyi={C\bibinitperiod},
+           given={Simone},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons}%
+      }
+      \strng{namehash}{ff6125a58cd51dc63a3a1ef286d87cee}
+      \strng{fullhash}{ff6125a58cd51dc63a3a1ef286d87cee}
+      \strng{bibnamehash}{ff6125a58cd51dc63a3a1ef286d87cee}
+      \strng{authorbibnamehash}{ff6125a58cd51dc63a3a1ef286d87cee}
+      \strng{authornamehash}{ff6125a58cd51dc63a3a1ef286d87cee}
+      \strng{authorfullhash}{ff6125a58cd51dc63a3a1ef286d87cee}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Front-end Development with ASP. NET Core, Angular, and Bootstrap}
+      \field{year}{2018}
+    \endentry
+    \entry{ONU_ODS_Web}{online}{}
       \name{author}{1}{}{%
         {{hash=fb36582c35e1238e15e3df5a7b4b3db5}{%
            family={{Organización de las Naciones Unidas}},
@@ -397,11 +844,11 @@
       \strng{authorbibnamehash}{fb36582c35e1238e15e3df5a7b4b3db5}
       \strng{authornamehash}{fb36582c35e1238e15e3df5a7b4b3db5}
       \strng{authorfullhash}{fb36582c35e1238e15e3df5a7b4b3db5}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{note}{Sitio oficial de las Naciones Unidas sobre los ODS}
+      \field{note}{Sitio oficial de las Naciones Unidas sobre los ODS,último acceso: junio de 2025}
       \field{title}{{Objetivos de Desarrollo Sostenible}}
       \field{year}{2015}
       \verb{urlraw}
