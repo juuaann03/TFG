@@ -23,6 +23,7 @@ if [ ! -d "venv" ]; then
   pip install pycryptodome
   pip install bcrypt
   pip install python-jose
+  pip install mongomock pytest pytest-asyncio
   pip freeze > requirements.txt
 
 else

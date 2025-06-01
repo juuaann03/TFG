@@ -416,3 +416,5 @@ env/*
 .__pycache__
 
 *.pid
+
+.pytest_cache

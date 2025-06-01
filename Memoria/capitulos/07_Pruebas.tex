@@ -44,6 +44,18 @@ Posteriormente, durante el desarrollo del \textit{frontend}, las pruebas comenza
 	\label{swagger-2}
 \end{figure}
 
+\subsection{Pruebas unitarias y de integración en el \textit{backend}}
+
+Además de las pruebas realizadas con Swagger, se han desarrollado pruebas unitarias e integradas para el módulo de \textit{backend} utilizando la librería \texttt{unittest} junto con \texttt{mongomock}, una herramienta que simula el comportamiento de una base de datos MongoDB en memoria. Esto permitió realizar pruebas sin necesidad de conectarse a una base de datos real.
+
+Estas pruebas se organizaron en dos ficheros separados dentro de una carpeta \texttt{test}: un archivo para gestionar usuario y otro para la autentificación. El primero contiene pruebas sobre la lógica de gestión de usuarios, mientras que el segundo verifica las rutas de autenticación expuestas por la API de FastAPI.
+
+Las funciones principales del sistema se comprobaron de forma individual, incluyendo la creación, actualización, eliminación y verificación de usuarios. Para ello, se prepararon entornos simulados en cada prueba, creando una base de datos ficticia e inyectando los datos necesarios para comprobar el comportamiento del sistema. También se emplearon técnicas de \textit{mocking} para simular el comportamiento de las funciones de encriptación de contraseñas (\texttt{bcrypt}) y de generación de tokens JWT, permitiendo centrarse en la lógica del sistema sin depender de funcionalidades externas.
+
+En el caso de las rutas de autenticación, se utilizó \texttt{TestClient}, un cliente de pruebas proporcionado por FastAPI, para simular peticiones HTTP y verificar las respuestas del servidor. Se probaron casos como el inicio de sesión con credenciales correctas, contraseñas incorrectas y usuarios inexistentes, evaluando la respuesta del sistema ante distintos escenarios.
+
+Estas pruebas automáticas permiten garantizar que los métodos clave del \textit{backend} funcionan correctamente, tanto de forma aislada como cuando interactúan entre sí. Además, al ejecutarse de manera repetida, facilitan la detección temprana de errores ante futuros cambios en el código.
+
 \newpage
 
 \section{Pruebas en el \textit{frontend}}

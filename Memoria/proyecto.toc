@@ -54,11 +54,14 @@
 \contentsline {chapter}{\numberline {7}Pruebas}{89}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Pruebas en la \textit {base de datos}}{90}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Pruebas en el \textit {backend}}{91}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{93}{section.7.3}%
-\contentsline {section}{\numberline {7.4}Pruebas extras}{94}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Conclusión}{95}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusiones}{97}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Conclusiones de la aplicación}{98}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Alineamiento con los Objetivos de Desarrollo Sostenible (ODS)}{100}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Conclusiones personales}{101}{section.8.3}%
-\contentsline {chapter}{Bibliografía}{103}{section*.76}%
+\contentsline {subsection}{\numberline {7.2.1}Pruebas unitarias y de integración en el \textit {backend}}{92}{subsection.7.2.1}%
+\contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{94}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Pruebas extras}{95}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Conclusión}{96}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusiones}{98}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Conclusiones generales}{99}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusiones alineadas con los objetivos}{101}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Alineamiento con los Objetivos de Desarrollo Sostenible (ODS)}{103}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Trabajos futuros}{104}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Conclusiones personales}{106}{section.8.5}%
+\contentsline {chapter}{Bibliografía}{108}{section*.76}%

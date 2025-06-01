@@ -12,7 +12,7 @@ Por último, se propondrán futuras líneas de trabajo que podrían extenderse a
 
 \newpage
 
-\section{Conclusiones de la aplicación}
+\section{Conclusiones generales}
 
 A lo largo de este proyecto se ha puesto de manifiesto la relevancia actual tanto del sector de los videojuegos como de los modelos de lenguaje natural. La creciente importancia de ambos campos genera nuevas oportunidades para desarrollar aplicaciones que ayuden a gestionar, explorar y conectar los elementos que los componen.
 
@@ -32,6 +32,40 @@ Además, la falta de recursos económicos ha impedido realizar un despliegue en 
 Con un presupuesto adecuado, esta aplicación podría evolucionar hasta convertirse en una herramienta esencial para jugadores habituales. La incorporación de modelos más avanzados, con capacidad de búsqueda en internet precisa y una mejor integración con plataformas de videojuegos como las de Microsoft o Sony, podría situar a LangGames dentro del ecosistema digital de los videojuegos modernos.
 
 Más allá de los videojuegos, este tipo de tecnología tiene un gran potencial de extrapolación a otros medios culturales como el cine, las series, la literatura o la música. Gracias a su flexibilidad y capacidad de comprensión del lenguaje, los modelos de IA seguirán expandiéndose y ganando protagonismo en múltiples ámbitos de la vida cotidiana. Los modelos de lenguaje han llegado para quedarse, y su papel será cada vez más central en el desarrollo de nuevas herramientas y servicios inteligentes.
+
+\newpage
+
+\section{Conclusiones alineadas con los objetivos}
+
+A lo largo del desarrollo del proyecto, se ha logrado cumplir satisfactoriamente con la mayoría de los objetivos planteados al inicio. A continuación, se presenta un análisis detallado del grado de cumplimiento de cada uno de ellos:
+
+\begin{itemize}
+	
+	\item \textbf{Diseñar una interfaz clara, intuitiva y accesible}:
+	Este objetivo se ha cumplido con creces mediante el uso del framework Angular para el desarrollo del frontend. La interfaz no solo es clara y fácil de usar, sino que también es completamente \textbf{responsive}, adaptándose a diferentes tamaños de pantalla (ordenadores, tablets, móviles). Además, se ha implementado un \textbf{modo claro y oscuro} seleccionable por el usuario, lo que mejora aún más la accesibilidad y experiencia de uso.
+	
+	\item \textbf{Mejorar la personalización del sistema}:
+	La aplicación almacena de forma persistente las preferencias y elecciones del usuario, lo que permite ofrecer recomendaciones más precisas a lo largo del tiempo. Además, se ha implementado una conexión con la plataforma \textbf{Steam}, lo que amplía la capacidad de personalización al integrar información externa sobre juegos que el usuario ya posee o ha explorado.
+	
+	\item \textbf{Implementar y coordinar múltiples modelos de lenguaje}:
+	Gracias a la utilización de LangChain junto con OpenRouter, se ha conseguido integrar diversos modelos de lenguaje de forma flexible y modular. Esto permite generar recomendaciones coherentes a partir de descripciones en lenguaje natural, sacando partido de las fortalezas de cada modelo según el contexto.
+	
+	\item \textbf{Incorporar factores adicionales en las recomendaciones}:
+	El sistema puede considerar distintos factores adicionales, como los juegos preferidos, el idioma del usuario o incluso necesidades especiales. Estos datos se pueden introducir explícitamente mediante texto natural, y los modelos son capaces de interpretarlos para ofrecer sugerencias más afinadas.
+	
+	\item \textbf{Facilitar la actualización del sistema con nuevas tendencias}:
+	Este objetivo también se ha cumplido gracias a la integración con la API de \textbf{RAWG}, que permite acceder a información actualizada sobre videojuegos, incluyendo próximos lanzamientos y novedades del sector. Esto garantiza que el sistema pueda mantenerse relevante y adaptado a la evolución del mercado.
+	
+	\item \textbf{Optimizar el rendimiento del sistema}:
+	Aunque el rendimiento general es satisfactorio, el tiempo de respuesta puede resultar algo elevado debido al uso de una API externa gratuita para los modelos de lenguaje. A pesar de ello, se ha optimizado la arquitectura interna para asegurar fluidez y robustez. Una mejora futura podría consistir en utilizar servidores o APIs dedicadas o modelos alojados localmente.
+	
+	\item \textbf{Garantizar la privacidad y seguridad de los datos}:
+	La seguridad se ha tenido en cuenta desde el diseño de la arquitectura. Las contraseñas de los usuarios se almacenan de forma segura mediante \textbf{hashing}, y el sistema utiliza \textbf{tokens JWT (JSON Web Tokens)} para gestionar sesiones e identificar usuarios de manera segura. Estas medidas, si bien básicas, suponen una buena base para futuros refuerzos de seguridad en un entorno de producción.
+	
+\end{itemize}
+
+En conjunto, puede afirmarse que el proyecto cumple con los objetivos definidos, sentando unas bases sólidas sobre las que continuar construyendo. A pesar de ciertas limitaciones técnicas o presupuestarias, la plataforma desarrollada ha demostrado su viabilidad funcional y su potencial de crecimiento en futuras versiones.
+
 
 \newpage
 
@@ -57,15 +91,50 @@ Este proyecto se ha alineado con varios de los Objetivos de Desarrollo Sostenibl
 
 
 \newpage
+
+\section{Trabajos futuros}
+
+El proyecto desarrollado representa un punto de partida sólido para seguir explorando y ampliando las posibilidades de las tecnologías involucradas. A continuación, se presentan algunas líneas de trabajo futuras que permitirían mejorar y extender la plataforma actual:
+
+\begin{itemize}
+	
+	\item \textbf{Despliegue en la web y pruebas con usuarios reales}:
+	Uno de los pasos más evidentes sería llevar a cabo un \textbf{despliegue completo de la plataforma en la web}, utilizando servicios como Vercel, Firebase o servidores propios. Esto permitiría realizar pruebas con usuarios reales, obtener retroalimentación directa y validar la utilidad del sistema en un entorno práctico.
+	
+	\item \textbf{Ampliar el perfilado del usuario}:
+	En futuras versiones, se podría profundizar aún más en la personalización teniendo en cuenta una gama más amplia de características del usuario, como su estado de ánimo, el tiempo disponible para jugar, su historial completo de juegos implementado conexión con otras plataformas de videojuegos o incluso datos demográficos. Esta información permitiría ofrecer recomendaciones mucho más precisas y adaptadas al contexto.
+	
+	\item \textbf{Mejorar la seguridad y escalabilidad}:
+	Si bien se han implementado medidas básicas como el uso de JWT y el hash de contraseñas, se podrían integrar soluciones de \textbf{mayor robustez en seguridad}, como HTTPS, autenticación multifactor, control de roles más detallado y protección frente a ataques comunes. 
+	
+	\item \textbf{Integrar nuevos modelos de lenguaje}:
+	La incorporación de modelos más avanzados o especializados permitiría reducir la latencia, mejorar la calidad de las respuestas y adaptar el comportamiento del sistema a diferentes escenarios. También podría estudiarse la posibilidad de entrenar un modelo propio optimizado para el dominio de los videojuegos.
+	
+	\item \textbf{Extender la plataforma a otros ámbitos culturales}:
+	El enfoque del sistema no tiene por qué limitarse a los videojuegos. La misma lógica de funcionamiento puede adaptarse fácilmente para ofrecer recomendaciones de \textbf{películas, series, libros o música}, aprovechando el poder de los modelos de lenguaje para comprender las preferencias del usuario y explorar amplios catálogos culturales.
+	
+	\item \textbf{Uso del proyecto como base para trabajos futuros}:
+	Este Trabajo de Fin de Grado podría servir como \textbf{base para proyectos más ambiciosos} en cursos posteriores. Otros alumnos podrían retomarlo, mejorarlo, ampliarlo o incluso integrarlo en contextos educativos, comerciales o investigativos. La modularidad y documentación del sistema facilitan esta posibilidad.
+	
+	
+	\item \textbf{Adquisición o adopción del proyecto por parte de una empresa}:
+	Aunque este trabajo ha sido concebido con fines académicos, la idea desarrollada podría resultar de interés para empresas del sector de los videojuegos. La plataforma presenta un enfoque innovador en la recomendación personalizada basada en lenguaje natural, lo que abre la puerta a una posible \textbf{transferencia tecnológica}, ya sea mediante colaboración, adquisición o integración en soluciones comerciales ya existentes.
+	
+\end{itemize}
+
+Estas líneas de trabajo no solo abrirían nuevas posibilidades técnicas y funcionales, sino que también permitirían consolidar la plataforma como una herramienta útil y versátil tanto en el sector del ocio digital como en otros contextos académicos, culturales y tecnológicos.
+
+
+\newpage
 \section{Conclusiones personales}
 
 A pesar de las dificultades personales que han acompañado el desarrollo de este trabajo, la valoración final es personalmente positiva.
 
 Ha sido muy gratificante comprobar cómo una idea inicial, casi esbozada, ha ido tomando forma paso a paso hasta convertirse en una aplicación funcional. Como persona que ha consumido videojuegos durante toda su vida, ha sido una experiencia transformadora pasar del rol de usuario al de creador, desarrollando una utilidad que potencialmente podría ser utilizada por miles de personas con los mismos intereses.
 
-Además, este trabajo ha servido como una muestra del progreso alcanzado a lo largo del grado. Desde los primeros pasos con programas muy básicos hasta la creación de una aplicación completa desde 0, integrando tecnologías como \textit{FastAPI}, \textit{LangChain}, \textit{MongoDB} y \textit{Angular}, queda patente la evolución tanto técnica como personal.
+Este trabajo también evidencia de forma clara el progreso técnico alcanzado a lo largo del Grado. Se ha pasado de realizar desarrollos básicos a diseñar y construir una aplicación completa desde cero, utilizando tecnologías modernas y no abordadas en profundidad durante el plan de estudios, al menos en la mención de Computadores y Sistemas Inteligentes, como \textit{FastAPI} para el backend, \textit{LangChain} para la integración de modelos de lenguaje natural, \textit{MongoDB} como base de datos NoSQL y \textit{Angular} para el desarrollo del frontend.
 
-El proceso también ha fomentado el desarrollo de habilidades de investigación y aprendizaje autodidacta. Por ejemplo, se ha pasado de tener una comprensión superficial de lo que era una API, a diseñar e implementar una propia, completamente funcional y conectada con una base de datos y una interfaz web.
+Asimismo, el proceso ha potenciado significativamente las capacidades de investigación tecnológica y aprendizaje autodidacta. Se ha evolucionado desde un conocimiento superficial del concepto de API hasta la implementación de una propia, plenamente funcional, conectada con una base de datos y con una interfaz web moderna y dinámica. En este contexto, se ha adquirido experiencia práctica y avanzada en el uso de \textit{Python}, \textit{MongoDB} y \textit{Angular}, consolidando una base técnica sólida que va más allá de los contenidos tratados formalmente en el Grado.
 
 Aunque el proyecto pueda parecer sencillo o limitado desde una perspectiva externa, lo cierto es que implica un esfuerzo considerable, muchas horas de dedicación y una gran cantidad de conocimientos adquiridos y aplicados. Más allá del resultado final, lo que realmente queda es una sensación de logro y una base sólida sobre la que seguir construyendo en el futuro.
 
