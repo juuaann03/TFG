@@ -832,6 +832,35 @@
       \field{title}{Front-end Development with ASP. NET Core, Angular, and Bootstrap}
       \field{year}{2018}
     \endentry
+    \entry{green2013angularjs}{book}{}
+      \name{author}{2}{}{%
+        {{hash=4a0d4428aef84bd5d3f7fd9755173f28}{%
+           family={Green},
+           familyi={G\bibinitperiod},
+           given={Brad},
+           giveni={B\bibinitperiod}}}%
+        {{hash=d7836711bcc65d0a1a4441c283243d69}{%
+           family={Seshadri},
+           familyi={S\bibinitperiod},
+           given={Shyam},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {" O'Reilly Media, Inc."}%
+      }
+      \strng{namehash}{1187dd16d4f8ab34e594b7d9abfe1d5f}
+      \strng{fullhash}{1187dd16d4f8ab34e594b7d9abfe1d5f}
+      \strng{bibnamehash}{1187dd16d4f8ab34e594b7d9abfe1d5f}
+      \strng{authorbibnamehash}{1187dd16d4f8ab34e594b7d9abfe1d5f}
+      \strng{authornamehash}{1187dd16d4f8ab34e594b7d9abfe1d5f}
+      \strng{authorfullhash}{1187dd16d4f8ab34e594b7d9abfe1d5f}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{AngularJS}
+      \field{year}{2013}
+    \endentry
     \entry{ONU_ODS_Web}{online}{}
       \name{author}{1}{}{%
         {{hash=fb36582c35e1238e15e3df5a7b4b3db5}{%

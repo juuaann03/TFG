@@ -1,14 +1,14 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'proyecto.blg'
-[30] biber:340> INFO - === dom jun  1, 2025, 17:52:22
-[37] Biber.pm:419> INFO - Reading 'proyecto.bcf'
-[60] Biber.pm:979> INFO - Found 28 citekeys in bib section 0
-[65] Biber.pm:4419> INFO - Processing section 0
-[69] Biber.pm:4610> INFO - Looking for bibtex file 'capitulos/bibliografia.bib' for section 0
-[70] bibtex.pm:1713> INFO - LaTeX decoding ...
-[77] bibtex.pm:1519> INFO - Found BibTeX data source 'capitulos/bibliografia.bib'
-[139] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
-[139] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[139] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'es-ES'
-[145] bbl.pm:660> INFO - Writing 'proyecto.bbl' with encoding 'UTF-8'
-[148] bbl.pm:763> INFO - Output to proyecto.bbl
+[28] biber:340> INFO - === dom jun  1, 2025, 21:05:20
+[34] Biber.pm:419> INFO - Reading 'proyecto.bcf'
+[58] Biber.pm:979> INFO - Found 29 citekeys in bib section 0
+[63] Biber.pm:4419> INFO - Processing section 0
+[67] Biber.pm:4610> INFO - Looking for bibtex file 'capitulos/bibliografia.bib' for section 0
+[67] bibtex.pm:1713> INFO - LaTeX decoding ...
+[75] bibtex.pm:1519> INFO - Found BibTeX data source 'capitulos/bibliografia.bib'
+[140] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[140] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
+[140] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'es-ES'
+[147] bbl.pm:660> INFO - Writing 'proyecto.bbl' with encoding 'UTF-8'
+[150] bbl.pm:763> INFO - Output to proyecto.bbl

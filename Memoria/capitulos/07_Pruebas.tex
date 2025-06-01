@@ -66,12 +66,23 @@ La detección de errores se realizaba principalmente a través de dos vías: por
 
 En particular, se hizo uso de la \textbf{consola del navegador}, que permite visualizar errores de ejecución de Angular, advertencias, trazas de red, y mensajes de depuración. También se utilizó la pestaña de herramientas de \textit{responsive design}, que simula el comportamiento de la interfaz en diferentes tamaños de pantalla, permitiendo verificar que la aplicación mantiene su usabilidad y legibilidad tanto en dispositivos móviles como en pantallas de escritorio.
 
+
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{imagenes/consolaNavegador.png}
 	\caption[\textbf{Vista de las herramientas de desarrollo del navegador}.]{\textbf{Vista de las herramientas de desarrollo del navegador}. Estas herramientas permiten detectar errores de Angular y comprobar que el diseño es adaptable a distintos dispositivos.}
 	\label{consola-navegador}
 \end{figure}
+
+
+\subsection{Pruebas unitarias en el \textit{frontend}}
+
+Aunque las pruebas principales del \textit{frontend} se realizaron mediante interacción directa con la aplicación, también se desarrollaron algunas pruebas automáticas para verificar el correcto funcionamiento de ciertos componentes.
+
+Se utilizó el sistema de pruebas de Angular con \texttt{Karma} y \texttt{Jasmine} \cite{green2013angularjs}, configurando un entorno que permite simular peticiones a la API y comprobar que las funciones responden correctamente. En concreto, se probaron aspectos como la gestión de formularios en el componente de inicio de sesión, la validación de campos, el manejo de errores y la navegación tras un inicio de sesión exitoso.
+
+Estas pruebas demostraron ser útiles para asegurar que los servicios y componentes se comportan como se espera. Sin embargo, se decidió no extender su uso al resto de la interfaz, ya que resultaba más efectivo validar el \textit{frontend} desde el punto de vista del usuario, observando directamente cómo se comporta la aplicación en distintos escenarios.
+
 
 \newpage
 
