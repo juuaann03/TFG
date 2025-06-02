@@ -55,12 +55,11 @@ ICONOS_TIENDA = {
 # Mapeo de store_id a slugs de tiendas (según la documentación de RAWG)
 TIENDAS_SOPORTADAS = {
     1: "steam",
-    2: "xbox-store",  # Xbox 360 Store (puede ser obsoleto, pero lo incluimos por compatibilidad)
+    2: "xbox-store",  # Tienda de xbox moderna, la de xbox 360 era la 7 pero cerró sus servidores.
     3: "playstation-store",
     4: "apple-appstore",
     5: "gog",
     6: "nintendo-eshop",
-    7: "xbox-store",  # Xbox Store (moderno)
     8: "google-play",
     9: "itch",
     11: "epic-games"

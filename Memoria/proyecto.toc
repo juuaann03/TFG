@@ -58,11 +58,12 @@
 \contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{94}{section.7.3}%
 \contentsline {subsection}{\numberline {7.3.1}Pruebas unitarias en el \textit {frontend}}{94}{subsection.7.3.1}%
 \contentsline {section}{\numberline {7.4}Pruebas extras}{96}{section.7.4}%
-\contentsline {section}{\numberline {7.5}Conclusión}{97}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusiones}{99}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Conclusiones generales}{100}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusiones alineadas con los objetivos}{102}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Alineamiento con los Objetivos de Desarrollo Sostenible (ODS)}{104}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Trabajos futuros}{105}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Conclusiones personales}{107}{section.8.5}%
-\contentsline {chapter}{Bibliografía}{109}{section*.76}%
+\contentsline {subsection}{\numberline {7.4.1}Pruebas y conclusiones sobre LangGames - Por Antonio Villena Díaz}{96}{subsection.7.4.1}%
+\contentsline {section}{\numberline {7.5}Conclusión}{98}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusiones}{100}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Conclusiones generales}{101}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusiones alineadas con los objetivos}{103}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Alineamiento con los Objetivos de Desarrollo Sostenible (ODS)}{105}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Trabajos futuros}{106}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Conclusiones personales}{108}{section.8.5}%
+\contentsline {chapter}{Bibliografía}{110}{section*.77}%

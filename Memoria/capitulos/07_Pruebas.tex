@@ -92,8 +92,31 @@ Para asegurar una mejor robustez de la plataforma, se ha realizado una instalaci
 
 Por ejemplo, la primera vez que se lanza angular se pide al usuario que especifique ciertas preferencias, pero al lanzarse en segundo plano el usuario no podía elegir. Para paliar este problema se realiza un primer lanzamiento de angular en primer plano después de la aplicación.
 
+\subsection{Pruebas y conclusiones sobre LangGames - Por Antonio Villena Díaz}
 
-Además se ha compartido el proyecto con un compañero de informática de la universitat oberta de Catalunya para que pruebe la aplicación y de sus conclusiones. 
+Además se ha compartido el proyecto con un compañero de informática de la universitat oberta de Catalunya para que pruebe la aplicación y de sus conclusiones, que son las siguientes: 
+
+Para poder probar correctamente las funcionalidades que esperaba de un software como LangGames, tuve que realizar, en primer lugar, la instalación de todos los programas y librerías necesarios. Para ello, utilicé un entorno Ubuntu en máquina virtual, completamente "limpio" (sin ninguna aplicación ni instalación aparte de las que vienen por defecto).
+
+La fase de instalación y "setup" de la aplicación fue bastante más sencilla de lo que esperaba, seguí las instrucciones del README al pie de la letra y pude completar la instalación en unos 5 minutos. El único contratiempo que surgió (faltaba una librería de Node en el guion de comandos) pudo ser solventado casi al instante; actualicé el proyecto desde GitHub de nuevo, y ya pude acceder a la aplicación LangGames desde navegador.
+
+Mis primeras impresiones fueron buenas: la interfaz es simple y clara, y el proyecto se ve bien desde cualquier tamaño común de pantalla (responsive). El modo nocturno funciona al instante, y no hay ningún fallo en los elementos en pantalla, todo carga correctamente. El flujo entre las distintas páginas de la aplicación es intuitivo y no da lugar a fallos del usuario.
+
+En cuanto a las funcionalidades más importantes de LangChain, probé en primer lugar el acceso identificado (log-in): funcionó a la perfección, validando además desde la propia interfaz los datos que se introducen. Probé varias veces el servicio básico de enviar "prompt" para recibir recomendación sobre videojuegos, y me sorprendió que la respuesta se adaptara en gran medida a las restricciones y especificaciones que di. La única pega que vi en estas pruebas fue que el sistema tarda bastante en dar una respuesta.
+
+Tras realizar algunas pruebas más exhaustivas, me di cuenta de que, si bien el servicio de recomendaciones daba muy buenos resultados, no había luego forma de acceder a los juegos recomendados (página de compra, o web de información para juegos ya no en venta). Por ello, di la sugerencia de añadir enlace a los juegos al clicarlos. Esta sugerencia fue implementada con creces: la siguiente vez que usé LangChain, pude elegir entre las distintas tiendas en las que se encuentra disponible cada juego recomendado.
+
+Algunos aspectos que también me gustaron fueron el hecho de anunciar juegos que se lanzarán próximamente, o poder, incluso, conectar con servicios externos (cuenta de Steam) para recibir feedback aún más personalizado, evitando recomendar juegos que ya tengo.
+
+En conclusión, mi experiencia utilizando la aplicación es positiva, la veo útil y de calidad, y los aspectos a mejorar, como la lentitud al dar algunas respuestas, son minoritarios. En general, creo que podría ser una herramienta muy utilizada, sobre todo entre los amantes  de los videojuegos.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\linewidth]{imagenes/tarjetasConTiendas.png}
+	\caption[\textbf{Nuevas tarjetas de juegos con tienda}.]{\textbf{Nuevas tarjetas de juegos con tienda}. Gracias al feedback proporcionado por Antonio, se han mejorado las tarjetas de los juegos añadiendo las tiendas que están disponibles, con bonitos iconos de las marcas que al pulsarlos te lleva a la tienda de la respectiva plataforma.}
+	\label{swagger-1}
+\end{figure}
 
 \newpage
 
@@ -101,9 +124,10 @@ Además se ha compartido el proyecto con un compañero de informática de la uni
 
 A lo largo de este capítulo se ha descrito el proceso de pruebas llevado a cabo para verificar el correcto funcionamiento de cada uno de los módulos de la plataforma.
 
-En primer lugar, se realizaron pruebas directas sobre la base de datos mediante \texttt{mongosh}, asegurando que las operaciones básicas de inserción, actualización y eliminación funcionaban correctamente. Posteriormente, se probó el \textit{backend} utilizando Swagger, lo que permitió evaluar de forma precisa cada uno de los endpoints expuestos por la API, simulando tanto casos correctos como situaciones de error o fallo del sistema.
+En primer lugar, se realizaron pruebas directas sobre la base de datos mediante \texttt{mongosh}, asegurando que las operaciones básicas de inserción, actualización y eliminación funcionaban correctamente. Posteriormente, se probó el \textit{backend} utilizando Swagger y pruebas unitarias, lo que permitió evaluar de forma precisa cada uno de los endpoints expuestos por la API, simulando tanto casos correctos como situaciones de error o fallo del sistema.
 
 Finalmente, el \textit{frontend} fue validado mediante interacción directa con la aplicación y mediante el uso de las herramientas de desarrollo del navegador, lo cual permitió no solo identificar errores de ejecución, sino también comprobar la adaptabilidad del diseño a distintos dispositivos.
 
 Este enfoque integral de pruebas, que abarca desde el nivel más bajo (base de datos) hasta el más alto (interfaz de usuario), ha permitido garantizar una plataforma funcional, robusta y preparada para ofrecer una experiencia de usuario óptima. Además, se ha verificado que los distintos componentes interactúan de forma fluida, cumpliendo con los requisitos del sistema.
 
+Algo muy importante fue la colaboración de Antonio, quien realizó una prueba funcional completa de la plataforma desde una perspectiva independiente. Su retroalimentación permitió identificar errores no detectados durante las pruebas internas, así como proponer mejoras orientadas a optimizar la experiencia de usuario. Este tipo de validación externa resulta especialmente valiosa para asegurar la robustez y usabilidad del sistema en escenarios reales.
