@@ -110,7 +110,7 @@ El backend de la plataforma ha sido desarrollado en \textbf{Python}, un lenguaje
 	\label{fig:python-logo}
 \end{figure}
 
-Para construir la Api que comunica el backend con el frontend, se ha utilizado la biblioteca \textbf{FastAPI}. Esta herramienta permite definir endpoints de manera declarativa y estructurada, facilitando la validación de datos mediante el uso de modelos definidos con \textit{Pydantic}. Además, gracias a su integración con herramientas como OpenAPI, proporciona una documentación automática e interactiva.
+Para construir la API que comunica el backend con el frontend, se ha utilizado la biblioteca \textbf{FastAPI}. Esta herramienta permite definir endpoints de manera declarativa y estructurada, facilitando la validación de datos mediante el uso de modelos definidos con \textit{Pydantic}. Además, gracias a su integración con herramientas como OpenAPI, proporciona una documentación automática e interactiva.
 
 El servidor de desarrollo que ejecuta la aplicación FastAPI se gestiona mediante \textbf{Uvicorn}, un servidor ASGI (Asynchronous Server Gateway Interface) ligero y de alto rendimiento, especialmente diseñado para aplicaciones web modernas basadas en Python asíncrono. \cite{lubanovic2023fastapi}  \cite{lathkar2023getting}
 
@@ -131,7 +131,7 @@ El backend incluye dos scripts bash:
 	\item \textbf{Script de inicialización del entorno}: crea y activa un entorno virtual si no existe, instala todas las dependencias necesarias para el backend (incluyendo FastAPI, Uvicorn, LangChain y otras bibliotecas auxiliares), genera un archivo \texttt{requirements.txt} con la lista de dependencias, y lanza el servidor FastAPI en segundo plano, redirigiendo su salida a un archivo de log.
 \end{itemize}
 
-Dentro del backend se encuentra el archivo principal \texttt{main.py}, la carpeta \texttt{app/} que contiene los distintos módulos del sistema, y un archivo de entorno(.env) adicional para gestionar claves necesarias para el correcto funcionamiento de ciertas funcionalidades, cuya obtención y uso está debidamente documentada en el \texttt{README} del repositorio de GitHub.
+Dentro del backend se encuentra el archivo principal \texttt{main.py}, la carpeta \texttt{app/} que contiene los distintos módulos del sistema, y un archivo de entorno (.env) adicional para gestionar claves necesarias para el correcto funcionamiento de ciertas funcionalidades, cuya obtención y uso está debidamente documentada en el \texttt{README} del repositorio de GitHub.
 
 A continuación, se describe con mayor detalle la estructura y funcionalidad de la carpeta \texttt{app/}.
 
@@ -199,7 +199,7 @@ El servicio de recomendación básica está diseñado para usuarios no autentica
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{imagenes/esquemaRecomendacionBasica.png}
-	\caption[\textbf{Esquema recomendación básica}.]{\textbf{Esquema recomendación básica}. Para generar una recomendación básica, 3 modelos de lenguaje reciben la petición, la procesan y generan sus respuesta. Finalmente un modelo, con sus correspondientes respaldo, crea una respuesta única.}
+	\caption[\textbf{Esquema recomendación básica}.]{\textbf{Esquema recomendación básica}. Para generar una recomendación básica, 3 modelos de lenguaje reciben la petición, la procesan y generan sus respuestas. Finalmente un modelo, con sus correspondientes respaldos, crea una respuesta única.}
 	\label{esquemaRB}
 \end{figure}
 
@@ -209,7 +209,7 @@ El servicio de recomendación personalizada extiende la funcionalidad básica in
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\linewidth]{imagenes/esquemaRecomendacionPersonalizada.png}
-	\caption[\textbf{Esquema recomendación personalizada}.]{\textbf{Esquema recomendación personalizada}. Para generar una recomendación personalizada, un modelo con sus correspondientes respaldos analiza los datos del usuario y la petición para generar unos datos más ricos, a continuación 3 modelos de lenguaje reciben la petición, la procesan y generan sus respuesta. Finalmente un modelo, con sus correspondientes respaldo, crea una respuesta única. Paralelamente se analiza la petición por si implica una modificación en la información sobre videojuegos del usuario.}
+	\caption[\textbf{Esquema recomendación personalizada}.]{\textbf{Esquema recomendación personalizada}. Para generar una recomendación personalizada, un modelo con sus correspondientes respaldos analiza los datos del usuario y la petición para generar unos datos más ricos, a continuación 3 modelos de lenguaje reciben la petición, la procesan y generan sus respuesta. Finalmente un modelo, con sus correspondientes respaldos, crea una respuesta única. Paralelamente se analiza la petición por si implica una modificación en la información sobre videojuegos del usuario.}
 	\label{esquemaRB}
 \end{figure}
 

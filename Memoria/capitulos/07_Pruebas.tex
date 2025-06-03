@@ -22,7 +22,7 @@ Además, se llevaron a cabo operaciones de inserción, eliminación y actualizac
 
 Para realizar pruebas en el \textit{backend}, se utilizó \textbf{Swagger}, una herramienta que permite visualizar y probar de forma interactiva las rutas de una API. Swagger facilita la documentación automática de las APIs RESTful, y en este caso fue generada automáticamente por \texttt{FastAPI}, el framework utilizado para el desarrollo del servidor.
 
-Gracias a Swagger, accesible en la dirección \href{http://localhost:8000/docs\#/}{http://localhost:8000/docs\#/}, se pudieron ejecutar pruebas para cada uno de los endpoints definidos, especificando los campos requeridos, el cuerpo en formato \texttt{JSON} en caso de ser necesario, y visualizando tanto las respuestas del servidor como los posibles errores. Además el propio uvicorn cuando se ejecuta muestra que métodos ejecuta y los errores que ocurren.
+Gracias a Swagger, accesible en la dirección \href{http://localhost:8000/docs\#/}{http://localhost:8000/docs\#/}, se pudieron ejecutar pruebas para cada uno de los endpoints definidos, especificando los campos requeridos, el cuerpo en formato \texttt{JSON} en caso de ser necesario, y visualizando tanto las respuestas del servidor como los posibles errores. Además el propio uvicorn cuando se ejecuta muestra qué métodos ejecuta y los errores que ocurren.
 
 Durante el desarrollo, se fue comprobando el correcto funcionamiento de cada uno de los métodos a través de esta interfaz. Esto permitió detectar y corregir errores de manera ágil, gracias a la retroalimentación inmediata proporcionada por la API. Asimismo, se realizaron pruebas introduciendo datos erróneos de forma intencionada con el objetivo de evaluar la robustez del sistema ante entradas inválidas o inconsistentes.
 
@@ -90,11 +90,11 @@ Estas pruebas demostraron ser útiles para asegurar que los servicios y componen
 
 Para asegurar una mejor robustez de la plataforma, se ha realizado una instalación de la aplicación en una máquina virtual de Ubuntu nueva, lo que permitió corregir errores que no se vieron durante el desarrollo por instalar las cosas una por una. 
 
-Por ejemplo, la primera vez que se lanza angular se pide al usuario que especifique ciertas preferencias, pero al lanzarse en segundo plano el usuario no podía elegir. Para paliar este problema se realiza un primer lanzamiento de angular en primer plano después de la aplicación.
+Por ejemplo, la primera vez que se lanza Angular se pide al usuario que especifique ciertas preferencias, pero al lanzarse en segundo plano el usuario no podía elegir. Para paliar este problema se realiza un primer lanzamiento de Angular en primer plano después de la aplicación.
 
 \subsection{Pruebas y conclusiones sobre LangGames - Por Antonio Villena Díaz}
 
-Además se ha compartido el proyecto con un compañero de informática de la universitat oberta de Catalunya para que pruebe la aplicación y de sus conclusiones, que son las siguientes: 
+Además se ha compartido el proyecto con un compañero de informática de la Universitat Oberta de Catalunya para que pruebe la aplicación y de sus conclusiones, que son las siguientes: 
 
 Para poder probar correctamente las funcionalidades que esperaba de un software como LangGames, tuve que realizar, en primer lugar, la instalación de todos los programas y librerías necesarios. Para ello, utilicé un entorno Ubuntu en máquina virtual, completamente "limpio" (sin ninguna aplicación ni instalación aparte de las que vienen por defecto).
 
@@ -102,9 +102,9 @@ La fase de instalación y "setup" de la aplicación fue bastante más sencilla d
 
 Mis primeras impresiones fueron buenas: la interfaz es simple y clara, y el proyecto se ve bien desde cualquier tamaño común de pantalla (responsive). El modo nocturno funciona al instante, y no hay ningún fallo en los elementos en pantalla, todo carga correctamente. El flujo entre las distintas páginas de la aplicación es intuitivo y no da lugar a fallos del usuario.
 
-En cuanto a las funcionalidades más importantes de LangChain, probé en primer lugar el acceso identificado (log-in): funcionó a la perfección, validando además desde la propia interfaz los datos que se introducen. Probé varias veces el servicio básico de enviar "prompt" para recibir recomendación sobre videojuegos, y me sorprendió que la respuesta se adaptara en gran medida a las restricciones y especificaciones que di. La única pega que vi en estas pruebas fue que el sistema tarda bastante en dar una respuesta.
+En cuanto a las funcionalidades más importantes de LangGames, probé en primer lugar el acceso identificado (log-in): funcionó a la perfección, validando además desde la propia interfaz los datos que se introducen. Probé varias veces el servicio básico de enviar "prompt" para recibir recomendación sobre videojuegos, y me sorprendió que la respuesta se adaptara en gran medida a las restricciones y especificaciones que di. La única pega que vi en estas pruebas fue que el sistema tarda bastante en dar una respuesta.
 
-Tras realizar algunas pruebas más exhaustivas, me di cuenta de que, si bien el servicio de recomendaciones daba muy buenos resultados, no había luego forma de acceder a los juegos recomendados (página de compra, o web de información para juegos ya no en venta). Por ello, di la sugerencia de añadir enlace a los juegos al clicarlos. Esta sugerencia fue implementada con creces: la siguiente vez que usé LangChain, pude elegir entre las distintas tiendas en las que se encuentra disponible cada juego recomendado.
+Tras realizar algunas pruebas más exhaustivas, me di cuenta de que, si bien el servicio de recomendaciones daba muy buenos resultados, no había luego forma de acceder a los juegos recomendados (página de compra, o web de información para juegos ya no en venta). Por ello, di la sugerencia de añadir enlace a los juegos al clicarlos. Esta sugerencia fue implementada con creces: la siguiente vez que usé LangGames, pude elegir entre las distintas tiendas en las que se encuentra disponible cada juego recomendado.
 
 Algunos aspectos que también me gustaron fueron el hecho de anunciar juegos que se lanzarán próximamente, o poder, incluso, conectar con servicios externos (cuenta de Steam) para recibir feedback aún más personalizado, evitando recomendar juegos que ya tengo.
 
@@ -115,7 +115,7 @@ En conclusión, mi experiencia utilizando la aplicación es positiva, la veo út
 	\centering
 	\includegraphics[width=1\linewidth]{imagenes/tarjetasConTiendas.png}
 	\caption[\textbf{Nuevas tarjetas de juegos con tienda}.]{\textbf{Nuevas tarjetas de juegos con tienda}. Gracias al feedback proporcionado por Antonio, se han mejorado las tarjetas de los juegos añadiendo las tiendas que están disponibles, con bonitos iconos de las marcas que al pulsarlos te lleva a la tienda de la respectiva plataforma.}
-	\label{swagger-1}
+	\label{tarjetas-con-tienda}
 \end{figure}
 
 \newpage

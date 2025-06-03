@@ -1,7 +1,7 @@
 
 \chapter{Contexto y estado del arte }
 
-En este capítulo se especificarán las tecnologías que se utilizarán en el proyecto. Describiremos en qué consisten, qué nos ofrecen y cómo se aplican específicamente al desarrollo de esta plataforma. 
+En este capítulo se especificarán las tecnologías que se utilizarán en el proyecto. Describiremos en qué consisten, qué ofrecen y cómo se aplican específicamente al desarrollo de esta plataforma. 
 
 Además, revisaremos otros trabajos realizados que empleen estas tecnologías, con un enfoque particular en \textit{LangChain}, que constituye el pilar fundamental de este proyecto.  
 
@@ -13,7 +13,7 @@ Además, revisaremos otros trabajos realizados que empleen estas tecnologías, c
 
 Un \textbf{modelo generativo de lenguajes} es un software diseñado para entender, analizar, interpretar y generar lenguaje humano mediante un ordenador. Estos sistemas permiten a las máquinas interactuar con los seres humanos de una manera más natural, utilizando los lenguajes que empleamos en la vida cotidiana. Para lograr este objetivo, los modelos generativos de lenguajes se basan en modelos de aprendizaje automático que, en términos generales, crean estructuras computacionales capaces de aprender patrones y estructuras lingüísticas a partir de grandes volúmenes de datos provenientes de diversos ámbitos, incluidos los videojuegos.
 
-El desarrollo de un LLM (siglas en ingles de large language model) sigue un proceso estructurado que incluye varias etapas. En primer lugar, se diseñan modelos matemáticos y algoritmos que permiten a las máquinas "comprender" la estructura y la semántica del lenguaje. A continuación, estos modelos se entrenan utilizando millones de datos lingüísticos, como textos, conversaciones y otras fuentes, lo que les permite adquirir la capacidad de realizar tareas complejas, como la traducción o la generación de texto en respuesta a preguntas o peticiones específicas.
+El desarrollo de un LLM (siglas en inglés de large language model) sigue un proceso estructurado que incluye varias etapas. En primer lugar, se diseñan modelos matemáticos y algoritmos que permiten a las máquinas "comprender" la estructura y la semántica del lenguaje. A continuación, estos modelos se entrenan utilizando millones de datos lingüísticos, como textos, conversaciones y otras fuentes, lo que les permite adquirir la capacidad de realizar tareas complejas, como la traducción o la generación de texto en respuesta a preguntas o peticiones específicas.
 
 Algunos de los modelos generativos de lenguajes más avanzados en la actualidad son \textbf{ChatGPT}, desarrollado por OpenAI, y \textbf{Gemini}, creado por Google. Ambos sistemas emplean tecnologías basadas en redes neuronales profundas y han alcanzado un nivel de sofisticación que les permite realizar tareas complejas, como la redacción de textos, la resolución de problemas y la generación de contenido con una precisión similar a la de un experto en la materia.
 
@@ -32,7 +32,7 @@ En resumen, los modelos generativos de lenguajes no solo están diseñados para 
 
 \subsection{LangChain}
 
-Para comprender mejor esta tecnología, obtendremos la información  de su página web oficial.
+La información que se presenta a continuación ha sido obtenida de la página web oficial de LangChain y un publicación de Vasilios Mavroudis.
 
 LangChain es una tecnología que permite a las aplicaciones razonar y procesar información de manera más inteligente. Es utilizada por múltiples empresas de gran renombre, como Google y Rakuten TV. LangChain facilita la construcción de aplicaciones que integran LLMs, permitiendo que estas interactúen de forma dinámica y contextual con los usuarios.
 
@@ -66,13 +66,13 @@ En LangChain, diversos métodos avanzados permiten optimizar la interacción con
 
 La \textbf{Generación Aumentada por Recuperación (RAG)} con LangChain y sus métodos integrados de gestión y recuperación conecta los datos con el poder de los LLMs. Dispone de herramientas de importación de documentos para cualquier tipo de datos.
 
-Cuenta con potentes algoritmos de recuperación como:
+Dispone de diversos algoritmos avanzados de recuperación, entre ellos:
 
 \begin{itemize}
     \item \textbf{Time-Weighted Vector Store:} combina la similitud semántica con un decaimiento temporal para tener en cuenta la actualidad en las recuperaciones.
     \item \textbf{Parent Document Retriever:} incorpora fragmentos pequeños, que son mejores para la búsqueda por similitud, pero recupera fragmentos más grandes que ayudan en la generación de contenido.
     \item \textbf{Self Query Retriever:} analiza la consulta en lenguaje natural y escribe una consulta estructurada para ejecutarla en el VectorStore subyacente.
-    \item \textbf{Contextual Compression:} comprime el documento recuperado utilizando el contexto de la consulta, de modo que solo se devuelve la información relevante de la fuente.
+    \item \textbf{Contextual Compression:} comprime el documento recuperado utilizando el contexto de la consulta, de modo que únicamente se retiene la información relevante de la fuente.
     \item \textbf{Multi Vector Retriever:} realiza consultas en múltiples vectores almacenados por documento, incluidos fragmentos más pequeños, resúmenes y preguntas hipotéticas.
 \end{itemize}
 

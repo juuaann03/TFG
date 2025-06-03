@@ -1,69 +1,81 @@
 \babel@toc {spanish}{}\relax 
-\contentsline {chapter}{\numberline {1}Introducción}{17}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Contexto y estado del arte }{21}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Contexto}{22}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Modelos generativos de lenguajes}{22}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}LangChain}{24}{subsection.2.1.2}%
-\contentsline {subsubsection}{LangChain básico}{25}{section*.9}%
-\contentsline {subsubsection}{Métodos}{25}{section*.10}%
-\contentsline {subsubsection}{LangGraph}{27}{section*.11}%
-\contentsline {subsubsection}{LangSmith}{27}{section*.12}%
-\contentsline {section}{\numberline {2.2}Estado del arte}{28}{section.2.2}%
-\contentsline {chapter}{\numberline {3}Objetivos y metodología de desarrollo}{31}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Objetivos}{32}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Metodología de desarrollo}{33}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Presupuesto}{34}{subsection.3.2.1}%
-\contentsline {chapter}{\numberline {4}Análisis}{38}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Obtención de Requisitos}{39}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Requisitos funcionales}{41}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Requisitos no funcionales}{42}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Requisitos de información}{43}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Actores}{44}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Casos de usos}{45}{section.4.6}%
-\contentsline {subsection}{\numberline {4.6.1}Casos de uso del usuario no logueado}{45}{subsection.4.6.1}%
-\contentsline {subsection}{\numberline {4.6.2}Casos de uso del usuario logueado}{49}{subsection.4.6.2}%
-\contentsline {subsection}{\numberline {4.6.3}Casos de usos de administrador}{54}{subsection.4.6.3}%
-\contentsline {chapter}{\numberline {5}Diseño}{57}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Diseño de la arquitectura}{58}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Elementos de la arquitectura}{60}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Base de datos}{60}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Backend}{60}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Frontend}{61}{subsection.5.2.3}%
-\contentsline {section}{\numberline {5.3}Diseño inicial de la interfaz}{62}{section.5.3}%
-\contentsline {chapter}{\numberline {6}Implementación}{65}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Sistema operativo}{66}{section.6.1}%
-\contentsline {section}{\numberline {6.2}GitHub}{67}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Entorno de desarrollo}{68}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Base de datos: MongoDB}{69}{section.6.4}%
-\contentsline {section}{\numberline {6.5}BackEnd: Python, FastAPI y LangChain}{70}{section.6.5}%
-\contentsline {subsection}{\numberline {6.5.1}DB}{72}{subsection.6.5.1}%
-\contentsline {subsection}{\numberline {6.5.2}Utils}{72}{subsection.6.5.2}%
-\contentsline {subsection}{\numberline {6.5.3}Modelos}{72}{subsection.6.5.3}%
-\contentsline {subsection}{\numberline {6.5.4}Gestores}{73}{subsection.6.5.4}%
-\contentsline {subsection}{\numberline {6.5.5}Servicios}{73}{subsection.6.5.5}%
-\contentsline {subsection}{\numberline {6.5.6}Rutas}{76}{subsection.6.5.6}%
-\contentsline {subsection}{\numberline {6.5.7}Main}{76}{subsection.6.5.7}%
-\contentsline {section}{\numberline {6.6}FrontEnd: Angular}{77}{section.6.6}%
-\contentsline {subsection}{\numberline {6.6.1}Componentes}{78}{subsection.6.6.1}%
-\contentsline {subsubsection}{Home}{79}{section*.58}%
-\contentsline {subsubsection}{Registro}{83}{section*.64}%
-\contentsline {subsubsection}{Login}{83}{section*.66}%
-\contentsline {subsubsection}{Principal}{84}{section*.68}%
-\contentsline {subsubsection}{Ajustes de cuenta}{85}{section*.71}%
-\contentsline {section}{\numberline {6.7}Puesta en marcha}{87}{section.6.7}%
-\contentsline {chapter}{\numberline {7}Pruebas}{89}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Pruebas en la \textit {base de datos}}{90}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Pruebas en el \textit {backend}}{91}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Pruebas unitarias y de integración en el \textit {backend}}{92}{subsection.7.2.1}%
-\contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{94}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}Pruebas unitarias en el \textit {frontend}}{94}{subsection.7.3.1}%
-\contentsline {section}{\numberline {7.4}Pruebas extras}{96}{section.7.4}%
-\contentsline {subsection}{\numberline {7.4.1}Pruebas y conclusiones sobre LangGames - Por Antonio Villena Díaz}{96}{subsection.7.4.1}%
-\contentsline {section}{\numberline {7.5}Conclusión}{98}{section.7.5}%
-\contentsline {chapter}{\numberline {8}Conclusiones}{100}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Conclusiones generales}{101}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusiones alineadas con los objetivos}{103}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Alineamiento con los Objetivos de Desarrollo Sostenible (ODS)}{105}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Trabajos futuros}{106}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Conclusiones personales}{108}{section.8.5}%
-\contentsline {chapter}{Bibliografía}{110}{section*.77}%
+\contentsline {chapter}{\numberline {1}Introducción}{18}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Contexto y estado del arte }{23}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Contexto}{24}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Modelos generativos de lenguajes}{24}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}LangChain}{26}{subsection.2.1.2}%
+\contentsline {subsubsection}{LangChain básico}{27}{section*.9}%
+\contentsline {subsubsection}{Métodos}{27}{section*.10}%
+\contentsline {subsubsection}{LangGraph}{29}{section*.11}%
+\contentsline {subsubsection}{LangSmith}{29}{section*.12}%
+\contentsline {section}{\numberline {2.2}Estado del arte}{30}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Objetivos y metodología de desarrollo}{33}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Objetivos}{34}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Metodología de desarrollo}{35}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Presupuesto}{36}{subsection.3.2.1}%
+\contentsline {chapter}{\numberline {4}Análisis}{40}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Obtención de Requisitos}{41}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Requisitos funcionales}{43}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Requisitos no funcionales}{44}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Requisitos de información}{45}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Actores}{46}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Casos de usos}{47}{section.4.6}%
+\contentsline {subsection}{\numberline {4.6.1}Casos de uso del usuario no logueado}{47}{subsection.4.6.1}%
+\contentsline {subsection}{\numberline {4.6.2}Casos de uso del usuario logueado}{51}{subsection.4.6.2}%
+\contentsline {subsection}{\numberline {4.6.3}Casos de usos de administrador}{56}{subsection.4.6.3}%
+\contentsline {chapter}{\numberline {5}Diseño}{59}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Diseño de la arquitectura}{60}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Elementos de la arquitectura}{62}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Base de datos}{62}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Backend}{62}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Frontend}{63}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Diseño inicial de la interfaz}{64}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Implementación}{67}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Sistema operativo}{68}{section.6.1}%
+\contentsline {section}{\numberline {6.2}GitHub}{69}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Entorno de desarrollo}{70}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Base de datos: MongoDB}{71}{section.6.4}%
+\contentsline {section}{\numberline {6.5}BackEnd: Python, FastAPI y LangChain}{72}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}DB}{74}{subsection.6.5.1}%
+\contentsline {subsection}{\numberline {6.5.2}Utils}{74}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}Modelos}{74}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Gestores}{75}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Servicios}{75}{subsection.6.5.5}%
+\contentsline {subsection}{\numberline {6.5.6}Rutas}{78}{subsection.6.5.6}%
+\contentsline {subsection}{\numberline {6.5.7}Main}{78}{subsection.6.5.7}%
+\contentsline {section}{\numberline {6.6}FrontEnd: Angular}{79}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Componentes}{80}{subsection.6.6.1}%
+\contentsline {subsubsection}{Home}{81}{section*.58}%
+\contentsline {subsubsection}{Registro}{85}{section*.64}%
+\contentsline {subsubsection}{Login}{85}{section*.66}%
+\contentsline {subsubsection}{Principal}{86}{section*.68}%
+\contentsline {subsubsection}{Ajustes de cuenta}{87}{section*.71}%
+\contentsline {section}{\numberline {6.7}Puesta en marcha}{89}{section.6.7}%
+\contentsline {chapter}{\numberline {7}Pruebas}{91}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Pruebas en la \textit {base de datos}}{92}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Pruebas en el \textit {backend}}{93}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Pruebas unitarias y de integración en el \textit {backend}}{94}{subsection.7.2.1}%
+\contentsline {section}{\numberline {7.3}Pruebas en el \textit {frontend}}{96}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Pruebas unitarias en el \textit {frontend}}{96}{subsection.7.3.1}%
+\contentsline {section}{\numberline {7.4}Pruebas extras}{98}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Pruebas y conclusiones sobre LangGames - Por Antonio Villena Díaz}{98}{subsection.7.4.1}%
+\contentsline {section}{\numberline {7.5}Conclusión}{100}{section.7.5}%
+\contentsline {chapter}{\numberline {8}Conclusiones}{102}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Conclusiones generales}{103}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusiones alineadas con los objetivos}{105}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Alineamiento con los Objetivos de Desarrollo Sostenible (ODS)}{107}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Trabajos futuros}{108}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Conclusiones personales}{110}{section.8.5}%
+\contentsline {chapter}{Anexo 1: Manual de Usuario}{112}{section*.77}%
+\contentsline {chapter}{Anexo 1: Manual de Usuario}{112}{chapter*.78}%
+\contentsline {section}{1. Requisitos previos}{112}{section*.79}%
+\contentsline {section}{2. Configuración previa a la instalación}{113}{section*.80}%
+\contentsline {subsection}{2.1 OPENROUTER\_API\_KEY}{113}{section*.81}%
+\contentsline {subsection}{2.2 RAWG\_API\_KEY}{113}{section*.82}%
+\contentsline {subsection}{2.3 JWT\_SECRET\_KEY}{114}{section*.83}%
+\contentsline {subsection}{2.4 STEAM\_API\_KEY}{114}{section*.84}%
+\contentsline {section}{3. Proceso de instalación}{115}{section*.85}%
+\contentsline {subsection}{3.1 Parar los servicios}{115}{section*.86}%
+\contentsline {subsection}{3.2 Reiniciar la aplicación}{115}{section*.87}%
+\contentsline {section}{4. Uso de la aplicación}{116}{section*.88}%
+\contentsline {chapter}{Bibliografía}{118}{section*.89}%
