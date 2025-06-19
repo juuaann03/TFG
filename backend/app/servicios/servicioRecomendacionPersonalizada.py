@@ -9,6 +9,7 @@ from langchain_core.output_parsers import StrOutputParser
 from openai import BadRequestError
 from app.modelos.modeloUsuario import UsuarioOpcionalConHistorial
 from app.utils.utilidadesVarias import *
+import concurrent.futures
 
 # Prompt para preprocesar la petición
 prompt_preprocesamiento = PromptTemplate(
@@ -240,6 +241,48 @@ Devuelve solo la lista final de recomendaciones.
 """
 )
 
+
+def _ejecutar_cadena_cambios(modelo: str, estado_actual: dict, peticion: str) -> tuple[str, dict]:
+    try:
+        llm = ChatOpenAI(model_name=modelo, temperature=0.4)
+        chain = prompt_cambios | llm | StrOutputParser()
+        respuesta = chain.invoke({"estadoActual": json.dumps(estado_actual, default=str), "peticion": peticion})
+        respuesta_limpia = limpiar_respuesta(respuesta)
+        if not respuesta_limpia:
+            print(f"Sin respuesta válida de modelo {modelo} para cambios")
+            return None
+        try:
+            respuesta_json = json.loads(respuesta_limpia)
+            mensaje = respuesta_json.get("mensaje", "No se proporcionó un mensaje")
+            actualizacion = respuesta_json.get("actualizacion", {})
+            return mensaje, actualizacion
+        except json.JSONDecodeError:
+            print(f"Error: La respuesta de {modelo} no es un JSON válido")
+            return None
+    except BadRequestError as e:
+        print(f"Error BadRequest en modelo {modelo} para cambios: {str(e)}")
+        return None
+    except Exception as e:
+        print(f"Error inesperado en modelo {modelo} para cambios: {str(e)}")
+        return None
+    
+def _ejecutar_cadena_recomendacion(modelo: str, peticion: str, datos_procesados: dict) -> str:
+    try:
+        llm = ChatOpenAI(model_name=modelo, temperature=0.7)
+        chain = prompt_recomendacion | llm | StrOutputParser()
+        respuesta = chain.invoke({
+            "peticion": peticion,
+            "datosProcesados": json.dumps(datos_procesados, default=str)
+        })
+        return respuesta
+    except BadRequestError as e:
+        print(f"Error BadRequest en modelo {modelo} para recomendación: {str(e)}")
+        return None
+    except Exception as e:
+        print(f"Error inesperado en modelo {modelo} para recomendación: {str(e)}")
+        return None
+
+
 def generarCambiosDesdePeticionRecomendacion(estado_actual: dict, peticion: str) -> tuple[str, dict]:
     # Intentar con cada modelo hasta obtener una respuesta válida
     for modelo in modelos:
@@ -285,21 +328,22 @@ def generarRecomendacionPersonalizada(peticion: str, datos_usuario: dict) -> Tup
         raise ValueError(f"Error al preprocesar la petición: {str(e)}")
 
     respuestas_modelos = []
-    for modelo in modelos:
-        try:
-            llm = ChatOpenAI(model_name=modelo, temperature=0.7)
-            chain = prompt_recomendacion | llm | StrOutputParser()
-            respuesta = chain.invoke({
-                "peticion": peticion,
-                "datosProcesados": json.dumps(datos_procesados, default=str)
-            })
-            respuestas_modelos.append(respuesta)
-        except BadRequestError as e:
-            print(f"Error con el modelo {modelo}: {str(e)}. Continuando con los demás modelos.")
-            continue
-        except Exception as e:
-            print(f"Error inesperado con el modelo {modelo}: {str(e)}. Continuando con los demás modelos.")
-            continue
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(modelos)) as executor:
+        future_to_modelo = {
+            executor.submit(_ejecutar_cadena_recomendacion, modelo, peticion, datos_procesados): modelo
+            for modelo in modelos
+        }
+        for future in concurrent.futures.as_completed(future_to_modelo):
+            modelo = future_to_modelo[future]
+            try:
+                respuesta = future.result()
+                if respuesta:
+                    respuestas_modelos.append(respuesta)
+                else:
+                    print(f"Sin respuesta válida de modelo {modelo} para recomendación")
+            except Exception as e:
+                print(f"Error al procesar modelo {modelo} para recomendación: {str(e)}")
+                pass
 
     if not respuestas_modelos:
         raise ValueError("No se pudo obtener respuestas de ningún modelo de recomendación.")

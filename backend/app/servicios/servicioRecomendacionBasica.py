@@ -9,7 +9,9 @@ from pathlib import Path
 from openai import BadRequestError
 import re
 from app.utils.utilidadesVarias import *
-
+import concurrent.futures
+from datetime import datetime
+    
 # Prompt para los modelos de recomendación individuales
 prompt_recomendacion = PromptTemplate(
     input_variables=["descripcionUsuario"],
@@ -81,22 +83,35 @@ válida para una recomendación, no la incluyas.
 """
 )
 
-
+def _ejecutar_cadena_recomendacion(modelo: str, descripcionUsuario: str) -> str:
+    try:
+        llm = ChatOpenAI(model_name=modelo, temperature=0.7)
+        chain = prompt_recomendacion | llm | StrOutputParser()
+        return chain.invoke({"descripcionUsuario": descripcionUsuario})
+    except BadRequestError as e:
+        print(f"Error BadRequest en modelo {modelo}: {str(e)}")
+        return None
+    except Exception as e:
+        print(f"Error inesperado en modelo {modelo}: {str(e)}")
+        return None
+    
 def generarRecomendacionesBasicas(descripcionUsuario: str) -> List[Dict]:
-    # Crear cadenas para cada modelo de recomendación
     respuestas_modelos = []
-    for modelo in modelos:
-        try:
-            llm = ChatOpenAI(model_name=modelo, temperature=0.7)
-            chain = prompt_recomendacion | llm | StrOutputParser()
-            respuesta = chain.invoke({"descripcionUsuario": descripcionUsuario})
-            respuestas_modelos.append(respuesta)
-        except BadRequestError as e:
-            print(f"Error con el modelo {modelo}: {str(e)}. Continuando con los demás modelos.")
-            continue
-        except Exception as e:
-            print(f"Error inesperado con el modelo {modelo}: {str(e)}. Continuando con los demás modelos.")
-            continue
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(modelos)) as executor:
+        future_to_modelo = {
+            executor.submit(_ejecutar_cadena_recomendacion, modelo, descripcionUsuario): modelo
+            for modelo in modelos
+        }
+        for future in concurrent.futures.as_completed(future_to_modelo):
+            modelo = future_to_modelo[future]
+            try:
+                respuesta = future.result()
+                if respuesta:
+                    respuestas_modelos.append(respuesta)
+                else:
+                    print(f"Sin respuesta válida de modelo {modelo}")
+            except Exception as e:
+                print(f"Error al procesar modelo {modelo}: {str(e)}")
 
     # Si no se obtuvo ninguna respuesta, lanzar error
     if not respuestas_modelos:

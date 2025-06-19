@@ -8,7 +8,7 @@ from pathlib import Path
 
 modelos = [
     "openai/gpt-4o-mini",
-    "meta-llama/llama-3.3-70b-instruct",
+    "meta-llama/llama-3.3-8b-instruct:free",
     "google/gemini-2.0-flash-001"
 ]
 
